@@ -1,3 +1,4 @@
+
 # Sovereign TruckGuard Landing (Next.js)
 
 Landing page de lujo para **Sovereign TruckGuard LLC** lista para correr en local y desplegar en Vercel.
