@@ -1,4 +1,4 @@
-import Providers from "./Providers";
+import Providers from "./providers.jsx";
 
 export const metadata = {
   title: "Sovereign TruckGuard LLC – Luxury Insurance for Latino Truckers",
