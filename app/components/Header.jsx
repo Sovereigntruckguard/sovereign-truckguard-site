@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "../lib/language";
+import { useLanguage } from "../lib/language.js";
 
 const colors = {
   gold: "#FFD700",
@@ -12,36 +12,38 @@ const layout = {
   sidePadding: 20
 };
 
-// Textos solo del HEADER (ES / EN)
-const HEADER_ES = {
-  tagline: "Agencia de seguros de lujo para camioneros latinos",
-  nav: {
-    coverages: "Coberturas",
-    technology: "Tecnología",
-    states: "Estados",
-    about: "Nosotros",
-    testimonials: "Testimonios",
-    contact: "Contacto",
-    cta: "Cotización inmediata"
-  }
-};
-
-const HEADER_EN = {
-  tagline: "Luxury insurance agency for Latino truckers",
-  nav: {
-    coverages: "Coverages",
-    technology: "Technology",
-    states: "States",
-    about: "About",
-    testimonials: "Testimonials",
-    contact: "Contact",
-    cta: "Get a quote"
-  }
-};
-
 export default function Header() {
   const { lang, setLang } = useLanguage();
-  const t = lang === "es" ? HEADER_ES : HEADER_EN;
+
+  const TEXT_ES = {
+    tagline: "Agencia de seguros de lujo para camioneros latinos",
+    nav: {
+      coverages: "Coberturas",
+      technology: "Tecnología",
+      services: "Servicios",
+      states: "Estados",
+      about: "Nosotros",
+      testimonials: "Testimonios",
+      contact: "Contacto",
+      cta: "Cotización inmediata"
+    }
+  };
+
+  const TEXT_EN = {
+    tagline: "Luxury insurance agency for Latino truckers",
+    nav: {
+      coverages: "Coverages",
+      technology: "Technology",
+      services: "Services",
+      states: "States",
+      about: "About",
+      testimonials: "Testimonials",
+      contact: "Contact",
+      cta: "Get a quote"
+    }
+  };
+
+  const t = lang === "es" ? TEXT_ES : TEXT_EN;
 
   return (
     <header
@@ -68,11 +70,10 @@ export default function Header() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          {/* Logo pequeño en header */}
           <img
             src="/logo-sovereign.png"
-            alt="Logo Sovereign TruckGuard"
-            style={{ width: 36, height: "auto", objectFit: "contain" }}
+            alt="Logo Sovereign"
+            style={{ width: 36 }}
           />
           <div>
             <div
@@ -113,33 +114,24 @@ export default function Header() {
             <a href="/coverages" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.coverages}
             </a>
-
             <a href="/technology" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.technology}
             </a>
-
-            {/* NUEVO ITEM: Servicios */}
             <a href="/services" style={{ textDecoration: "none", color: "inherit" }}>
-              Servicios
+              {t.nav.services}
             </a>
-
             <a href="/states" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.states}
             </a>
-
             <a href="/about" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.about}
             </a>
-
             <a href="/testimonials" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.testimonials}
             </a>
-
             <a href="/contact" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.contact}
             </a>
-
-            {/* BOTÓN PREMIUM */}
             <a
               href="#cotizar"
               style={{
@@ -157,31 +149,28 @@ export default function Header() {
             </a>
           </nav>
 
-          {/* SELECTOR IDIOMA */}
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <button
               onClick={() => setLang("es")}
               style={{
                 border: "none",
-                padding: 0,
                 background: "transparent",
                 opacity: lang === "es" ? 1 : 0.35,
                 cursor: "pointer"
               }}
             >
-              <img src="/flag-es.svg" alt="ES" style={{ width: 20, height: 20 }} />
+              <img src="/flag-es.svg" style={{ width: 20 }} />
             </button>
             <button
               onClick={() => setLang("en")}
               style={{
                 border: "none",
-                padding: 0,
                 background: "transparent",
                 opacity: lang === "en" ? 1 : 0.35,
                 cursor: "pointer"
               }}
             >
-              <img src="/flag-us.svg" alt="EN" style={{ width: 20, height: 20 }} />
+              <img src="/flag-us.svg" style={{ width: 20 }} />
             </button>
           </div>
         </div>
