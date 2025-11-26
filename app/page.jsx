@@ -519,18 +519,28 @@ function Header() {
             <a href="/coverages" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.coverages}
             </a>
+
             <a href="/technology" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.technology}
             </a>
+
+            {/* 🔥 NUEVO ITEM PARA STRIPE: SERVICIOS */}
+            <a href="/services" style={{ textDecoration: "none", color: "inherit" }}>
+              Servicios
+            </a>
+
             <a href="/states" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.states}
             </a>
+
             <a href="/about" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.about}
             </a>
+
             <a href="/testimonials" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.testimonials}
             </a>
+
             <a href="/contact" style={{ textDecoration: "none", color: "inherit" }}>
               {t.nav.contact}
             </a>

@@ -1,3 +1,4 @@
+// app/layout.jsx
 import Providers from "./providers.jsx";
 
 export const metadata = {
