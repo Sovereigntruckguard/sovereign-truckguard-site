@@ -1,20 +1,92 @@
 // app/services/page.jsx
 "use client";
 
-import React from "react";
+// Página de servicios – alineada al branding principal (sin Tailwind)
+
+const colors = {
+  bg: "#050505",
+  panel: "#0b0b0b",
+  gold: "#FFD700",
+  rose: "#E8B7B7",
+  white: "#FFFFFF"
+};
+
+const layout = {
+  maxWidth: 1120,
+  sidePadding: 20
+};
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-[#060606] text-white">
-      {/* Hero / Encabezado */}
-      <section className="max-w-6xl mx-auto px-6 pt-32 pb-12">
-        <p className="text-xs tracking-[0.35em] text-[#FFD700]/80 uppercase mb-3">
-          Servicios oficiales – Sovereign TruckGuard LLC
-        </p>
-        <h1 className="text-3xl md:text-4xl font-extrabold mb-4">
-          Servicios que procesamos con Stripe
-        </h1>
-        <p className="text-base md:text-lg text-gray-300 max-w-3xl">
+    <main
+      style={{
+        minHeight: "100vh",
+        background:
+          "radial-gradient(circle at top, rgba(255,215,0,0.12), transparent 55%)," +
+          "radial-gradient(circle at bottom, rgba(232,183,183,0.12), transparent 55%)," +
+          colors.bg,
+        color: colors.white,
+        fontFamily:
+          "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        paddingTop: 80,
+        paddingBottom: 60
+      }}
+    >
+      {/* Encabezado simple con logo y título */}
+      <section
+        style={{
+          margin: "0 auto",
+          maxWidth: layout.maxWidth,
+          padding: "0 " + layout.sidePadding + "px 30px"
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            gap: 16,
+            alignItems: "center",
+            marginBottom: 18
+          }}
+        >
+          <img
+            src="/logo-sovereign.png"
+            alt="Sovereign TruckGuard Logo"
+            style={{ width: 56, height: "auto", objectFit: "contain" }}
+          />
+          <div>
+            <p
+              style={{
+                margin: 0,
+                fontSize: 11,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: colors.gold,
+                fontFamily: "Montserrat, system-ui"
+              }}
+            >
+              Servicios oficiales – Sovereign TruckGuard LLC
+            </p>
+            <h1
+              style={{
+                margin: "6px 0 0",
+                fontSize: 26,
+                fontFamily: "Montserrat, system-ui"
+              }}
+            >
+              Servicios que procesamos con Stripe
+            </h1>
+          </div>
+        </div>
+
+        <p
+          style={{
+            margin: 0,
+            fontSize: 14,
+            lineHeight: 1.7,
+            maxWidth: 760,
+            color: "rgba(255,255,255,0.78)"
+          }}
+        >
           Sovereign TruckGuard LLC es una empresa registrada en Estados Unidos que
           ofrece servicios digitales para camioneros latinos y pequeñas compañías
           de transporte. A través de Stripe procesamos pagos de{" "}
@@ -23,60 +95,160 @@ export default function ServicesPage() {
         </p>
       </section>
 
-      {/* Bloque: Membresía EL-VIA */}
-      <section className="max-w-6xl mx-auto px-6 pb-10">
-        <div className="border border-[#FFD700]/40 rounded-2xl p-6 md:p-8 bg-[#0b0b0b]">
-          <h2 className="text-2xl font-bold mb-4 text-[#FFD700]">
+      {/* Bloque principal: Membresía EL-VIA */}
+      <section
+        style={{
+          margin: "0 auto",
+          maxWidth: layout.maxWidth,
+          padding: "0 " + layout.sidePadding + "px 30px"
+        }}
+      >
+        <div
+          style={{
+            borderRadius: 24,
+            padding: 22,
+            background:
+              "radial-gradient(circle at top, rgba(255,215,0,0.16), rgba(5,5,5,1))",
+            border: "1px solid rgba(255,255,255,0.18)",
+            boxShadow: "0 24px 70px rgba(0,0,0,0.95)"
+          }}
+        >
+          <h2
+            style={{
+              margin: 0,
+              fontSize: 22,
+              marginBottom: 10,
+              color: colors.gold,
+              fontFamily: "Montserrat, system-ui"
+            }}
+          >
             Membresía EL-VIA – Acceso mensual
           </h2>
-          <p className="text-gray-200 mb-3">
+
+          <p
+            style={{
+              margin: 0,
+              marginBottom: 6,
+              fontSize: 13,
+              color: "rgba(255,255,255,0.9)"
+            }}
+          >
             <strong>Tipo de servicio:</strong> servicio digital por suscripción.
           </p>
-          <p className="text-gray-300 mb-4">
+
+          <p
+            style={{
+              margin: "6px 0 10px",
+              fontSize: 13,
+              color: "rgba(255,255,255,0.82)",
+              lineHeight: 1.6
+            }}
+          >
             EL-VIA es una plataforma educativa en línea para camioneros latinos en
             Estados Unidos. A través de una app y contenidos digitales, los
             usuarios reciben:
           </p>
-          <ul className="list-disc list-inside space-y-1 text-gray-300 mb-4">
-            <li>Clases y material bilingüe (español–inglés) orientado a la vida en carretera.</li>
-            <li>Recursos para comprender mejor procesos DOT y documentos básicos.</li>
+
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: 18,
+              fontSize: 13,
+              color: "rgba(255,255,255,0.88)",
+              lineHeight: 1.6
+            }}
+          >
+            <li>
+              Clases y material bilingüe (español–inglés) orientado a la vida en
+              carretera.
+            </li>
+            <li>
+              Recursos para comprender mejor procesos DOT y documentos básicos.
+            </li>
             <li>Videos, guías descargables y recursos digitales bajo demanda.</li>
             <li>Soporte digital por correo y chat dentro de la plataforma.</li>
           </ul>
-          <p className="text-gray-200 mb-2">
-            <strong>Precio de referencia:</strong> USD $29.00 al mes por usuario.
-          </p>
-          <p className="text-gray-300 mb-2">
-            <strong>Entrega del servicio:</strong> el acceso se otorga de manera
-            digital inmediatamente después de confirmar el pago. No se envían
-            productos físicos.
-          </p>
-          <p className="text-gray-300">
-            <strong>Método de pago:</strong> todos los pagos de la membresía EL-VIA
-            se procesan de forma segura a través de Stripe.
-          </p>
+
+          <div
+            style={{
+              marginTop: 14,
+              fontSize: 13,
+              color: "rgba(255,255,255,0.9)"
+            }}
+          >
+            <p style={{ margin: 0 }}>
+              <strong>Precio de referencia:</strong> USD $29.00 al mes por usuario.
+            </p>
+            <p style={{ margin: "4px 0 0" }}>
+              <strong>Entrega del servicio:</strong> el acceso se otorga de manera
+              digital inmediatamente después de confirmar el pago. No se envían
+              productos físicos.
+            </p>
+            <p style={{ margin: "4px 0 0" }}>
+              <strong>Método de pago:</strong> todos los pagos de la membresía
+              EL-VIA se procesan de forma segura a través de Stripe.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Otros servicios digitales (opcional pero ayuda con Stripe) */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 space-y-6">
-        <h2 className="text-2xl font-bold mb-2">Otros servicios digitales</h2>
-        <p className="text-gray-300 max-w-3xl">
+      {/* Otros servicios digitales */}
+      <section
+        style={{
+          margin: "0 auto",
+          maxWidth: layout.maxWidth,
+          padding: "0 " + layout.sidePadding + "px"
+        }}
+      >
+        <h2
+          style={{
+            margin: "8px 0 6px",
+            fontSize: 20,
+            fontFamily: "Montserrat, system-ui"
+          }}
+        >
+          Otros servicios digitales
+        </h2>
+        <p
+          style={{
+            margin: "0 0 10px",
+            fontSize: 13,
+            color: "rgba(255,255,255,0.8)",
+            maxWidth: 720,
+            lineHeight: 1.6
+          }}
+        >
           Además de la membresía EL-VIA, Sovereign TruckGuard LLC puede ofrecer
           servicios de consultoría y acompañamiento digital para empresas de
           transporte, tales como:
         </p>
-        <ul className="list-disc list-inside space-y-1 text-gray-300">
+
+        <ul
+          style={{
+            margin: 0,
+            paddingLeft: 18,
+            fontSize: 13,
+            color: "rgba(255,255,255,0.9)",
+            lineHeight: 1.6
+          }}
+        >
           <li>
             Consultorías en línea sobre organización de documentos, uso de
             tecnología y procesos básicos para pequeñas empresas de transporte.
           </li>
           <li>
-            Talleres virtuales grupales (webinars) para capacitación de equipos de
-            transporte en temas operativos y de productividad.
+            Talleres virtuales grupales (webinars) para capacitación de equipos
+            de transporte en temas operativos y de productividad.
           </li>
         </ul>
-        <p className="text-gray-400 text-sm">
+
+        <p
+          style={{
+            marginTop: 10,
+            fontSize: 12,
+            color: "rgba(255,255,255,0.65)"
+          }}
+        >
           Todos estos servicios se prestan en modalidad digital/remota y se pagan
           a través de Stripe. No vendemos productos físicos.
         </p>
