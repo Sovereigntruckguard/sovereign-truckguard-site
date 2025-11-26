@@ -41,11 +41,20 @@ function ServicesHeader() {
           gap: 16
         }}
       >
-        {/* Logo + tagline */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        {/* Logo + tagline con enlace al Home */}
+        <a
+          href="/"
+          style={{
+            textDecoration: "none",
+            color: "inherit",
+            display: "flex",
+            alignItems: "center",
+            gap: 12
+          }}
+        >
           <img
             src="/logo-sovereign.png"
-            alt="Logo Sovereign TruckGuard"
+            alt="Sovereign TruckGuard Logo"
             style={{ width: 36, height: "auto", objectFit: "contain" }}
           />
           <div>
@@ -71,9 +80,9 @@ function ServicesHeader() {
               Agencia de seguros de lujo para camioneros latinos
             </p>
           </div>
-        </div>
+        </a>
 
-        {/* Menú simple alineado al home */}
+        {/* Menú alineado al home */}
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <nav
             style={{
