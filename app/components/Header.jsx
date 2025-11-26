@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "../lib/language.js";
+import { useLanguage } from "../../lib/language.js"; // 👈 RUTA CORRECTA (lib en la raíz)
 
 const colors = {
   gold: "#FFD700",
@@ -69,11 +69,12 @@ export default function Header() {
           gap: 16
         }}
       >
+        {/* Logo + tagline */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <img
             src="/logo-sovereign.png"
             alt="Logo Sovereign"
-            style={{ width: 36 }}
+            style={{ width: 36, height: "auto", objectFit: "contain" }}
           />
           <div>
             <div
@@ -100,6 +101,7 @@ export default function Header() {
           </div>
         </div>
 
+        {/* Menú + CTA */}
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <nav
             style={{
@@ -149,28 +151,31 @@ export default function Header() {
             </a>
           </nav>
 
+          {/* Switch idioma */}
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <button
               onClick={() => setLang("es")}
               style={{
                 border: "none",
+                padding: 0,
                 background: "transparent",
                 opacity: lang === "es" ? 1 : 0.35,
                 cursor: "pointer"
               }}
             >
-              <img src="/flag-es.svg" style={{ width: 20 }} />
+              <img src="/flag-es.svg" alt="ES" style={{ width: 20, height: 20 }} />
             </button>
             <button
               onClick={() => setLang("en")}
               style={{
                 border: "none",
+                padding: 0,
                 background: "transparent",
                 opacity: lang === "en" ? 1 : 0.35,
                 cursor: "pointer"
               }}
             >
-              <img src="/flag-us.svg" style={{ width: 20 }} />
+              <img src="/flag-us.svg" alt="EN" style={{ width: 20, height: 20 }} />
             </button>
           </div>
         </div>
