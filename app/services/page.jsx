@@ -1,7 +1,5 @@
 "use client";
 
-import { useLanguage } from "../lib/language";
-
 const colors = {
   bg: "#050505",
   gold: "#FFD700",
@@ -15,42 +13,10 @@ const layout = {
 };
 
 /* =========================
-   HEADER LOCAL PARA /services
+   HEADER ESTÁTICO /services
    ========================= */
 
-function Header() {
-  const { lang, setLang } = useLanguage();
-
-  const TEXT_ES = {
-    tagline: "Agencia de seguros de lujo para camioneros latinos",
-    nav: {
-      coverages: "Coberturas",
-      technology: "Tecnología",
-      services: "Servicios",
-      states: "Estados",
-      about: "Nosotros",
-      testimonials: "Testimonios",
-      contact: "Contacto",
-      cta: "Cotización inmediata"
-    }
-  };
-
-  const TEXT_EN = {
-    tagline: "Luxury insurance agency for Latino truckers",
-    nav: {
-      coverages: "Coverages",
-      technology: "Technology",
-      services: "Services",
-      states: "States",
-      about: "About",
-      testimonials: "Testimonials",
-      contact: "Contact",
-      cta: "Get a quote"
-    }
-  };
-
-  const t = lang === "es" ? TEXT_ES : TEXT_EN;
-
+function ServicesHeader() {
   return (
     <header
       style={{
@@ -102,12 +68,12 @@ function Header() {
                 color: "rgba(255,255,255,0.6)"
               }}
             >
-              {t.tagline}
+              Agencia de seguros de lujo para camioneros latinos
             </p>
           </div>
         </div>
 
-        {/* Nav + selector idioma */}
+        {/* Menú simple alineado al home */}
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <nav
             style={{
@@ -120,29 +86,28 @@ function Header() {
             }}
           >
             <a href="/coverages" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.coverages}
+              Coberturas
             </a>
             <a href="/technology" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.technology}
+              Tecnología
             </a>
-            {/* Servicios */}
             <a href="/services" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.services}
+              Servicios
             </a>
             <a href="/states" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.states}
+              Estados
             </a>
             <a href="/about" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.about}
+              Nosotros
             </a>
             <a href="/testimonials" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.testimonials}
+              Testimonios
             </a>
             <a href="/contact" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.contact}
+              Contacto
             </a>
             <a
-              href="#cotizar"
+              href="/#cotizar"
               style={{
                 padding: "8px 20px",
                 borderRadius: 999,
@@ -154,36 +119,9 @@ function Header() {
                 boxShadow: "0 14px 35px rgba(0,0,0,0.6)"
               }}
             >
-              {t.nav.cta}
+              Cotización inmediata
             </a>
           </nav>
-
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <button
-              onClick={() => setLang("es")}
-              style={{
-                border: "none",
-                padding: 0,
-                background: "transparent",
-                opacity: lang === "es" ? 1 : 0.35,
-                cursor: "pointer"
-              }}
-            >
-              <img src="/flag-es.svg" alt="ES" style={{ width: 20, height: 20 }} />
-            </button>
-            <button
-              onClick={() => setLang("en")}
-              style={{
-                border: "none",
-                padding: 0,
-                background: "transparent",
-                opacity: lang === "en" ? 1 : 0.35,
-                cursor: "pointer"
-              }}
-            >
-              <img src="/flag-us.svg" alt="EN" style={{ width: 20, height: 20 }} />
-            </button>
-          </div>
         </div>
       </div>
     </header>
@@ -208,7 +146,7 @@ export default function ServicesPage() {
           "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
       }}
     >
-      <Header />
+      <ServicesHeader />
       <div style={{ height: 80 }} />
 
       {/* Encabezado Servicios */}
