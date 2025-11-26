@@ -1,11 +1,9 @@
-// app/services/page.jsx
 "use client";
 
-// Página de servicios – alineada al branding principal (sin Tailwind)
+import Header from "../components/Header.jsx";
 
 const colors = {
   bg: "#050505",
-  panel: "#0b0b0b",
   gold: "#FFD700",
   rose: "#E8B7B7",
   white: "#FFFFFF"
@@ -27,12 +25,13 @@ export default function ServicesPage() {
           colors.bg,
         color: colors.white,
         fontFamily:
-          "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        paddingTop: 80,
-        paddingBottom: 60
+          "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
       }}
     >
-      {/* Encabezado simple con logo y título */}
+      <Header />
+      <div style={{ height: 80 }} />
+
+      {/* Encabezado Servicios */}
       <section
         style={{
           margin: "0 auto",
@@ -95,7 +94,7 @@ export default function ServicesPage() {
         </p>
       </section>
 
-      {/* Bloque principal: Membresía EL-VIA */}
+      {/* EL-VIA */}
       <section
         style={{
           margin: "0 auto",
@@ -145,8 +144,8 @@ export default function ServicesPage() {
             }}
           >
             EL-VIA es una plataforma educativa en línea para camioneros latinos en
-            Estados Unidos. A través de una app y contenidos digitales, los
-            usuarios reciben:
+            Estados Unidos. A través de una app y contenidos digitales, los usuarios
+            reciben:
           </p>
 
           <ul
@@ -158,15 +157,10 @@ export default function ServicesPage() {
               lineHeight: 1.6
             }}
           >
-            <li>
-              Clases y material bilingüe (español–inglés) orientado a la vida en
-              carretera.
-            </li>
-            <li>
-              Recursos para comprender mejor procesos DOT y documentos básicos.
-            </li>
-            <li>Videos, guías descargables y recursos digitales bajo demanda.</li>
-            <li>Soporte digital por correo y chat dentro de la plataforma.</li>
+            <li>Clases bilingües orientadas a la vida en carretera.</li>
+            <li>Recursos DOT y documentos esenciales.</li>
+            <li>Videos y materiales descargables.</li>
+            <li>Soporte por correo / chat dentro de la plataforma.</li>
           </ul>
 
           <div
@@ -177,27 +171,24 @@ export default function ServicesPage() {
             }}
           >
             <p style={{ margin: 0 }}>
-              <strong>Precio de referencia:</strong> USD $29.00 al mes por usuario.
+              <strong>Precio:</strong> USD $29.00 al mes por usuario.
             </p>
             <p style={{ margin: "4px 0 0" }}>
-              <strong>Entrega del servicio:</strong> el acceso se otorga de manera
-              digital inmediatamente después de confirmar el pago. No se envían
-              productos físicos.
+              <strong>Entrega:</strong> acceso digital inmediato tras el pago.
             </p>
             <p style={{ margin: "4px 0 0" }}>
-              <strong>Método de pago:</strong> todos los pagos de la membresía
-              EL-VIA se procesan de forma segura a través de Stripe.
+              <strong>Método de pago:</strong> Stripe.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Otros servicios digitales */}
+      {/* Otros servicios */}
       <section
         style={{
           margin: "0 auto",
           maxWidth: layout.maxWidth,
-          padding: "0 " + layout.sidePadding + "px"
+          padding: "0 " + layout.sidePadding + "px 50px"
         }}
       >
         <h2
@@ -209,6 +200,7 @@ export default function ServicesPage() {
         >
           Otros servicios digitales
         </h2>
+
         <p
           style={{
             margin: "0 0 10px",
@@ -219,8 +211,7 @@ export default function ServicesPage() {
           }}
         >
           Además de la membresía EL-VIA, Sovereign TruckGuard LLC puede ofrecer
-          servicios de consultoría y acompañamiento digital para empresas de
-          transporte, tales como:
+          consultorías digitales y acompañamiento en línea, tales como:
         </p>
 
         <ul
@@ -232,14 +223,8 @@ export default function ServicesPage() {
             lineHeight: 1.6
           }}
         >
-          <li>
-            Consultorías en línea sobre organización de documentos, uso de
-            tecnología y procesos básicos para pequeñas empresas de transporte.
-          </li>
-          <li>
-            Talleres virtuales grupales (webinars) para capacitación de equipos
-            de transporte en temas operativos y de productividad.
-          </li>
+          <li>Consultorías en línea sobre procesos y tecnología.</li>
+          <li>Webinars de productividad para empresas de transporte.</li>
         </ul>
 
         <p
@@ -249,8 +234,8 @@ export default function ServicesPage() {
             color: "rgba(255,255,255,0.65)"
           }}
         >
-          Todos estos servicios se prestan en modalidad digital/remota y se pagan
-          a través de Stripe. No vendemos productos físicos.
+          Todos estos servicios se entregan en modalidad digital y se pagan a través
+          de Stripe. No vendemos productos físicos.
         </p>
       </section>
     </main>
