@@ -1,19 +1,23 @@
 "use client";
 
-const colors = {
+/* =========================
+   CONFIG BÁSICA
+   ========================= */
+
+const COLORS = {
   bg: "#050505",
   gold: "#FFD700",
   rose: "#E8B7B7",
-  white: "#FFFFFF"
+  white: "#FFFFFF",
 };
 
-const layout = {
-  maxWidth: 1120,
-  sidePadding: 20
+const LAYOUT = {
+  maxWidth: 1200,
+  sidePadding: 20,
 };
 
 /* =========================
-   HEADER ESTÁTICO /services
+   HEADER FIJO
    ========================= */
 
 function ServicesHeader() {
@@ -24,347 +28,348 @@ function ServicesHeader() {
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 40,
+        zIndex: 50,
+        background: "rgba(0,0,0,0.92)",
+        backdropFilter: "blur(16px)",
         borderBottom: "1px solid rgba(255,255,255,0.08)",
-        background: "rgba(0,0,0,0.9)",
-        backdropFilter: "blur(14px)"
       }}
     >
       <div
         style={{
+          maxWidth: LAYOUT.maxWidth,
           margin: "0 auto",
-          maxWidth: layout.maxWidth,
-          padding: "10px " + layout.sidePadding + "px",
+          padding: `10px ${LAYOUT.sidePadding}px`,
           display: "flex",
-          alignItems: "center",
           justifyContent: "space-between",
-          gap: 16
+          alignItems: "center",
+          gap: 20,
         }}
       >
-        {/* Logo + tagline con enlace al Home */}
         <a
           href="/"
           style={{
-            textDecoration: "none",
-            color: "inherit",
             display: "flex",
+            gap: 12,
             alignItems: "center",
-            gap: 12
+            textDecoration: "none",
+            color: COLORS.white,
           }}
         >
           <img
             src="/logo-sovereign.png"
-            alt="Sovereign TruckGuard Logo"
-            style={{ width: 36, height: "auto", objectFit: "contain" }}
+            alt="Sovereign TruckGuard"
+            style={{ width: 36 }}
           />
           <div>
             <div
               style={{
-                fontFamily: "Montserrat, system-ui",
                 fontSize: 11,
-                letterSpacing: "0.16em",
+                letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.9)"
               }}
             >
               Sovereign TruckGuard LLC
             </div>
-            <p
-              style={{
-                margin: 0,
-                marginTop: 2,
-                fontSize: 11,
-                color: "rgba(255,255,255,0.6)"
-              }}
-            >
-              Agencia de seguros de lujo para camioneros latinos
-            </p>
+            <div style={{ fontSize: 11, opacity: 0.7 }}>
+              Luxury compliance & business
+            </div>
           </div>
         </a>
 
-        {/* Menú alineado al home */}
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <nav
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 26,
-              fontSize: 13,
-              color: "rgba(255,255,255,0.78)",
-              fontFamily: "Montserrat, system-ui"
-            }}
-          >
-            <a href="/coverages" style={{ textDecoration: "none", color: "inherit" }}>
-              Coberturas
-            </a>
-            <a href="/technology" style={{ textDecoration: "none", color: "inherit" }}>
-              Tecnología
-            </a>
-            <a href="/services" style={{ textDecoration: "none", color: "inherit" }}>
-              Servicios
-            </a>
-            <a href="/states" style={{ textDecoration: "none", color: "inherit" }}>
-              Estados
-            </a>
-            <a href="/about" style={{ textDecoration: "none", color: "inherit" }}>
-              Nosotros
-            </a>
-            <a href="/testimonials" style={{ textDecoration: "none", color: "inherit" }}>
-              Testimonios
-            </a>
-            <a href="/contact" style={{ textDecoration: "none", color: "inherit" }}>
-              Contacto
-            </a>
-            <a
-              href="/#cotizar"
-              style={{
-                padding: "8px 20px",
-                borderRadius: 999,
-                background:
-                  "linear-gradient(90deg, " + colors.gold + ", " + colors.rose + ")",
-                color: "#000",
-                fontWeight: 600,
-                textDecoration: "none",
-                boxShadow: "0 14px 35px rgba(0,0,0,0.6)"
-              }}
-            >
-              Cotización inmediata
-            </a>
-          </nav>
-        </div>
+        <a
+          href="#"
+          style={{
+            padding: "8px 18px",
+            borderRadius: 999,
+            background: `linear-gradient(90deg, ${COLORS.gold}, ${COLORS.rose})`,
+            color: "#000",
+            fontWeight: 700,
+            textDecoration: "none",
+          }}
+        >
+          Cotización inmediata
+        </a>
       </div>
     </header>
   );
 }
 
 /* =========================
-   PÁGINA DE SERVICIOS
+   WRAPPER
+   ========================= */
+
+function Section({ children, id }) {
+  return (
+    <section
+      id={id}
+      style={{
+        maxWidth: LAYOUT.maxWidth,
+        margin: "0 auto",
+        padding: `0 ${LAYOUT.sidePadding}px`,
+      }}
+    >
+      {children}
+    </section>
+  );
+}
+
+/* =========================
+   HERO CON VIDEO
+   ========================= */
+
+function Hero() {
+  return (
+    <section
+      style={{
+        position: "relative",
+        height: "88vh",
+        overflow: "hidden",
+      }}
+    >
+      <video
+        src="/services/hero/hero-services.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.85))",
+        }}
+      />
+
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Section>
+          <h1
+            style={{
+              fontSize: 42,
+              maxWidth: 720,
+              lineHeight: 1.15,
+            }}
+          >
+            Crea tu compañía trucking en USA  
+            <span style={{ color: COLORS.gold }}> sin errores, sin estrés</span>
+          </h1>
+
+          <p
+            style={{
+              marginTop: 16,
+              fontSize: 16,
+              maxWidth: 620,
+              lineHeight: 1.7,
+              opacity: 0.9,
+            }}
+          >
+            EIN · LLC · DOT · MC · UCR · TXDMV  
+            Todo el proceso legal, documentado y acompañado en español.
+          </p>
+
+          <div style={{ marginTop: 24, display: "flex", gap: 12 }}>
+            <a
+              href="#packages"
+              style={{
+                padding: "12px 26px",
+                borderRadius: 999,
+                background: `linear-gradient(90deg, ${COLORS.gold}, ${COLORS.rose})`,
+                color: "#000",
+                fontWeight: 800,
+                textDecoration: "none",
+              }}
+            >
+              Ver paquetes
+            </a>
+
+            <a
+              href="#individual"
+              style={{
+                padding: "11px 22px",
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.4)",
+                color: COLORS.white,
+                textDecoration: "none",
+              }}
+            >
+              Servicios individuales
+            </a>
+          </div>
+        </Section>
+      </div>
+    </section>
+  );
+}
+
+/* =========================
+   CARD CON BACKGROUND PNG
+   ========================= */
+
+function PackageCard({ bg, title, price, bullets }) {
+  return (
+    <div
+      style={{
+        position: "relative",
+        height: 380,
+        borderRadius: 24,
+        overflow: "hidden",
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        border: "1px solid rgba(255,255,255,0.18)",
+        boxShadow: "0 26px 90px rgba(0,0,0,0.95)",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.9))",
+        }}
+      />
+
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          height: "100%",
+          padding: 22,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+        }}
+      >
+        <h3 style={{ color: COLORS.gold, fontSize: 22 }}>{title}</h3>
+
+        <ul style={{ paddingLeft: 18, fontSize: 13, opacity: 0.9 }}>
+          {bullets.map((b, i) => (
+            <li key={i}>{b}</li>
+          ))}
+        </ul>
+
+        <div
+          style={{
+            marginTop: 10,
+            fontSize: 18,
+            fontWeight: 800,
+          }}
+        >
+          {price}
+        </div>
+
+        <button
+          style={{
+            marginTop: 12,
+            padding: "10px 22px",
+            borderRadius: 999,
+            background: `linear-gradient(90deg, ${COLORS.gold}, ${COLORS.rose})`,
+            color: "#000",
+            fontWeight: 800,
+            border: "none",
+            cursor: "not-allowed",
+            opacity: 0.6,
+          }}
+        >
+          Comprar (próximamente)
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* =========================
+   PÁGINA PRINCIPAL
    ========================= */
 
 export default function ServicesPage() {
   return (
     <main
       style={{
+        background: COLORS.bg,
+        color: COLORS.white,
         minHeight: "100vh",
-        background:
-          "radial-gradient(circle at top, rgba(255,215,0,0.12), transparent 55%)," +
-          "radial-gradient(circle at bottom, rgba(232,183,183,0.12), transparent 55%)," +
-          colors.bg,
-        color: colors.white,
-        fontFamily:
-          "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
       }}
     >
       <ServicesHeader />
-      <div style={{ height: 80 }} />
+      <div style={{ height: 84 }} />
 
-      {/* Encabezado Servicios */}
-      <section
-        style={{
-          margin: "0 auto",
-          maxWidth: layout.maxWidth,
-          padding: "0 " + layout.sidePadding + "px 30px"
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            gap: 16,
-            alignItems: "center",
-            marginBottom: 18
-          }}
-        >
-          <img
-            src="/logo-sovereign.png"
-            alt="Sovereign TruckGuard Logo"
-            style={{ width: 56, height: "auto", objectFit: "contain" }}
-          />
-          <div>
-            <p
-              style={{
-                margin: 0,
-                fontSize: 11,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: colors.gold,
-                fontFamily: "Montserrat, system-ui"
-              }}
-            >
-              Servicios oficiales – Sovereign TruckGuard LLC
-            </p>
-            <h1
-              style={{
-                margin: "6px 0 0",
-                fontSize: 26,
-                fontFamily: "Montserrat, system-ui"
-              }}
-            >
-              Servicios que procesamos con Stripe
-            </h1>
-          </div>
-        </div>
+      <Hero />
 
-        <p
-          style={{
-            margin: 0,
-            fontSize: 14,
-            lineHeight: 1.7,
-            maxWidth: 760,
-            color: "rgba(255,255,255,0.78)"
-          }}
-        >
-          Sovereign TruckGuard LLC es una empresa registrada en Estados Unidos que
-          ofrece servicios digitales para camioneros latinos y pequeñas compañías
-          de transporte. A través de Stripe procesamos pagos de{" "}
-          <strong>membresías y servicios digitales</strong>, principalmente la
-          membresía de la plataforma educativa <strong>EL-VIA</strong>.
-        </p>
-      </section>
-
-      {/* EL-VIA */}
-      <section
-        style={{
-          margin: "0 auto",
-          maxWidth: layout.maxWidth,
-          padding: "0 " + layout.sidePadding + "px 30px"
-        }}
-      >
-        <div
-          style={{
-            borderRadius: 24,
-            padding: 22,
-            background:
-              "radial-gradient(circle at top, rgba(255,215,0,0.16), rgba(5,5,5,1))",
-            border: "1px solid rgba(255,255,255,0.18)",
-            boxShadow: "0 24px 70px rgba(0,0,0,0.95)"
-          }}
-        >
-          <h2
-            style={{
-              margin: 0,
-              fontSize: 22,
-              marginBottom: 10,
-              color: colors.gold,
-              fontFamily: "Montserrat, system-ui"
-            }}
-          >
-            Membresía EL-VIA – Acceso mensual
-          </h2>
-
-          <p
-            style={{
-              margin: 0,
-              marginBottom: 6,
-              fontSize: 13,
-              color: "rgba(255,255,255,0.9)"
-            }}
-          >
-            <strong>Tipo de servicio:</strong> servicio digital por suscripción.
-          </p>
-
-          <p
-            style={{
-              margin: "6px 0 10px",
-              fontSize: 13,
-              color: "rgba(255,255,255,0.82)",
-              lineHeight: 1.6
-            }}
-          >
-            EL-VIA es una plataforma educativa en línea para camioneros latinos en
-            Estados Unidos. A través de una app y contenidos digitales, los usuarios
-            reciben:
-          </p>
-
-          <ul
-            style={{
-              margin: 0,
-              paddingLeft: 18,
-              fontSize: 13,
-              color: "rgba(255,255,255,0.88)",
-              lineHeight: 1.6
-            }}
-          >
-            <li>Clases bilingües orientadas a la vida en carretera.</li>
-            <li>Recursos DOT y documentos esenciales.</li>
-            <li>Videos y materiales descargables.</li>
-            <li>Soporte por correo / chat dentro de la plataforma.</li>
-          </ul>
-
-          <div
-            style={{
-              marginTop: 14,
-              fontSize: 13,
-              color: "rgba(255,255,255,0.9)"
-            }}
-          >
-            <p style={{ margin: 0 }}>
-              <strong>Precio:</strong> USD $29.00 al mes por usuario.
-            </p>
-            <p style={{ margin: "4px 0 0" }}>
-              <strong>Entrega:</strong> acceso digital inmediato tras el pago.
-            </p>
-            <p style={{ margin: "4px 0 0" }}>
-              <strong>Método de pago:</strong> Stripe.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Otros servicios */}
-      <section
-        style={{
-          margin: "0 auto",
-          maxWidth: layout.maxWidth,
-          padding: "0 " + layout.sidePadding + "px 50px"
-        }}
-      >
-        <h2
-          style={{
-            margin: "8px 0 6px",
-            fontSize: 20,
-            fontFamily: "Montserrat, system-ui"
-          }}
-        >
-          Otros servicios digitales
+      {/* PACKAGES */}
+      <Section id="packages">
+        <h2 style={{ marginTop: 60, marginBottom: 20 }}>
+          Paquetes de creación de compañía
         </h2>
 
-        <p
+        <div
           style={{
-            margin: "0 0 10px",
-            fontSize: 13,
-            color: "rgba(255,255,255,0.8)",
-            maxWidth: 720,
-            lineHeight: 1.6
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: 24,
           }}
         >
-          Además de la membresía EL-VIA, Sovereign TruckGuard LLC puede ofrecer
-          consultorías digitales y acompañamiento en línea, tales como:
-        </p>
+          <PackageCard
+            bg="/services/packages/interstate-bg.png"
+            title="Crea tu Compañía Interstate"
+            price="USD $1,035"
+            bullets={[
+              "LLC + EIN",
+              "USDOT + MC Authority",
+              "BOC-3 + UCR",
+              "TXDMV (si aplica)",
+            ]}
+          />
 
-        <ul
-          style={{
-            margin: 0,
-            paddingLeft: 18,
-            fontSize: 13,
-            color: "rgba(255,255,255,0.9)",
-            lineHeight: 1.6
-          }}
-        >
-          <li>Consultorías en línea sobre procesos y tecnología.</li>
-          <li>Webinars de productividad para empresas de transporte.</li>
+          <PackageCard
+            bg="/services/packages/intrastate-bg.png"
+            title="Crea tu Compañía Intrastate"
+            price="USD $776.25"
+            bullets={[
+              "LLC + EIN",
+              "USDOT",
+              "TXDMV (si aplica)",
+              "Sin MC / BOC-3 / UCR",
+            ]}
+          />
+        </div>
+      </Section>
+
+      {/* SERVICIOS INDIVIDUALES */}
+      <Section id="individual">
+        <h2 style={{ marginTop: 70, marginBottom: 18 }}>
+          Servicios individuales
+        </h2>
+
+        <ul style={{ fontSize: 14, lineHeight: 1.9, opacity: 0.9 }}>
+          <li>EIN Filing – USD $99</li>
+          <li>BOI Filing – USD $59</li>
+          <li>DOT / MCS-150 – USD $149</li>
+          <li>MC Authority Assistance – USD $249</li>
+          <li>BOC-3 Assistance – USD $69</li>
+          <li>UCR Filing – USD $89</li>
+          <li>TXDMV Intrastate – USD $179</li>
         </ul>
+      </Section>
 
-        <p
-          style={{
-            marginTop: 10,
-            fontSize: 12,
-            color: "rgba(255,255,255,0.65)"
-          }}
-        >
-          Todos estos servicios se entregan en modalidad digital y se pagan a través
-          de Stripe. No vendemos productos físicos.
-        </p>
-      </section>
+      <div style={{ height: 120 }} />
     </main>
   );
 }
