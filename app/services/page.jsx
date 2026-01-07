@@ -17,6 +17,9 @@ const layout = {
   maxWidth: 1200,
   sidePadding: 20,
 };
+// ✅ Backend PROD (Cloud Run)
+const BACKEND_BASE_URL =
+  "https://azoth-regulatorios-798731178244.us-central1.run.app";
 
 /* =========================
    HELPERS UI
@@ -443,7 +446,17 @@ function TrustBlocks() {
    PACKAGE CARDS (Tienda)
 ========================= */
 
-function PackageCard({ bg, badge, title, price, bullets, onOpenModal }) {
+function PackageCard({
+  bg,
+  badge,
+  title,
+  price,
+  bullets,
+  onOpenModal,
+  onBuy,
+  buyLoading,
+  buyError,
+}) {
   return (
     <div
       style={{
@@ -494,7 +507,27 @@ function PackageCard({ bg, badge, title, price, bullets, onOpenModal }) {
         <div style={{ fontSize: 22, fontWeight: 950 }}>{price}</div>
 
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 6 }}>
-          <DisabledCTA label="Comprar" />
+          {onBuy ? (
+            <button
+              onClick={onBuy}
+              disabled={buyLoading}
+              style={{
+                padding: "10px 18px",
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.18)",
+                background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+                color: "#000",
+                fontWeight: 900,
+                cursor: buyLoading ? "wait" : "pointer",
+                opacity: buyLoading ? 0.85 : 1,
+              }}
+            >
+              {buyLoading ? "Procesando..." : "Comprar"}
+            </button>
+          ) : (
+            <DisabledCTA label="Comprar" />
+          )}
+
           <button
             onClick={onOpenModal}
             style={{
@@ -860,6 +893,42 @@ export default function ServicesPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalBody, setModalBody] = useState(null);
+// ===== Checkout Intrastate =====
+  const [buyLoading, setBuyLoading] = useState(false);
+  const [buyError, setBuyError] = useState("");
+
+  async function handleBuyIntrastate() {
+    try {
+      setBuyLoading(true);
+      setBuyError("");
+
+      const res = await fetch(`${BACKEND_BASE_URL}/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_sku: "PKG_INTRASTATE",
+          customer: {
+            email: "cliente@sovereigntruckguard.com",
+            name: "Cliente Sovereign",
+            phone: "0000000000",
+          },
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!data?.ok || !data.checkoutUrl) {
+        throw new Error(data?.error || "No se pudo iniciar el pago");
+      }
+
+      // 🔥 Redirección directa a Stripe Checkout
+      window.location.href = data.checkoutUrl;
+    } catch (err) {
+      setBuyError(err.message || "Error iniciando el pago");
+    } finally {
+      setBuyLoading(false);
+    }
+  }
 
   const packages = useMemo(() => {
     return {
@@ -1102,6 +1171,9 @@ export default function ServicesPage() {
             price={packages.intrastate.price}
             bullets={packages.intrastate.bullets}
             onOpenModal={() => openPackageModal("intrastate")}
+            onBuy={handleBuyIntrastate}
+            buyLoading={buyLoading}
+            buyError={buyError}
           />
         </div>
 
