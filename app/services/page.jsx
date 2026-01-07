@@ -494,7 +494,7 @@ function PackageCard({ bg, badge, title, price, bullets, onOpenModal }) {
         <div style={{ fontSize: 22, fontWeight: 950 }}>{price}</div>
 
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 6 }}>
-          <DisabledCTA label="Comprar (próximamente)" />
+          <DisabledCTA label="Comprar" />
           <button
             onClick={onOpenModal}
             style={{
@@ -628,7 +628,7 @@ function IndividualCard({ bg, title, price, subtitle, onOpenModal }) {
         <div style={{ fontSize: 12, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>{subtitle}</div>
 
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 4 }}>
-          <DisabledCTA label="Comprar (próximamente)" />
+          <DisabledCTA label="Comprar" />
           <button
             onClick={onOpenModal}
             style={{
