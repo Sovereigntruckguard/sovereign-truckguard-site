@@ -748,7 +748,7 @@ function Footer() {
   // Placeholder listo para conectar Google Maps luego:
   // reemplazar src por tu embed real.
   const googleMapsEmbed =
-    "https://www.google.com/maps?q=Sheridan,%20Wyoming&output=embed";
+    "https://www.google.com/maps?q=30%20N%20Gould%20St%20Ste.%20N,%20Sheridan,%20WY%2082801&output=embed";
 
   return (
     <footer style={{ marginTop: 80, borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.92)" }}>
@@ -762,7 +762,9 @@ function Footer() {
             <div style={{ marginTop: 10, fontSize: 13, color: "rgba(255,255,255,0.80)", lineHeight: 1.6 }}>
               Registered in the United States
               <br />
-              Sheridan, Wyoming
+              30N gould St, Ste N
+              <br />
+              Sheridan, Wyoming 82801
               <br />
               Servicio premium en español para camioneros latinos.
             </div>
