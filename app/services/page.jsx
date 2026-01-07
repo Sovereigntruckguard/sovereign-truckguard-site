@@ -18,6 +18,9 @@ const layout = {
   sidePadding: 20,
 };
 
+// ✅ Backend PROD (Cloud Run)
+const BACKEND_BASE_URL = "https://azoth-regulatorios-798731178244.us-central1.run.app";
+
 /* =========================
    HELPERS UI
 ========================= */
@@ -443,7 +446,17 @@ function TrustBlocks() {
    PACKAGE CARDS (Tienda)
 ========================= */
 
-function PackageCard({ bg, badge, title, price, bullets, onOpenModal }) {
+function PackageCard({
+  bg,
+  badge,
+  title,
+  price,
+  bullets,
+  onOpenModal,
+  onBuy,
+  buyLoading,
+  buyError,
+}) {
   return (
     <div
       style={{
@@ -493,8 +506,26 @@ function PackageCard({ bg, badge, title, price, bullets, onOpenModal }) {
 
         <div style={{ fontSize: 22, fontWeight: 950 }}>{price}</div>
 
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 6 }}>
-          <DisabledCTA label="Comprar" />
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 6, alignItems: "center" }}>
+          {/* ✅ Comprar habilitado (pago automático) */}
+          <button
+            onClick={onBuy}
+            disabled={buyLoading}
+            style={{
+              padding: "10px 18px",
+              borderRadius: 999,
+              border: "1px solid rgba(255,255,255,0.18)",
+              background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+              color: "#000",
+              fontWeight: 900,
+              cursor: buyLoading ? "wait" : "pointer",
+              opacity: buyLoading ? 0.85 : 1,
+              boxShadow: "0 18px 60px rgba(0,0,0,0.75)",
+            }}
+          >
+            {buyLoading ? "Procesando..." : "Comprar"}
+          </button>
+
           <button
             onClick={onOpenModal}
             style={{
@@ -510,6 +541,12 @@ function PackageCard({ bg, badge, title, price, bullets, onOpenModal }) {
             Ver cómo funciona
           </button>
         </div>
+
+        {!!buyError && (
+          <div style={{ marginTop: 8, fontSize: 12, color: "rgba(255,80,80,0.95)", fontWeight: 900 }}>
+            {buyError}
+          </div>
+        )}
 
         <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)", marginTop: 4 }}>
           Service fee Sovereign. Government fees se pagan aparte.
@@ -620,8 +657,8 @@ function IndividualCard({ bg, title, price, subtitle, onOpenModal }) {
       <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.65)" }} />
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.88))" }} />
 
-      <div style={{ position: "relative", zIndex: 2, padding: 1, paddingBottom: 30, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 10 }}>
-        <div style={{ display: "flex", justifyContent: "flex end", gap: 10, }}>
+      <div style={{ position: "relative", zIndex: 2, padding: 18, paddingBottom: 30, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 10 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
           <div style={{ fontWeight: 950, color: colors.gold, fontSize: 15 }}>{title}</div>
           <div style={{ fontWeight: 950 }}>{price}</div>
         </div>
@@ -861,6 +898,42 @@ export default function ServicesPage() {
   const [modalTitle, setModalTitle] = useState("");
   const [modalBody, setModalBody] = useState(null);
 
+  // ✅ Compra state (solo para Intrastate)
+  const [buyLoading, setBuyLoading] = useState(false);
+  const [buyError, setBuyError] = useState("");
+
+  async function handleBuyIntrastate() {
+    try {
+      setBuyError("");
+      setBuyLoading(true);
+
+      const res = await fetch(`${BACKEND_BASE_URL}/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_sku: "PKG_INTRASTATE",
+          customer: {
+            email: "test@example.com",
+            name: "Cliente Sovereign",
+            phone: "0000000000",
+          },
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!data?.ok || !data?.checkoutUrl) {
+        throw new Error(data?.error || "No se pudo iniciar el pago.");
+      }
+
+      window.location.href = data.checkoutUrl;
+    } catch (e) {
+      setBuyError(e?.message || "Error iniciando el pago.");
+    } finally {
+      setBuyLoading(false);
+    }
+  }
+
   const packages = useMemo(() => {
     return {
       interstate: {
@@ -1053,7 +1126,7 @@ export default function ServicesPage() {
             ))}
           </ol>
           <div style={{ marginTop: 10, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-            Pagos en línea se habilitan en breve (Stripe). Por ahora, el botón de compra está deshabilitado.
+            Pagos en línea ya están habilitados. Presiona Comprar para continuar.
           </div>
         </div>
       </div>
@@ -1093,8 +1166,12 @@ export default function ServicesPage() {
             price={packages.interstate.price}
             bullets={packages.interstate.bullets}
             onOpenModal={() => openPackageModal("interstate")}
+            onBuy={() => alert("Interstate se habilita en el siguiente paso (price_id pendiente).")}
+            buyLoading={false}
+            buyError={""}
           />
 
+          {/* ✅ AQUÍ queda conectado el botón Comprar de Intrastate */}
           <PackageCard
             bg={packages.intrastate.bg}
             badge={packages.intrastate.badge}
@@ -1102,6 +1179,9 @@ export default function ServicesPage() {
             price={packages.intrastate.price}
             bullets={packages.intrastate.bullets}
             onOpenModal={() => openPackageModal("intrastate")}
+            onBuy={handleBuyIntrastate}
+            buyLoading={buyLoading}
+            buyError={buyError}
           />
         </div>
 
