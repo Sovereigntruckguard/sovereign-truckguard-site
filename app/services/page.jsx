@@ -620,7 +620,7 @@ function IndividualCard({ bg, title, price, subtitle, onOpenModal }) {
       <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.65)" }} />
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.88))" }} />
 
-      <div style={{ position: "relative", zIndex: 2, padding: 18, paddingBottom: 48, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 10 }}>
+      <div style={{ position: "relative", zIndex: 2, padding: 12, paddingBottom: 48, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 10 }}>
         <div style={{ display: "flex", justifyContent: "flex end", gap: 10, alignItems: "baseline" }}>
           <div style={{ fontWeight: 950, color: colors.gold, fontSize: 15 }}>{title}</div>
           <div style={{ fontWeight: 950 }}>{price}</div>
