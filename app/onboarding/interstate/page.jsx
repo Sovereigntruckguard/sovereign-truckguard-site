@@ -1,20 +1,19 @@
-export const dynamic = "force-dynamic";
-
 import { Suspense } from "react";
-import OnboardingInterstateClient from "./ui";
+import OnboardingWizard from "./ui";
 
-export default function Page() {
+export const metadata = {
+  title: "Onboarding Interstate | Sovereign TruckGuard",
+};
+
+export default function Page({ searchParams }) {
+  const sessionId =
+    typeof searchParams?.session_id === "string"
+      ? searchParams.session_id
+      : null;
+
   return (
-    <Suspense fallback={<Loading />}>
-      <OnboardingInterstateClient />
+    <Suspense fallback={<div style={{ color: "#fff", padding: 40 }}>Cargando onboarding…</div>}>
+      <OnboardingWizard sessionId={sessionId} />
     </Suspense>
-  );
-}
-
-function Loading() {
-  return (
-    <main style={{ minHeight: "100vh", background: "#0b0b0b", color: "#fff", padding: 40 }}>
-      <h1>Cargando onboarding…</h1>
-    </main>
   );
 }

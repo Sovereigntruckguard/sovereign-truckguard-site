@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 /* =========================
-   ESTILO BASE (SOVEREIGN)
+   ESTILO BASE SOVEREIGN
 ========================= */
+
 const colors = {
   bg: "#0b0b0b",
   gold: "#FFD700",
@@ -13,85 +13,69 @@ const colors = {
   soft: "rgba(255,255,255,0.75)",
 };
 
-const BACKEND_BASE_URL =
-  "https://azoth-regulatorios-798731178244.us-central1.run.app";
+/* =========================
+   COMPONENTE PRINCIPAL
+========================= */
 
-export default function OnboardingInterstatePage() {
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get("session_id");
+export default function OnboardingWizard({ sessionId }) {
+  const [step, setStep] = useState(1);
 
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
-
-  const [form, setForm] = useState({
-    companyName1: "",
-    companyName2: "",
-    companyName3: "",
-    state: "",
-    legalStructure: "",
-    email: "",
-    phone: "",
-    confirm: false,
+  const [data, setData] = useState({
+    company: {
+      legalStructure: "",
+      state: "",
+      startDate: "",
+      businessAddress: "",
+      mailingAddress: "",
+    },
+    names: {
+      name1: "",
+      name2: "",
+      name3: "",
+    },
+    owners: [
+      {
+        fullName: "",
+        dob: "",
+        ssnItin: "",
+        ownershipPct: "",
+        address: "",
+        phone: "",
+        email: "",
+        isDriver: false,
+      },
+    ],
+    operation: {
+      cargoTypes: "",
+      trucks: "",
+      ownerDrives: false,
+    },
+    interstate: {
+      mcRequired: false,
+      plannedStartDate: "",
+    },
+    confirmations: {
+      feesPaid: false,
+      authorized: false,
+    },
   });
 
-  function updateField(e) {
-    const { name, value, type, checked } = e.target;
-    setForm((prev) => ({
+  function update(section, field, value) {
+    setData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [section]: {
+        ...prev[section],
+        [field]: value,
+      },
     }));
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError("");
+  function next() {
+    setStep((s) => s + 1);
+  }
 
-    if (
-      !sessionId ||
-      !form.companyName1 ||
-      !form.state ||
-      !form.legalStructure ||
-      !form.email ||
-      !form.confirm
-    ) {
-      setError("Completa los campos obligatorios.");
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      await fetch(`${BACKEND_BASE_URL}/onboarding/company`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          order_id: sessionId, // 🔑 ancla Stripe → onboarding
-          company: {
-            legal_structure: form.legalStructure,
-            state_of_formation: form.state,
-            business_email: form.email,
-            business_phone: form.phone,
-          },
-          name_preferences: [
-            form.companyName1,
-            form.companyName2,
-            form.companyName3,
-          ].filter(Boolean),
-          confirmations: {
-            intake_phase_1: true,
-          },
-          owners: [],
-          operation: {},
-        }),
-      });
-
-      setSubmitted(true);
-    } catch (err) {
-      setError("Error enviando información. Intenta nuevamente.");
-    } finally {
-      setLoading(false);
-    }
+  function back() {
+    setStep((s) => s - 1);
   }
 
   return (
@@ -103,72 +87,275 @@ export default function OnboardingInterstatePage() {
         padding: "48px 20px",
       }}
     >
-      <div style={{ maxWidth: 720, margin: "0 auto" }}>
-        <div style={{ letterSpacing: "0.2em", fontSize: 12, marginBottom: 12, color: colors.soft }}>
-          SOVEREIGN TRUCKGUARD · ONBOARDING
-        </div>
+      <div style={{ maxWidth: 760, margin: "0 auto" }}>
+        <Header sessionId={sessionId} step={step} />
 
-        <h1 style={{ fontSize: 36, marginBottom: 14, color: colors.gold }}>
-          Pago recibido correctamente ✅
-        </h1>
-
-        <p style={{ fontSize: 17, color: colors.soft, marginBottom: 32 }}>
-          Iniciaremos la validación legal de tu compañía. Completa esta información
-          para asegurar el proceso.
-        </p>
-
-        {submitted ? (
-          <div style={{
-            border: `1px solid ${colors.gold}`,
-            borderRadius: 14,
-            padding: 22,
-            background: "rgba(255,215,0,0.05)",
-          }}>
-            <h2>Información recibida ✅</h2>
-            <p style={{ color: colors.soft }}>
-              Un asesor de Sovereign continuará el proceso contigo.
-            </p>
-            <div style={{ marginTop: 12, fontSize: 13, opacity: 0.7 }}>
-              Session ID: {sessionId}
-            </div>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16 }}>
-            <input name="companyName1" placeholder="Nombre compañía (opción 1)*" value={form.companyName1} onChange={updateField} style={inputStyle} />
-            <input name="companyName2" placeholder="Nombre compañía (opción 2)" value={form.companyName2} onChange={updateField} style={inputStyle} />
-            <input name="companyName3" placeholder="Nombre compañía (opción 3)" value={form.companyName3} onChange={updateField} style={inputStyle} />
-
-            <select name="state" value={form.state} onChange={updateField} style={inputStyle}>
-              <option value="">Estado*</option>
-              <option value="TX">Texas</option>
-              <option value="FL">Florida</option>
-              <option value="CA">California</option>
-              <option value="WY">Wyoming</option>
-            </select>
-
-            <select name="legalStructure" value={form.legalStructure} onChange={updateField} style={inputStyle}>
-              <option value="">Estructura legal*</option>
-              <option value="LLC">LLC</option>
-              <option value="CORP">Corporation</option>
-              <option value="SOLE">Sole Proprietor</option>
-            </select>
-
-            <input name="email" placeholder="Email*" value={form.email} onChange={updateField} style={inputStyle} />
-            <input name="phone" placeholder="Teléfono" value={form.phone} onChange={updateField} style={inputStyle} />
-
-            <label style={{ fontSize: 14, color: colors.soft }}>
-              <input type="checkbox" name="confirm" checked={form.confirm} onChange={updateField} /> Confirmo la información
-            </label>
-
-            {error && <div style={{ color: "#ff6b6b" }}>{error}</div>}
-
-            <button type="submit" disabled={loading} style={submitStyle}>
-              {loading ? "Enviando..." : "Iniciar validación"}
-            </button>
-          </form>
+        {step === 1 && (
+          <StepCompany data={data.company} update={update} onNext={next} />
         )}
+        {step === 2 && (
+          <StepNames data={data.names} update={update} onNext={next} onBack={back} />
+        )}
+        {step === 3 && (
+          <StepOwners data={data.owners} setData={setData} onNext={next} onBack={back} />
+        )}
+        {step === 4 && (
+          <StepOperation data={data.operation} update={update} onNext={next} onBack={back} />
+        )}
+        {step === 5 && (
+          <StepInterstate data={data.interstate} update={update} onNext={next} onBack={back} />
+        )}
+        {step === 6 && (
+          <StepConfirm data={data.confirmations} update={update} onNext={next} onBack={back} />
+        )}
+        {step === 7 && <StepReview data={data} onBack={back} />}
       </div>
     </main>
+  );
+}
+
+/* =========================
+   HEADER
+========================= */
+
+function Header({ sessionId, step }) {
+  return (
+    <>
+      <div style={{ letterSpacing: "0.2em", fontSize: 12, color: colors.soft }}>
+        SOVEREIGN TRUCKGUARD · ONBOARDING
+      </div>
+
+      <h1 style={{ fontSize: 34, color: colors.gold, margin: "12px 0" }}>
+        Paso {step} de 7
+      </h1>
+
+      <p style={{ color: colors.soft, marginBottom: 30 }}>
+        Checkout Session ID: {sessionId || "N/A"}
+      </p>
+    </>
+  );
+}
+
+/* =========================
+   STEP 1 — COMPANY
+========================= */
+
+function StepCompany({ data, update, onNext }) {
+  return (
+    <>
+      <h2>Información de la compañía</h2>
+
+      <Input
+        label="Estructura legal"
+        value={data.legalStructure}
+        onChange={(v) => update("company", "legalStructure", v)}
+      />
+
+      <Input
+        label="Estado de formación"
+        value={data.state}
+        onChange={(v) => update("company", "state", v)}
+      />
+
+      <Input
+        label="Dirección del negocio"
+        value={data.businessAddress}
+        onChange={(v) => update("company", "businessAddress", v)}
+      />
+
+      <Button onClick={onNext}>Continuar</Button>
+    </>
+  );
+}
+
+/* =========================
+   STEP 2 — NAMES
+========================= */
+
+function StepNames({ data, update, onNext, onBack }) {
+  return (
+    <>
+      <h2>Nombres de la compañía</h2>
+
+      <Input
+        label="Nombre opción 1"
+        value={data.name1}
+        onChange={(v) => update("names", "name1", v)}
+      />
+      <Input
+        label="Nombre opción 2"
+        value={data.name2}
+        onChange={(v) => update("names", "name2", v)}
+      />
+      <Input
+        label="Nombre opción 3"
+        value={data.name3}
+        onChange={(v) => update("names", "name3", v)}
+      />
+
+      <NavButtons onBack={onBack} onNext={onNext} />
+    </>
+  );
+}
+
+/* =========================
+   STEP 3 — OWNERS
+========================= */
+
+function StepOwners({ data, setData, onNext, onBack }) {
+  const owner = data[0];
+
+  function updateOwner(field, value) {
+    const copy = [...data];
+    copy[0] = { ...copy[0], [field]: value };
+    setData((prev) => ({ ...prev, owners: copy }));
+  }
+
+  return (
+    <>
+      <h2>Owner principal</h2>
+
+      <Input label="Nombre completo" value={owner.fullName} onChange={(v) => updateOwner("fullName", v)} />
+      <Input label="DOB" value={owner.dob} onChange={(v) => updateOwner("dob", v)} />
+      <Input label="SSN / ITIN" value={owner.ssnItin} onChange={(v) => updateOwner("ssnItin", v)} />
+      <Input label="Ownership %" value={owner.ownershipPct} onChange={(v) => updateOwner("ownershipPct", v)} />
+
+      <NavButtons onBack={onBack} onNext={onNext} />
+    </>
+  );
+}
+
+/* =========================
+   STEP 4 — OPERATION
+========================= */
+
+function StepOperation({ data, update, onNext, onBack }) {
+  return (
+    <>
+      <h2>Operación</h2>
+
+      <Input label="Tipo de carga" value={data.cargoTypes} onChange={(v) => update("operation", "cargoTypes", v)} />
+      <Input label="Número de camiones" value={data.trucks} onChange={(v) => update("operation", "trucks", v)} />
+
+      <NavButtons onBack={onBack} onNext={onNext} />
+    </>
+  );
+}
+
+/* =========================
+   STEP 5 — INTERSTATE
+========================= */
+
+function StepInterstate({ data, update, onNext, onBack }) {
+  return (
+    <>
+      <h2>MC Authority</h2>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={data.mcRequired}
+          onChange={(e) => update("interstate", "mcRequired", e.target.checked)}
+        />{" "}
+        Requiere MC Authority
+      </label>
+
+      <NavButtons onBack={onBack} onNext={onNext} />
+    </>
+  );
+}
+
+/* =========================
+   STEP 6 — CONFIRM
+========================= */
+
+function StepConfirm({ data, update, onNext, onBack }) {
+  return (
+    <>
+      <h2>Confirmaciones</h2>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={data.feesPaid}
+          onChange={(e) => update("confirmations", "feesPaid", e.target.checked)}
+        />{" "}
+        Fees pagados por el cliente
+      </label>
+
+      <br />
+
+      <label>
+        <input
+          type="checkbox"
+          checked={data.authorized}
+          onChange={(e) => update("confirmations", "authorized", e.target.checked)}
+        />{" "}
+        Autorizo la validación
+      </label>
+
+      <NavButtons onBack={onBack} onNext={onNext} />
+    </>
+  );
+}
+
+/* =========================
+   STEP 7 — REVIEW
+========================= */
+
+function StepReview({ data, onBack }) {
+  return (
+    <>
+      <h2>Resumen final</h2>
+      <pre style={{ fontSize: 12, background: "#111", padding: 12 }}>
+        {JSON.stringify(data, null, 2)}
+      </pre>
+
+      <Button onClick={onBack}>Volver</Button>
+    </>
+  );
+}
+
+/* =========================
+   UI HELPERS
+========================= */
+
+function Input({ label, value, onChange }) {
+  return (
+    <input
+      placeholder={label}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      style={inputStyle}
+    />
+  );
+}
+
+function Button({ children, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        marginTop: 20,
+        padding: "14px 20px",
+        borderRadius: 999,
+        background: colors.gold,
+        border: "none",
+        fontWeight: 900,
+        cursor: "pointer",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+function NavButtons({ onBack, onNext }) {
+  return (
+    <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
+      <Button onClick={onBack}>Atrás</Button>
+      <Button onClick={onNext}>Continuar</Button>
+    </div>
   );
 }
 
@@ -180,14 +367,5 @@ const inputStyle = {
   background: "rgba(0,0,0,0.35)",
   color: "#fff",
   fontSize: 15,
-};
-
-const submitStyle = {
-  padding: "14px 20px",
-  borderRadius: 999,
-  border: "none",
-  background: colors.gold,
-  color: "#000",
-  fontWeight: 900,
-  cursor: "pointer",
+  marginBottom: 12,
 };
