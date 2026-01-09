@@ -181,7 +181,7 @@ function Header({ sessionId, step }) {
         SOVEREIGN TRUCKGUARD · ONBOARDING
       </div>
 
-      <h1 style={{ fontSize: 34, color: colors.gold, margin: "12px 0 6px" }}>
+      <h1 style={{ fontSize: 34, color: colors.gold, margin: "12px" }}>
         Paso {step} de 7
       </h1>
 
@@ -1178,6 +1178,9 @@ const cargoGrid = {
 
 const grid2Style = {
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+  gridTemplateColumns: "1fr 1fr",
   gap: 12,
+  width: "100%",
+  maxWidth: "100%",
 };
+
