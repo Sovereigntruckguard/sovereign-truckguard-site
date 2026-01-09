@@ -128,6 +128,7 @@ export default function OnboardingWizard({ sessionId }) {
 
   // ✅ Submit real al backend (sin romper UI)
   async function handleSubmitWizard() {
+    console.log("🔥 SUBMIT CLICKED", { sessionId });
     try {
       setSubmitting(true);
       setSubmitError("");
