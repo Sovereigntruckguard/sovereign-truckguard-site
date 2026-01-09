@@ -106,6 +106,11 @@ export default function OnboardingWizard({ sessionId }) {
     },
   });
 
+  // ✅ Estados para submit (PASO 2 los mostraremos en UI)
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submittedOk, setSubmittedOk] = useState(false);
+
   function next() {
     setStep((s) => Math.min(7, s + 1));
   }
@@ -121,12 +126,55 @@ export default function OnboardingWizard({ sessionId }) {
     );
   }, [data.owners]);
 
-  const handleSubmitWizard = () => {
-    // FASE A (UI): solo validamos que el payload está listo.
-    // FASE B: aquí conectamos POST al backend.
-    console.log("READY_TO_SUBMIT (FASE B):", { sessionId, data });
-    alert("✅ Onboarding listo. (FASE B: conectamos envío al backend)");
-  };
+  // ✅ Submit real al backend (sin romper UI)
+  async function handleSubmitWizard() {
+    try {
+      setSubmitting(true);
+      setSubmitError("");
+      setSubmittedOk(false);
+
+      // sessionId es crítico para correlación
+      if (!sessionId) {
+        throw new Error("Missing checkout session ID (session_id)");
+      }
+
+      // Payload listo para backend
+      const payload = {
+        order_id: sessionId, // (FASE 1: correlación por sessionId)
+        company: data.company,
+        names: data.names,
+        owners: data.owners,
+        operation: data.operation,
+        interstate: data.interstate,
+        confirmations: data.confirmations,
+      };
+
+      const res = await fetch(
+        "https://azoth-regulatorios-798731178244.us-central1.run.app/onboarding/company",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const json = await res.json().catch(() => ({}));
+
+      if (!res.ok || !json?.ok) {
+        throw new Error(json?.error || "Failed to submit onboarding");
+      }
+
+      setSubmittedOk(true);
+      alert("✅ Onboarding enviado correctamente.");
+    } catch (err) {
+      console.error(err);
+      const msg = err?.message || "Error enviando onboarding";
+      setSubmitError(msg);
+      alert(`❌ ${msg}`);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <main
@@ -142,8 +190,17 @@ export default function OnboardingWizard({ sessionId }) {
         <Stepper step={step} />
 
         <Card>
-          {step === 1 && <StepCompany data={data} setData={setData} onNext={next} />}
-          {step === 2 && <StepNames data={data} setData={setData} onNext={next} onBack={back} />}
+          {step === 1 && (
+            <StepCompany data={data} setData={setData} onNext={next} />
+          )}
+          {step === 2 && (
+            <StepNames
+              data={data}
+              setData={setData}
+              onNext={next}
+              onBack={back}
+            />
+          )}
           {step === 3 && (
             <StepOwners
               data={data}
@@ -153,9 +210,30 @@ export default function OnboardingWizard({ sessionId }) {
               ownershipTotal={ownershipTotal}
             />
           )}
-          {step === 4 && <StepOperation data={data} setData={setData} onNext={next} onBack={back} />}
-          {step === 5 && <StepInterstate data={data} setData={setData} onNext={next} onBack={back} />}
-          {step === 6 && <StepConfirm data={data} setData={setData} onNext={next} onBack={back} />}
+          {step === 4 && (
+            <StepOperation
+              data={data}
+              setData={setData}
+              onNext={next}
+              onBack={back}
+            />
+          )}
+          {step === 5 && (
+            <StepInterstate
+              data={data}
+              setData={setData}
+              onNext={next}
+              onBack={back}
+            />
+          )}
+          {step === 6 && (
+            <StepConfirm
+              data={data}
+              setData={setData}
+              onNext={next}
+              onBack={back}
+            />
+          )}
           {step === 7 && (
             <StepReview
               data={data}
@@ -163,13 +241,23 @@ export default function OnboardingWizard({ sessionId }) {
               onSubmit={handleSubmitWizard}
               ownershipTotal={ownershipTotal}
               sessionId={sessionId}
+              // ✅ PASO 2: conectamos estos props en el StepReview UI
+              // submitting={submitting}
+              // submitError={submitError}
+              // submittedOk={submittedOk}
             />
           )}
         </Card>
+
+        {/* ✅ PASO 2: aquí podremos mostrar status global si quieres (opcional) */}
+        {/* {submitting && <Hint>Enviando onboarding...</Hint>} */}
+        {/* {submitError && <Hint><span style={{color: colors.danger}}>{submitError}</span></Hint>} */}
+        {/* {submittedOk && <Hint><span style={{color: colors.ok}}>Enviado ✅</span></Hint>} */}
       </div>
     </main>
   );
 }
+
 
 /* =========================
    HEADER + STEPPER
@@ -1184,3 +1272,6 @@ const grid2Style = {
   maxWidth: "100%",
 };
 
+if (typeof window !== "undefined" && window.innerWidth < 768) {
+  grid2Style.gridTemplateColumns = "1fr";
+}
