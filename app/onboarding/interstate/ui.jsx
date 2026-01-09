@@ -95,11 +95,14 @@ export default function OnboardingWizard({ sessionId }) {
     interstate: {
       mcRequired: true,
       plannedStartDate: "",
+      haulForHire: false,
+      notes: "",
     },
     confirmations: {
-      feesPaidByClient: false,
-      authorizeFiling: false,
-      infoTrue: false,
+      feesUnderstanding: false,
+      authorized: false,
+      truthful: false,
+      allowContact: false,
     },
   });
 
@@ -460,25 +463,56 @@ function StepCompany({ data, setData, onNext }) {
 }
 
 /* =========================
-   STEP 2 — NAMES
+   STEP 2 — COMPANY NAMES
 ========================= */
 function StepNames({ data, setData, onNext, onBack }) {
   const n = data.names;
 
-  function updateNames(field, value) {
-    setData((prev) => ({ ...prev, names: { ...prev.names, [field]: value } }));
+  function updateName(field, value) {
+    setData((prev) => ({
+      ...prev,
+      names: {
+        ...prev.names,
+        [field]: value,
+      },
+    }));
   }
 
-  const canContinue = () => !!n.name1;
+  function canContinue() {
+    return Boolean(n.name1 && n.name1.trim().length > 0);
+  }
 
   return (
     <>
       <Title>Nombres de la compañía</Title>
-      <SubTitle>Incluye 3 opciones para validar disponibilidad</SubTitle>
+      <SubTitle>
+        Ingresa hasta 3 opciones. Validaremos disponibilidad antes de registrar.
+      </SubTitle>
 
-      <Input label="Nombre opción 1 *" value={n.name1} onChange={(v) => updateNames("name1", v)} />
-      <Input label="Nombre opción 2" value={n.name2} onChange={(v) => updateNames("name2", v)} />
-      <Input label="Nombre opción 3" value={n.name3} onChange={(v) => updateNames("name3", v)} />
+      <Input
+        label="Nombre opción 1 *"
+        value={n.name1}
+        onChange={(v) => updateName("name1", v)}
+        placeholder="Ej: Sovereign Logistics LLC"
+      />
+
+      <Input
+        label="Nombre opción 2"
+        value={n.name2}
+        onChange={(v) => updateName("name2", v)}
+        placeholder="Ej: Sovereign Transport LLC"
+      />
+
+      <Input
+        label="Nombre opción 3"
+        value={n.name3}
+        onChange={(v) => updateName("name3", v)}
+        placeholder="Ej: Sovereign Trucking LLC"
+      />
+
+      <Hint>
+        Recomendación: usa nombres distintos entre sí para evitar rechazos.
+      </Hint>
 
       <NavBar>
         <GhostButton onClick={onBack}>Volver</GhostButton>
@@ -487,26 +521,22 @@ function StepNames({ data, setData, onNext, onBack }) {
         </PrimaryButton>
       </NavBar>
 
-      {!canContinue() && <Hint>La opción 1 es obligatoria.</Hint>}
+      {!canContinue() && (
+        <Hint>Debes ingresar al menos un nombre para continuar.</Hint>
+      )}
     </>
   );
 }
 
 /* =========================
-   STEP 3 — OWNERS (con dirección completa + total ownership)
+   STEP 3 — OWNERS / SOCIOS
 ========================= */
-function StepOwners({ data, setData, onNext, onBack, ownershipTotal }) {
+function StepOwners({ data, setData, onNext, onBack }) {
   const owners = data.owners;
 
-  function updateOwner(idx, field, value) {
-    const copy = structuredClone(owners);
-    copy[idx][field] = value;
-    setData((prev) => ({ ...prev, owners: copy }));
-  }
-
-  function updateOwnerAddress(idx, field, value) {
-    const copy = structuredClone(owners);
-    copy[idx].residentialAddress[field] = value;
+  function updateOwner(index, field, value) {
+    const copy = [...owners];
+    copy[index] = { ...copy[index], [field]: value };
     setData((prev) => ({ ...prev, owners: copy }));
   }
 
@@ -519,8 +549,8 @@ function StepOwners({ data, setData, onNext, onBack, ownershipTotal }) {
           fullName: "",
           dob: "",
           ssnItin: "",
-          ownershipPct: 0,
-          residentialAddress: { street: "", city: "", state: "", zip: "", country: "US" },
+          ownershipPct: "",
+          address: "",
           phone: "",
           email: "",
           isDriver: false,
@@ -529,117 +559,282 @@ function StepOwners({ data, setData, onNext, onBack, ownershipTotal }) {
     }));
   }
 
-  function removeOwner(idx) {
-    if (owners.length <= 1) return;
-    setData((prev) => ({
-      ...prev,
-      owners: prev.owners.filter((_, i) => i !== idx),
-    }));
+  function totalOwnership() {
+    return owners.reduce(
+      (sum, o) => sum + Number(o.ownershipPct || 0),
+      0
+    );
   }
 
-  const canContinue = () => {
-    if (!owners.length) return false;
-    if (ownershipTotal !== 100) return false;
-    const o0 = owners[0];
-    if (!o0.fullName || !o0.dob || !o0.ssnItin) return false;
-    const a0 = o0.residentialAddress;
-    if (!a0.street || !a0.city || !a0.state || !a0.zip) return false;
-    return true;
-  };
+  function canContinue() {
+    if (owners.length < 1) return false;
+    if (totalOwnership() !== 100) return false;
+
+    return owners.every(
+      (o) =>
+        o.fullName &&
+        o.dob &&
+        o.ssnItin &&
+        o.ownershipPct &&
+        o.address
+    );
+  }
 
   return (
     <>
       <Title>Owners / Socios</Title>
       <SubTitle>
-        Ownership total:{" "}
-        <span style={{ color: ownershipTotal === 100 ? colors.gold : colors.danger, fontWeight: 900 }}>
-          {ownershipTotal}%
-        </span>
-        {" · "}Debe sumar 100%
+        La propiedad total debe sumar <b>100%</b>. Mínimo 1 owner.
       </SubTitle>
 
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center", marginBottom: 10 }}>
-        <div style={{ fontSize: 12, color: colors.soft }}>
-          Mínimo 1 owner. Puedes añadir más si aplica.
-        </div>
-        <SmallButton onClick={addOwner}>+ Add owner</SmallButton>
-      </div>
+      {owners.map((owner, i) => (
+        <Card key={i}>
+          <SectionTitle>Owner #{i + 1}</SectionTitle>
 
-      {owners.map((o, idx) => (
-        <div key={idx} style={ownerCard}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
-            <div style={{ fontWeight: 950, color: colors.gold }}>Owner #{idx + 1}</div>
-            {owners.length > 1 && (
-              <SmallDangerButton onClick={() => removeOwner(idx)}>Remove</SmallDangerButton>
-            )}
-          </div>
+          <Input
+            label="Nombre completo *"
+            value={owner.fullName}
+            onChange={(v) => updateOwner(i, "fullName", v)}
+          />
 
           <Grid2>
-            <Input label="Full name *" value={o.fullName} onChange={(v) => updateOwner(idx, "fullName", v)} />
-            <Input label="DOB (YYYY-MM-DD) *" value={o.dob} onChange={(v) => updateOwner(idx, "dob", v)} />
-          </Grid2>
-
-          <Grid2>
-            <Input label="SSN / ITIN *" value={o.ssnItin} onChange={(v) => updateOwner(idx, "ssnItin", v)} />
+            <Input
+              label="DOB (YYYY-MM-DD) *"
+              value={owner.dob}
+              onChange={(v) => updateOwner(i, "dob", v)}
+              placeholder="1994-12-19"
+            />
             <Input
               label="Ownership % *"
-              value={String(o.ownershipPct ?? "")}
-              onChange={(v) => updateOwner(idx, "ownershipPct", Number(v))}
+              value={owner.ownershipPct}
+              onChange={(v) => updateOwner(i, "ownershipPct", v)}
               placeholder="100"
             />
           </Grid2>
 
+          <Input
+            label="SSN / ITIN *"
+            value={owner.ssnItin}
+            onChange={(v) => updateOwner(i, "ssnItin", v)}
+            placeholder="***-**-1234"
+          />
+
+          <Input
+            label="Dirección residencial *"
+            value={owner.address}
+            onChange={(v) => updateOwner(i, "address", v)}
+          />
+
           <Grid2>
-            <Input label="Phone" value={o.phone} onChange={(v) => updateOwner(idx, "phone", v)} />
-            <Input label="Email" value={o.email} onChange={(v) => updateOwner(idx, "email", v)} />
+            <Input
+              label="Teléfono"
+              value={owner.phone}
+              onChange={(v) => updateOwner(i, "phone", v)}
+            />
+            <Input
+              label="Email"
+              value={owner.email}
+              onChange={(v) => updateOwner(i, "email", v)}
+            />
           </Grid2>
 
           <CheckRow
-            checked={o.isDriver}
-            onChange={(val) => updateOwner(idx, "isDriver", val)}
-            label="Owner drives"
+            checked={owner.isDriver}
+            onChange={(v) => updateOwner(i, "isDriver", v)}
+            label="Este owner conduce"
           />
-
-          <SectionTitle style={{ marginTop: 10 }}>Residential address *</SectionTitle>
-
-          <Input
-            label="Street *"
-            value={o.residentialAddress.street}
-            onChange={(v) => updateOwnerAddress(idx, "street", v)}
-          />
-
-          <Grid2>
-            <Input
-              label="City *"
-              value={o.residentialAddress.city}
-              onChange={(v) => updateOwnerAddress(idx, "city", v)}
-            />
-            <Input
-              label="State *"
-              value={o.residentialAddress.state}
-              onChange={(v) => updateOwnerAddress(idx, "state", v)}
-            />
-          </Grid2>
-
-          <Grid2>
-            <Input
-              label="ZIP *"
-              value={o.residentialAddress.zip}
-              onChange={(v) => updateOwnerAddress(idx, "zip", v)}
-            />
-            <Select
-              label="Country"
-              value={o.residentialAddress.country}
-              onChange={(v) => updateOwnerAddress(idx, "country", v)}
-              options={[
-                { label: "United States", value: "US" },
-                { label: "Mexico", value: "MX" },
-                { label: "Colombia", value: "CO" },
-              ]}
-            />
-          </Grid2>
-        </div>
+        </Card>
       ))}
+
+      <GhostButton onClick={addOwner}>+ Agregar owner</GhostButton>
+
+      <Divider />
+
+      <Hint>
+        Ownership total: <b>{totalOwnership()}%</b>
+      </Hint>
+
+      {totalOwnership() !== 100 && (
+        <Hint error>
+          La suma de ownership debe ser exactamente 100%.
+        </Hint>
+      )}
+
+      <NavBar>
+        <GhostButton onClick={onBack}>Volver</GhostButton>
+        <PrimaryButton disabled={!canContinue()} onClick={onNext}>
+          Continuar
+        </PrimaryButton>
+      </NavBar>
+    </>
+  );
+}
+
+
+/* =========================
+   STEP 4 — OPERATION
+========================= */
+function StepOperation({ data, setData, onNext, onBack }) {
+  const o = data.operation;
+
+  function updateOperation(field, value) {
+    setData((prev) => ({
+      ...prev,
+      operation: { ...prev.operation, [field]: value },
+    }));
+  }
+
+  function canContinue() {
+    if (!o.operationType) return false;
+    if (!o.cargoTypes) return false;
+    if (!o.numberOfTrucks || Number(o.numberOfTrucks) < 1) return false;
+    if (!o.milesPerYear) return false;
+    if (!o.operationRadius) return false;
+    return true;
+  }
+
+  return (
+    <>
+      <Title>Operación</Title>
+      <SubTitle>
+        Esta información define tu perfil ante FMCSA y aseguradoras.
+      </SubTitle>
+
+      <Select
+        label="Tipo de operación *"
+        value={o.operationType}
+        onChange={(v) => updateOperation("operationType", v)}
+        options={[
+          { label: "Selecciona", value: "" },
+          { label: "Interstate", value: "INTERSTATE" },
+          { label: "Intrastate", value: "INTRASTATE" },
+        ]}
+      />
+
+      <Select
+        label="Tipo de carga principal *"
+        value={o.cargoTypes}
+        onChange={(v) => updateOperation("cargoTypes", v)}
+        options={[
+          { label: "Selecciona", value: "" },
+          { label: "General Freight", value: "GENERAL_FREIGHT" },
+          { label: "Dry Van", value: "DRY_VAN" },
+          { label: "Reefer", value: "REEFER" },
+          { label: "Flatbed", value: "FLATBED" },
+          { label: "Auto Hauler", value: "AUTO_HAULER" },
+          { label: "Hazmat", value: "HAZMAT" },
+          { label: "Otros", value: "OTHER" },
+        ]}
+      />
+
+      <Grid2>
+        <Input
+          label="Número de camiones *"
+          value={o.numberOfTrucks}
+          onChange={(v) => updateOperation("numberOfTrucks", v)}
+          placeholder="1"
+        />
+
+        <Select
+          label="Millas por año *"
+          value={o.milesPerYear}
+          onChange={(v) => updateOperation("milesPerYear", v)}
+          options={[
+            { label: "Selecciona", value: "" },
+            { label: "0 – 50,000", value: "0_50K" },
+            { label: "50,001 – 100,000", value: "50K_100K" },
+            { label: "100,001 – 150,000", value: "100K_150K" },
+            { label: "150,000+", value: "150K_PLUS" },
+          ]}
+        />
+      </Grid2>
+
+      <Select
+        label="Radio de operación *"
+        value={o.operationRadius}
+        onChange={(v) => updateOperation("operationRadius", v)}
+        options={[
+          { label: "Selecciona", value: "" },
+          { label: "Local (0–100 miles)", value: "LOCAL" },
+          { label: "Regional (100–500 miles)", value: "REGIONAL" },
+          { label: "Nacional (500+ miles)", value: "NATIONAL" },
+        ]}
+      />
+
+      <CheckRow
+        checked={o.ownerDrives}
+        onChange={(val) => updateOperation("ownerDrives", val)}
+        label="El owner principal conduce"
+      />
+
+      <NavBar>
+        <GhostButton onClick={onBack}>Volver</GhostButton>
+        <PrimaryButton disabled={!canContinue()} onClick={onNext}>
+          Continuar
+        </PrimaryButton>
+      </NavBar>
+
+      {!canContinue() && (
+        <Hint>Completa todos los campos obligatorios para continuar.</Hint>
+      )}
+    </>
+  );
+}
+
+/* =========================
+   STEP 5 — INTERSTATE / MC AUTHORITY
+========================= */
+function StepInterstate({ data, setData, onNext, onBack }) {
+  const i = data.interstate;
+
+  function updateInterstate(field, value) {
+    setData((prev) => ({
+      ...prev,
+      interstate: { ...prev.interstate, [field]: value },
+    }));
+  }
+
+  function canContinue() {
+    if (i.mcRequired && !i.plannedStartDate) return false;
+    return true;
+  }
+
+  return (
+    <>
+      <Title>MC Authority (Interstate)</Title>
+      <SubTitle>
+        Esta sección solo aplica si operarás a nivel federal (Interstate).
+      </SubTitle>
+
+      <CheckRow
+        checked={i.mcRequired}
+        onChange={(val) => updateInterstate("mcRequired", val)}
+        label="Requiero MC Authority (operación Interstate)"
+      />
+
+      {i.mcRequired && (
+        <>
+          <Input
+            label="Fecha estimada de inicio de operaciones *"
+            value={i.plannedStartDate}
+            onChange={(v) => updateInterstate("plannedStartDate", v)}
+            placeholder="YYYY-MM-DD"
+          />
+
+          <CheckRow
+            checked={i.haulForHire}
+            onChange={(val) => updateInterstate("haulForHire", val)}
+            label="Transportaré carga de terceros (For-Hire)"
+          />
+        </>
+      )}
+
+      <TextArea
+        label="Comentarios adicionales (opcional)"
+        value={i.notes}
+        onChange={(v) => updateInterstate("notes", v)}
+        placeholder="Ej: Planeo iniciar con un contrato específico, o cambiar de intrastate a interstate."
+      />
 
       <NavBar>
         <GhostButton onClick={onBack}>Volver</GhostButton>
@@ -650,7 +845,74 @@ function StepOwners({ data, setData, onNext, onBack, ownershipTotal }) {
 
       {!canContinue() && (
         <Hint>
-          Requisitos mínimos: Owner #1 con nombre, DOB, SSN/ITIN, dirección completa y ownership total = 100%.
+          Si requieres MC Authority, debes indicar la fecha estimada de inicio.
+        </Hint>
+      )}
+    </>
+  );
+}
+
+
+/* =========================
+   STEP 6 — CONFIRMACIONES LEGALES
+========================= */
+function StepConfirm({ data, setData, onNext, onBack }) {
+  const c = data.confirmations;
+
+  function updateConfirm(field, value) {
+    setData((prev) => ({
+      ...prev,
+      confirmations: { ...prev.confirmations, [field]: value },
+    }));
+  }
+
+  function canContinue() {
+    return c.feesUnderstanding && c.authorized && c.truthful;
+  }
+
+  return (
+    <>
+      <Title>Confirmaciones finales</Title>
+      <SubTitle>
+        Antes de continuar, necesitamos tu confirmación sobre estos puntos.
+      </SubTitle>
+
+      <CheckRow
+        checked={c.feesUnderstanding}
+        onChange={(val) => updateConfirm("feesUnderstanding", val)}
+        label="Entiendo que los government fees (FMCSA, State, UCR, etc.) se pagan aparte y directamente en portales oficiales."
+      />
+
+      <CheckRow
+        checked={c.authorized}
+        onChange={(val) => updateConfirm("authorized", val)}
+        label="Autorizo a Sovereign TruckGuard a gestionar y presentar registros administrativos en mi nombre."
+      />
+
+      <CheckRow
+        checked={c.truthful}
+        onChange={(val) => updateConfirm("truthful", val)}
+        label="Confirmo que la información proporcionada es veraz y completa."
+      />
+
+      <Divider />
+
+      <CheckRow
+        checked={c.allowContact}
+        onChange={(val) => updateConfirm("allowContact", val)}
+        label="Acepto ser contactado por WhatsApp o email para seguimiento del proceso (opcional)."
+      />
+
+      <NavBar>
+        <GhostButton onClick={onBack}>Volver</GhostButton>
+        <PrimaryButton disabled={!canContinue()} onClick={onNext}>
+          Continuar
+        </PrimaryButton>
+      </NavBar>
+
+      {!canContinue() && (
+        <Hint>
+          Debes aceptar las confirmaciones obligatorias para continuar.
         </Hint>
       )}
     </>
@@ -658,238 +920,133 @@ function StepOwners({ data, setData, onNext, onBack, ownershipTotal }) {
 }
 
 /* =========================
-   STEP 4 — OPERATION (cargo types multiselect)
+   STEP 7 — REVIEW FINAL (HUMANO)
 ========================= */
-function StepOperation({ data, setData, onNext, onBack }) {
-  const op = data.operation;
-
-  function updateOp(field, value) {
-    setData((prev) => ({
-      ...prev,
-      operation: { ...prev.operation, [field]: value },
-    }));
-  }
-
-  const canContinue = () => op.trucks >= 1 && op.cargoTypes.length >= 1;
+function StepReview({ data, onBack, onSubmit }) {
+  const { company, names, owners, operation, interstate } = data;
+  const owner = owners[0] || {};
 
   return (
     <>
-      <Title>Operación</Title>
-      <SubTitle>Define la operación para alinear DOT / MC / seguro</SubTitle>
+      <Title>Revisión final</Title>
+      <SubTitle>
+        Revisa cuidadosamente la información antes de enviarla.  
+        Si algo no está correcto, puedes volver y editarlo.
+      </SubTitle>
 
-      <Grid2>
-        <Select
-          label="Operation type"
-          value={op.operationType}
-          onChange={(v) => updateOp("operationType", v)}
-          options={[
-            { label: "INTERSTATE", value: "INTERSTATE" },
-            { label: "INTRASTATE", value: "INTRASTATE" },
-          ]}
-        />
-        <Input
-          label="# Trucks *"
-          value={String(op.trucks)}
-          onChange={(v) => updateOp("trucks", Number(v))}
-          placeholder="1"
-        />
-      </Grid2>
+      <SectionCard>
+        <SectionTitle>Compañía</SectionTitle>
+        <Row><b>Estructura legal:</b> {company.legalStructure}</Row>
+        <Row><b>Estado:</b> {company.state}</Row>
+        <Row><b>Email:</b> {company.businessEmail}</Row>
+        <Row><b>Teléfono:</b> {company.businessPhone || "—"}</Row>
+        <Row><b>Fecha de inicio:</b> {company.startDate}</Row>
+      </SectionCard>
 
-      <CheckRow
-        checked={op.ownerDrives}
-        onChange={(val) => updateOp("ownerDrives", val)}
-        label="Owner drives"
-      />
+      <SectionCard>
+        <SectionTitle>Nombres propuestos</SectionTitle>
+        <Row>1. {names.name1}</Row>
+        {names.name2 && <Row>2. {names.name2}</Row>}
+        {names.name3 && <Row>3. {names.name3}</Row>}
+      </SectionCard>
 
-      <SectionTitle style={{ marginTop: 10 }}>Cargo types *</SectionTitle>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10 }}>
-        {cargoOptions.map((c) => {
-          const checked = op.cargoTypes.includes(c);
-          return (
-            <CheckRow
-              key={c}
-              checked={checked}
-              onChange={(val) => {
-                const nextSet = new Set(op.cargoTypes);
-                if (val) nextSet.add(c);
-                else nextSet.delete(c);
-                updateOp("cargoTypes", Array.from(nextSet));
-              }}
-              label={c}
-            />
-          );
-        })}
-      </div>
+      <SectionCard>
+        <SectionTitle>Owner principal</SectionTitle>
+        <Row><b>Nombre:</b> {owner.fullName}</Row>
+        <Row><b>Fecha de nacimiento:</b> {owner.dob}</Row>
+        <Row><b>Participación:</b> {owner.ownershipPct}%</Row>
+        <Row><b>Email:</b> {owner.email}</Row>
+        <Row><b>Teléfono:</b> {owner.phone}</Row>
+      </SectionCard>
+
+      <SectionCard>
+        <SectionTitle>Operación</SectionTitle>
+        <Row><b>Tipo de carga:</b> {operation.cargoTypes}</Row>
+        <Row><b>Camiones:</b> {operation.trucks}</Row>
+        <Row>
+          <b>Owner conduce:</b> {operation.ownerDrives ? "Sí" : "No"}
+        </Row>
+        <Row>
+          <b>MC Authority:</b> {interstate.mcRequired ? "Requerida" : "No requerida"}
+        </Row>
+      </SectionCard>
+
+      <Divider />
 
       <NavBar>
-        <GhostButton onClick={onBack}>Volver</GhostButton>
-        <PrimaryButton disabled={!canContinue()} onClick={onNext}>
-          Continuar
-        </PrimaryButton>
-      </NavBar>
-
-      {!canContinue() && <Hint>Selecciona al menos 1 tipo de carga y mínimo 1 camión.</Hint>}
-    </>
-  );
-}
-
-/* =========================
-   STEP 5 — INTERSTATE
-========================= */
-function StepInterstate({ data, setData, onNext, onBack }) {
-  const it = data.interstate;
-
-  function updateIt(field, value) {
-    setData((prev) => ({
-      ...prev,
-      interstate: { ...prev.interstate, [field]: value },
-    }));
-  }
-
-  const canContinue = () => it.mcRequired && !!it.plannedStartDate;
-
-  return (
-    <>
-      <Title>Interstate / MC Authority</Title>
-      <SubTitle>Datos necesarios para iniciar MC Authority</SubTitle>
-
-      <CheckRow
-        checked={it.mcRequired}
-        onChange={(val) => updateIt("mcRequired", val)}
-        label="Requiere MC Authority"
-      />
-
-      <Input
-        label="Planned start date *"
-        value={it.plannedStartDate}
-        onChange={(v) => updateIt("plannedStartDate", v)}
-        placeholder="YYYY-MM-DD"
-      />
-
-      <NavBar>
-        <GhostButton onClick={onBack}>Volver</GhostButton>
-        <PrimaryButton disabled={!canContinue()} onClick={onNext}>
-          Continuar
-        </PrimaryButton>
-      </NavBar>
-
-      {!canContinue() && <Hint>MC Required debe estar activo y planned start date es obligatorio.</Hint>}
-    </>
-  );
-}
-
-/* =========================
-   STEP 6 — CONFIRMATIONS
-========================= */
-function StepConfirm({ data, setData, onNext, onBack }) {
-  const cf = data.confirmations;
-
-  function updateCf(field, value) {
-    setData((prev) => ({
-      ...prev,
-      confirmations: { ...prev.confirmations, [field]: value },
-    }));
-  }
-
-  const canContinue = () => cf.feesPaidByClient && cf.authorizeFiling && cf.infoTrue;
-
-  return (
-    <>
-      <Title>Confirmaciones</Title>
-      <SubTitle>Blindaje legal y autorización operativa</SubTitle>
-
-      <div style={{ display: "grid", gap: 10 }}>
-        <CheckRow
-          checked={cf.infoTrue}
-          onChange={(val) => updateCf("infoTrue", val)}
-          label="Confirmo que la información es verídica"
-        />
-        <CheckRow
-          checked={cf.authorizeFiling}
-          onChange={(val) => updateCf("authorizeFiling", val)}
-          label="Autorizo a Sovereign a someter registros administrativos"
-        />
-        <CheckRow
-          checked={cf.feesPaidByClient}
-          onChange={(val) => updateCf("feesPaidByClient", val)}
-          label="Entiendo que los government fees se pagan aparte"
-        />
-      </div>
-
-      <NavBar>
-        <GhostButton onClick={onBack}>Volver</GhostButton>
-        <PrimaryButton disabled={!canContinue()} onClick={onNext}>
-          Continuar
-        </PrimaryButton>
-      </NavBar>
-
-      {!canContinue() && <Hint>Debes aceptar las 3 confirmaciones para continuar.</Hint>}
-    </>
-  );
-}
-
-/* =========================
-   STEP 7 — REVIEW (bonito + warnings)
-========================= */
-function StepReview({ data, onBack, ownershipTotal }) {
-  const warnings = [];
-
-  if (ownershipTotal !== 100) warnings.push("Ownership total no suma 100%.");
-  if (!data.names.name1) warnings.push("Name option 1 está vacío.");
-  if (!data.company.physicalAddress.street) warnings.push("Physical address incompleta.");
-
-  return (
-    <>
-      <Title>Resumen final</Title>
-      <SubTitle>Revisa antes de enviar (en FASE 3 conectamos el POST)</SubTitle>
-
-      {warnings.length > 0 && (
-        <div style={warnBox}>
-          <div style={{ fontWeight: 900, marginBottom: 8 }}>⚠️ Pendientes</div>
-          <ul style={{ margin: 0, paddingLeft: 18 }}>
-            {warnings.map((w) => (
-              <li key={w} style={{ marginBottom: 6 }}>{w}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      <pre style={jsonBox}>{JSON.stringify(data, null, 2)}</pre>
-
-      <NavBar>
-        <GhostButton onClick={onBack}>Volver</GhostButton>
-        <PrimaryButton disabled onClick={() => {}}>
-          Enviar (FASE 3)
+        <GhostButton onClick={onBack}>
+          Editar información
+        </GhostButton>
+        <PrimaryButton onClick={onSubmit}>
+          Enviar onboarding
         </PrimaryButton>
       </NavBar>
 
       <Hint>
-        En el siguiente paso conectamos el POST a backend y activamos monetización completa.
+        Al enviar esta información, un asesor de Sovereign TruckGuard
+        validará los datos y continuará el proceso legal.
       </Hint>
     </>
   );
 }
 
 /* =========================
-   UI HELPERS (Premium)
+   UI HELPERS (PREMIUM)
 ========================= */
+
 function Title({ children }) {
-  return <h2 style={{ margin: "4px 0 8px", fontSize: 22, color: colors.white }}>{children}</h2>;
+  return (
+    <h2 style={{ margin: "6px 0 8px", fontSize: 22, color: colors.white }}>
+      {children}
+    </h2>
+  );
 }
 
 function SubTitle({ children }) {
-  return <div style={{ marginBottom: 16, fontSize: 13, color: colors.soft, lineHeight: 1.6 }}>{children}</div>;
+  return (
+    <div style={{ marginBottom: 16, fontSize: 13, color: colors.soft, lineHeight: 1.6 }}>
+      {children}
+    </div>
+  );
 }
 
-function SectionTitle({ children, style }) {
+function SectionTitle({ children }) {
   return (
     <div
       style={{
-        marginTop: 6,
         marginBottom: 10,
-        fontWeight: 950,
+        fontWeight: 900,
         color: colors.gold,
-        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function SectionCard({ children }) {
+  return (
+    <div
+      style={{
+        border: `1px solid ${colors.border}`,
+        borderRadius: 14,
+        padding: 18,
+        marginBottom: 18,
+        background: "rgba(255,255,255,0.03)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Row({ children }) {
+  return (
+    <div
+      style={{
+        fontSize: 14,
+        marginBottom: 6,
+        color: "rgba(255,255,255,0.85)",
       }}
     >
       {children}
@@ -898,80 +1055,23 @@ function SectionTitle({ children, style }) {
 }
 
 function Divider() {
-  return <div style={{ height: 1, background: "rgba(255,255,255,0.08)", margin: "14px 0" }} />;
-}
-
-function Grid2({ children }) {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 12 }}>
-      {children}
-    </div>
-  );
-}
-
-function Input({ label, value, onChange, placeholder }) {
-  return (
-    <div style={{ marginBottom: 12 }}>
-      {label && <Label>{label}</Label>}
-      <input
-        placeholder={placeholder || label}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        style={inputStyle}
-      />
-    </div>
-  );
-}
-
-function TextArea({ label, value, onChange, placeholder }) {
-  return (
-    <div style={{ marginBottom: 12 }}>
-      {label && <Label>{label}</Label>}
-      <textarea
-        placeholder={placeholder || label}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        rows={3}
-        style={{ ...inputStyle, borderRadius: 14, resize: "vertical" }}
-      />
-    </div>
-  );
-}
-
-function Select({ label, value, onChange, options }) {
-  return (
-    <div style={{ marginBottom: 12 }}>
-      {label && <Label>{label}</Label>}
-      <select value={value} onChange={(e) => onChange(e.target.value)} style={inputStyle}>
-        {options.map((o) => (
-          <option key={o.value} value={o.value} style={{ color: "#000" }}>
-            {o.label}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
-function Label({ children }) {
-  return (
-    <div style={{ fontSize: 12, opacity: 0.9, marginBottom: 6, letterSpacing: 0.2 }}>
-      {children}
-    </div>
-  );
-}
-
-function CheckRow({ checked, onChange, label }) {
-  return (
-    <label style={checkboxRowStyle}>
-      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} />
-      <span style={{ opacity: 0.9 }}>{label}</span>
-    </label>
+    <div
+      style={{
+        height: 1,
+        background: "rgba(255,255,255,0.08)",
+        margin: "18px 0",
+      }}
+    />
   );
 }
 
 function NavBar({ children }) {
-  return <div style={{ display: "flex", gap: 10, marginTop: 10, flexWrap: "wrap" }}>{children}</div>;
+  return (
+    <div style={{ display: "flex", gap: 12, marginTop: 12, flexWrap: "wrap" }}>
+      {children}
+    </div>
+  );
 }
 
 function PrimaryButton({ children, onClick, disabled }) {
@@ -980,11 +1080,13 @@ function PrimaryButton({ children, onClick, disabled }) {
       onClick={onClick}
       disabled={disabled}
       style={{
-        padding: "12px 16px",
+        padding: "12px 18px",
         borderRadius: 999,
         border: "none",
-        background: disabled ? "rgba(255,255,255,0.10)" : `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
-        color: disabled ? "rgba(255,255,255,0.55)" : "#000",
+        background: disabled
+          ? "rgba(255,255,255,0.12)"
+          : `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+        color: disabled ? "rgba(255,255,255,0.6)" : "#000",
         fontWeight: 950,
         cursor: disabled ? "not-allowed" : "pointer",
       }}
@@ -1000,52 +1102,14 @@ function GhostButton({ children, onClick, disabled }) {
       onClick={onClick}
       disabled={disabled}
       style={{
-        padding: "12px 16px",
+        padding: "12px 18px",
         borderRadius: 999,
         border: `1px solid ${colors.border}`,
         background: "rgba(0,0,0,0.25)",
         color: colors.white,
         fontWeight: 900,
         cursor: disabled ? "not-allowed" : "pointer",
-        opacity: disabled ? 0.5 : 1,
-      }}
-    >
-      {children}
-    </button>
-  );
-}
-
-function SmallButton({ children, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        padding: "10px 12px",
-        borderRadius: 12,
-        border: `1px solid ${colors.border}`,
-        background: "rgba(0,0,0,0.25)",
-        color: colors.white,
-        fontWeight: 900,
-        cursor: "pointer",
-      }}
-    >
-      {children}
-    </button>
-  );
-}
-
-function SmallDangerButton({ children, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        padding: "10px 12px",
-        borderRadius: 12,
-        border: "1px solid rgba(255,80,80,0.35)",
-        background: "rgba(255,80,80,0.08)",
-        color: colors.white,
-        fontWeight: 900,
-        cursor: "pointer",
+        opacity: disabled ? 0.6 : 1,
       }}
     >
       {children}
@@ -1054,8 +1118,16 @@ function SmallDangerButton({ children, onClick }) {
 }
 
 function Hint({ children }) {
-  return <div style={{ marginTop: 12, fontSize: 12, color: colors.soft }}>{children}</div>;
+  return (
+    <div style={{ marginTop: 14, fontSize: 12, color: colors.soft }}>
+      {children}
+    </div>
+  );
 }
+
+/* =========================
+   ESTILOS BASE
+========================= */
 
 const inputStyle = {
   width: "100%",
@@ -1074,30 +1146,4 @@ const checkboxRowStyle = {
   alignItems: "center",
   cursor: "pointer",
   marginBottom: 8,
-};
-
-const ownerCard = {
-  marginTop: 12,
-  padding: 14,
-  borderRadius: 16,
-  border: `1px solid ${colors.border}`,
-  background: "rgba(0,0,0,0.22)",
-};
-
-const jsonBox = {
-  fontSize: 12,
-  background: "#111",
-  padding: 14,
-  borderRadius: 14,
-  border: `1px solid ${colors.border}`,
-  overflowX: "auto",
-};
-
-const warnBox = {
-  marginBottom: 12,
-  padding: 14,
-  borderRadius: 14,
-  border: "1px solid rgba(255,80,80,0.35)",
-  background: "rgba(255,80,80,0.08)",
-  color: colors.white,
 };
