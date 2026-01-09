@@ -896,7 +896,8 @@ export default function ServicesPage() {
 // ===== Checkout Intrastate =====
   const [buyLoading, setBuyLoading] = useState(false);
   const [buyError, setBuyError] = useState("");
-
+  const [onboardingReady, setOnboardingReady] = useState(false);
+  
   async function handleBuyIntrastate() {
     try {
       setBuyLoading(true);
