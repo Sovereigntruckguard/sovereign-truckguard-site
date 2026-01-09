@@ -138,23 +138,15 @@ export default function OnboardingWizard({ sessionId }) {
         throw new Error("Missing checkout session ID (session_id)");
       }
 
-      // Payload listo para backend
-      const payload = {
-        order_id: sessionId, // (FASE 1: correlación por sessionId)
-        company: data.company,
-        names: data.names,
-        owners: data.owners,
-        operation: data.operation,
-        interstate: data.interstate,
-        confirmations: data.confirmations,
-      };
-
       const res = await fetch(
         "https://azoth-regulatorios-798731178244.us-central1.run.app/onboarding/company",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({
+            sessionId,          // 👈 CLAVE
+            payload: data,      // 👈 TODO el wizard
+          }),
         }
       );
 
