@@ -19,7 +19,7 @@ const layout = {
 };
 
 /* =========================
-   STRIPE LINKS (LIVE)
+   STRIPE PAYMENT LINKS (LIVE)
 ========================= */
 
 const STRIPE_LINKS = {
@@ -108,6 +108,26 @@ function SecondaryButton({ children, href }) {
   );
 }
 
+function DisabledCTA({ label }) {
+  return (
+    <button
+      disabled
+      style={{
+        padding: "10px 18px",
+        borderRadius: 999,
+        border: "1px solid rgba(255,255,255,0.18)",
+        background:
+          "linear-gradient(90deg, rgba(255,215,0,0.16), rgba(232,183,183,0.16))",
+        color: "rgba(255,255,255,0.65)",
+        fontWeight: 900,
+        cursor: "not-allowed",
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
 /* =========================
    MODAL
 ========================= */
@@ -136,16 +156,12 @@ function Modal({ open, title, onClose, children }) {
           background: "#0b0b0b",
           borderRadius: 22,
           border: "1px solid rgba(255,255,255,0.16)",
-          boxShadow: "0 30px 120px rgba(0,0,0,0.95)",
         }}
       >
         <div
           style={{
             position: "sticky",
             top: 0,
-            background: "rgba(11,11,11,0.92)",
-            backdropFilter: "blur(12px)",
-            borderBottom: "1px solid rgba(255,255,255,0.10)",
             padding: 18,
             display: "flex",
             justifyContent: "space-between",
@@ -177,8 +193,6 @@ function ServicesHeader() {
         right: 0,
         zIndex: 60,
         background: "rgba(0,0,0,0.92)",
-        backdropFilter: "blur(16px)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
       }}
     >
       <div
@@ -195,7 +209,7 @@ function ServicesHeader() {
           Sovereign TruckGuard LLC
         </a>
 
-        {/* 🔥 CTA PREMIUM */}
+        {/* CTA PREMIUM → INTERSTATE */}
         <PrimaryButton href={STRIPE_LINKS.interstate}>
           Crear mi compañía
         </PrimaryButton>
@@ -205,7 +219,7 @@ function ServicesHeader() {
 }
 
 /* =========================
-   PACKAGE CARD
+   PACKAGE CARD (MODIFICADA SOLO PARA PAGO)
 ========================= */
 
 function PackageCard({
@@ -222,42 +236,44 @@ function PackageCard({
       style={{
         position: "relative",
         borderRadius: 26,
-        padding: 26,
+        overflow: "hidden",
+        border: "1px solid rgba(255,255,255,0.18)",
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        border: "1px solid rgba(255,255,255,0.18)",
       }}
     >
-      <Pill>{badge}</Pill>
+      <div style={{ position: "relative", padding: 26 }}>
+        <Pill>{badge}</Pill>
 
-      <h3 style={{ color: colors.gold }}>{title}</h3>
+        <h3 style={{ color: colors.gold }}>{title}</h3>
 
-      <ul>
-        {bullets.map((b) => (
-          <li key={b}>{b}</li>
-        ))}
-      </ul>
+        <ul>
+          {bullets.map((b) => (
+            <li key={b}>{b}</li>
+          ))}
+        </ul>
 
-      <div style={{ fontSize: 22, fontWeight: 900 }}>{price}</div>
+        <div style={{ fontSize: 22, fontWeight: 900 }}>{price}</div>
 
-      <div style={{ display: "flex", gap: 10 }}>
-        <a
-          href={buyLink}
-          target="_self"
-          style={{
-            padding: "10px 18px",
-            borderRadius: 999,
-            background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
-            color: "#000",
-            fontWeight: 900,
-            textDecoration: "none",
-          }}
-        >
-          Comprar
-        </a>
+        <div style={{ display: "flex", gap: 10 }}>
+          <a
+            href={buyLink}
+            target="_self"
+            style={{
+              padding: "10px 18px",
+              borderRadius: 999,
+              background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+              color: "#000",
+              fontWeight: 900,
+              textDecoration: "none",
+            }}
+          >
+            Comprar
+          </a>
 
-        <button onClick={onOpenModal}>Ver cómo funciona</button>
+          <button onClick={onOpenModal}>Ver cómo funciona</button>
+        </div>
       </div>
     </div>
   );
@@ -282,6 +298,7 @@ export default function ServicesPage() {
           "LLC + EIN",
           "USDOT + MC Authority",
           "BOC-3 + UCR",
+          "TXDMV (si aplica)",
           "Seguimiento diario + evidencia",
         ],
         link: STRIPE_LINKS.interstate,
@@ -308,6 +325,7 @@ export default function ServicesPage() {
       <ServicesHeader />
       <div style={{ height: 84 }} />
 
+      {/* AQUÍ SIGUE TODA TU PÁGINA IGUAL */}
       <Section id="packages" style={{ paddingTop: 70 }}>
         <h2>Tienda de creación de compañía</h2>
 
@@ -343,7 +361,7 @@ export default function ServicesPage() {
         title={modalTitle}
         onClose={() => setModalOpen(false)}
       >
-        Detalles completos se recogen en el formulario post-pago.
+        El detalle completo se recoge en el formulario post-pago.
       </Modal>
     </main>
   );
