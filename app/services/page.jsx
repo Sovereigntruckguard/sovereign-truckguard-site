@@ -577,7 +577,7 @@ function HowItWorks() {
     <Section id="how" style={{ paddingTop: 70 }}>
       <h2 style={{ margin: 0, fontSize: 28, fontFamily: "Montserrat, system-ui" }}>Cómo funciona</h2>
       <p style={{ marginTop: 10, maxWidth: 860, color: "rgba(255,255,255,0.80)", lineHeight: 1.7 }}>
-        Este flujo existe para eliminar errores, estafas y retrasos. Todo es visible, documentado y con responsable.
+        Este flujo existe para eliminar errores, estafas y retrasos. Todo es visible, documentado y con un responsable real asignado a tu proceso.
       </p>
 
       <div
