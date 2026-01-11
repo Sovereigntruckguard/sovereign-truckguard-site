@@ -50,29 +50,26 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <head>
         {/* =========================
-            GOOGLE TAG MANAGER (HEAD)
-            — SAFE FOR SSR
+            GOOGLE ANALYTICS 4 (gtag.js)
+            IMPLEMENTACIÓN DIRECTA – SAFE FOR NEXT.JS
         ========================= */}
         <Script
-          id="gtm-script"
+          src="https://www.googletagmanager.com/gtag/js?id=G-PCD8S1M067"
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtm.js?id=GTM-WGPGWPHJ"
         />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-PCD8S1M067', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
       </head>
 
       <body style={{ margin: 0 }}>
-        {/* =========================
-            GOOGLE TAG MANAGER (NOSCRIPT)
-        ========================= */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-WGPGWPHJ"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
-
         <Providers>{children}</Providers>
       </body>
     </html>
