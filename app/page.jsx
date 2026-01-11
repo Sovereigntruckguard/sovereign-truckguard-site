@@ -1432,71 +1432,114 @@ function Footer() {
   const year = new Date().getFullYear();
   const rights = f.rights.replace("{year}", String(year));
 
+  const googleMapsEmbed =
+    "https://www.google.com/maps?q=30%20N%20Gould%20St%20Ste%20N,%20Sheridan,%20WY%2082801&output=embed";
+
   return (
     <footer
       style={{
         borderTop: "1px solid rgba(255,255,255,0.16)",
         background: "rgba(0,0,0,0.95)",
-        marginTop: 40
+        marginTop: 40,
       }}
     >
       <div
         style={{
           margin: "0 auto",
           maxWidth: layout.maxWidth,
-          padding: "18px " + layout.sidePadding + "px 24px",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 16,
-          justifyContent: "space-between",
-          fontSize: 11,
-          color: "rgba(255,255,255,0.78)"
+          padding: "28px " + layout.sidePadding + "px 32px",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px,1fr))",
+          gap: 22,
+          fontSize: 12,
+          color: "rgba(255,255,255,0.8)",
         }}
       >
-        <div style={{ maxWidth: 420 }}>
+        {/* INFO EMPRESA */}
+        <div>
           <p
             style={{
               margin: 0,
-              marginBottom: 4,
+              marginBottom: 6,
               fontFamily: "Montserrat, system-ui",
               fontSize: 11,
               letterSpacing: "0.16em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.9)"
+              color: "#fff",
             }}
           >
-            {f.company}
+            Sovereign TruckGuard LLC 
           </p>
-          <p style={{ margin: 0 }}>{f.legalLine}</p>
-          <p style={{ margin: "4px 0 0" }}>{f.einNote}</p>
-        </div>
-        <div style={{ textAlign: "right", maxWidth: 320 }}>
+
           <p style={{ margin: 0 }}>
-            {f.emailLabel}{" "}
+            30 N Gould St, Ste N<br />
+            Sheridan, Wyoming 82801<br />
+            United States
+          </p>
+
+          <p style={{ marginTop: 8, fontSize: 11, color: "rgba(255,255,255,0.65)" }}>
+            Registered U.S. Limited Liability Company<br />
+            EIN disponible para verificación bajo solicitud formal.
+          </p>
+        </div>
+
+        {/* CONTACTO */}
+        <div>
+          <p style={{ margin: 0, fontWeight: 600, color: "#FFD700" }}>
+            Contacto
+          </p>
+          <p style={{ margin: "6px 0" }}>
+            Email:{" "}
             <a
               href="mailto:info@sovereigntruckguard.com"
-              style={{ color: colors.gold, textDecoration: "none" }}
+              style={{ color: "#FFD700", textDecoration: "none" }}
             >
               info@sovereigntruckguard.com
             </a>
           </p>
-          <p style={{ margin: "4px 0" }}>
-            {f.whatsappLabel}{" "}
-            <span style={{ color: colors.gold }}>
-              +1 (por definir oficialmente)
+          <p style={{ margin: "6px 0" }}>
+            Telefono:{" "}
+            <span style={{ color: "#FFD700" }}>
+              +1 (608) 557-6282
             </span>
           </p>
-          <p
+        </div>
+
+        {/* MAPA */}
+        <div>
+          <p style={{ margin: 0, marginBottom: 6, fontWeight: 600, color: "#FFD700" }}>
+            https://www.google.com/maps/place/sovereign+truckguard+LLC/@44.7977746,-106.9575253,17z/data=!3m1!4b1!4m6!3m5!1s0xd4cb411b5697fb5:0x39daa45d7fc7b58b!8m2!3d44.7977708!4d-106.9549504!16s%2Fg%2F11ms11dpgs?entry=ttu&g_ep=EgoyMDI2MDEwNy4wIKXMDSoASAFQAw%3D%3D
+          </p>
+          <div
             style={{
-              margin: 0,
-              marginTop: 6,
-              fontSize: 10,
-              color: "rgba(255,255,255,0.55)"
+              borderRadius: 14,
+              overflow: "hidden",
+              border: "1px solid rgba(255,255,255,0.15)",
             }}
           >
-            {rights}
-          </p>
+            <iframe
+              src={googleMapsEmbed}
+              width="100%"
+              height="180"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
+      </div>
+
+      {/* COPYRIGHT */}
+      <div
+        style={{
+          textAlign: "center",
+          padding: "12px 10px",
+          fontSize: 10,
+          color: "rgba(255,255,255,0.55)",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        © {year} Sovereign TruckGuard LLC · Powered by SOLYON Technologies
       </div>
     </footer>
   );

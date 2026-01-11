@@ -16,7 +16,7 @@ export default function Header() {
   const { lang, setLang } = useLanguage();
 
   const TEXT_ES = {
-    tagline: "Agencia de seguros de lujo para camioneros latinos",
+    tagline: "Regulatorios, seguros y seguimiento premium para camioneros latinos",
     nav: {
       coverages: "Coberturas",
       technology: "Tecnología",
@@ -25,7 +25,7 @@ export default function Header() {
       about: "Nosotros",
       testimonials: "Testimonios",
       contact: "Contacto",
-      cta: "Cotización inmediata"
+      cta: "Crear mi compañia"
     }
   };
 
