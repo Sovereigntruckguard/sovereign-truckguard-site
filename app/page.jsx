@@ -24,7 +24,7 @@ const layout = {
 
 const TEXT_ES = {
   header: {
-    tagline: "Agencia de seguros de lujo para camioneros latinos",
+    tagline: "Regulatorios + Seguros + Seguimiento premium para camioneros latinos",
     nav: {
       coverages: "Coberturas",
       technology: "Tecnología",
@@ -32,17 +32,17 @@ const TEXT_ES = {
       about: "Nosotros",
       testimonials: "Testimonios",
       contact: "Contacto",
-      cta: "Cotización inmediata"
+      cta: "Crear mi compañía"
     }
   },
   hero: {
     subtitle:
       "La primera agencia de seguros de lujo y tecnología soberana para camioneros latinos en EE. UU.",
-    titleLine1: "Convertimos el caos de los seguros de trucking",
-    titleLine2: "en un sistema de respaldo inteligente y soberano.",
+    titleLine1: "Creamos tu trucking company legal",
+    titleLine2: "y te dejamos listo para asegurar y operar sin errores.",
     body:
-      "Sovereign TruckGuard LLC redefine la experiencia del camionero latino: tecnología soberana, motores de cotización avanzados, análisis real de riesgo y un servicio de lujo que dignifica y protege tu empresa como nunca antes. El futuro del seguro comercial empieza aquí.",
-    btnQuote: "Cotizar ahora",
+      "Sovereign TruckGuard LLC es tu sistema de entrada inteligente: creamos tu compañía (LLC, EIN, DOT, MC y compliance) y luego te acompañamos con seguro comercial y seguimiento premium para que tu operación crezca con respaldo real. No vendemos promesas: ejecutamos procesos con evidencia y responsabilidad.",
+    btnQuote: "Crear mi compañía",
     btnCoverages: "Ver coberturas",
     seal:
       "Registered LLC · EIN verificado · Tecnología soberana de SOLYON · App TruckBoss conectada en tiempo real."
@@ -567,7 +567,7 @@ function Hero() {
           }}
         >
           <a
-            href="#cotizar"
+            href="/services"
             style={{
               padding: "12px 30px",
               borderRadius: 999,
