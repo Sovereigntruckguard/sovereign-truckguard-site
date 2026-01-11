@@ -1216,7 +1216,9 @@ export default function ServicesPage() {
           Servicios individuales
         </h2>
         <p style={{ marginTop: 10, maxWidth: 900, color: "rgba(255,255,255,0.80)", lineHeight: 1.7 }}>
-          Si no necesitas el paquete completo, inicia por un servicio puntual. Pagos en línea se habilitan en breve (Stripe).
+          Si no necesitas el paquete completo, inicia por un servicio puntual.
+          Los pagos en línea para servicios individuales se habilitan en breve (Stripe).
+          Por ahora, puedes revisar especificaciones y tiempos.
         </p>
 
         <div style={{ marginTop: 18, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 16 }}>
