@@ -1,5 +1,6 @@
 // app/layout.jsx
 import Providers from "./providers.jsx";
+import Script from "next/script";
 
 /* =========================
    METADATA GLOBAL (SEO BASE)
@@ -50,19 +51,13 @@ export default function RootLayout({ children }) {
       <head>
         {/* =========================
             GOOGLE TAG MANAGER (HEAD)
+            — SAFE FOR SSR
         ========================= */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NS8XXJ39');
-            `,
-          }}
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NS8XXJ39"
         />
-        {/* ⬆️ REEMPLAZA GTM-XXXXXXX por tu ID real */}
       </head>
 
       <body style={{ margin: 0 }}>
@@ -71,13 +66,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         ========================= */}
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-NS8XXJ39"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        {GTM-NS8XXJ39}
 
         <Providers>{children}</Providers>
       </body>
