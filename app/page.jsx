@@ -37,7 +37,7 @@ const TEXT_ES = {
   },
   hero: {
     subtitle:
-      "La primera agencia de seguros de lujo y tecnología soberana para camioneros latinos en EE. UU.",
+      "Somos un sistema soberano de entrada, cumplimiento y acompañamiento para camioneros latinos en EE. UU.",
     titleLine1: "Creamos tu trucking company legal",
     titleLine2: "y te dejamos listo para asegurar y operar sin errores.",
     body:
@@ -1508,7 +1508,7 @@ function Footer() {
         {/* MAPA */}
         <div>
           <p style={{ margin: 0, marginBottom: 6, fontWeight: 600, color: "#FFD700" }}>
-            https://www.google.com/maps/place/sovereign+truckguard+LLC/@44.7977746,-106.9575253,17z/data=!3m1!4b1!4m6!3m5!1s0xd4cb411b5697fb5:0x39daa45d7fc7b58b!8m2!3d44.7977708!4d-106.9549504!16s%2Fg%2F11ms11dpgs?entry=ttu&g_ep=EgoyMDI2MDEwNy4wIKXMDSoASAFQAw%3D%3D
+            Ubicación
           </p>
           <div
             style={{
