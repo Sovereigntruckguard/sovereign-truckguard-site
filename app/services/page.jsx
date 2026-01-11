@@ -356,8 +356,11 @@ function Hero() {
                 fontFamily: "Montserrat, system-ui",
               }}
             >
-              Crea tu compañía trucking en USA{" "}
-              <span style={{ color: colors.gold }}>sin errores</span>, sin estrés
+              Servicio para crear tu{" "}
+              <span style={{ color: colors.gold }}>trucking company en USA</span>
+              <br />
+              DOT · MC · LLC · EIN · UCR —{" "}
+              <span style={{ color: colors.gold }}>nosotros hacemos todo</span>
             </h1>
 
             <p
@@ -368,9 +371,11 @@ function Hero() {
                 color: "rgba(255,255,255,0.90)",
               }}
             >
-              EIN · LLC · DOT · MC · UCR · TXDMV · BOI
+              Servicio profesional en español para camioneros que ya decidieron emprender
+              y necesitan ayuda real para crear su trucking company legalmente,
+              sin errores ni retrasos con FMCSA.
               <br />
-              Proceso legal, documentado y acompañado en español.
+              DOT · MC · LLC · EIN · UCR · TXDMV · BOI
             </p>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
@@ -938,7 +943,7 @@ export default function ServicesPage() {
       interstate: {
         bg: "/services/packages/interstate-bg.png",
         badge: "Interstate · Completa",
-        title: "Crea tu Compañía Interstate",
+        title: "Servicio completo para crear tu Compañía Interstate",
         price: "USD $1,500",
         bullets: [
           "LLC + EIN",
@@ -970,7 +975,7 @@ export default function ServicesPage() {
       intrastate: {
         bg: "/services/packages/intrastate-bg.png",
         badge: "Intrastate · Simple",
-        title: "Crea tu Compañía Intrastate",
+        title: "Servicio completo para crear tu Compañía Intrastate",
         price: "USD $900",
         bullets: [
           "LLC + EIN",
@@ -1106,7 +1111,7 @@ export default function ServicesPage() {
 
   function openPackageModal(pkgKey) {
     const pkg = packages[pkgKey];
-    setModalTitle(pkg.title);
+    setModalTitle("Nos encargamos de todo el proceso por ti");
 
     setModalBody(
       <div>
@@ -1147,6 +1152,23 @@ export default function ServicesPage() {
 
       <Hero />
       <TrustBlocks />
+
+      <Section style={{ paddingTop: 50 }}>
+        <h2 style={{ fontFamily: "Montserrat, system-ui" }}>
+          ¿Este servicio es para ti?
+        </h2>
+
+        <ul style={{ marginTop: 12, lineHeight: 1.8, color: "rgba(255,255,255,0.88)" }}>
+          <li>✔ Ya tienes el dinero para iniciar tu compañía</li>
+          <li>✔ No quieres aprender papeleo ni cometer errores</li>
+          <li>✔ Buscas alguien que se haga responsable del proceso</li>
+          <li>✔ Quieres todo documentado, legal y en español</li>
+        </ul>
+
+        <p style={{ marginTop: 10, fontSize: 13, color: "rgba(255,255,255,0.65)" }}>
+          Si solo buscas información gratis o tutoriales, este servicio no es para ti.
+        </p>
+      </Section>
 
       {/* TIENDA PRIMERO (protagonista) */}
       <Section id="packages" style={{ paddingTop: 70 }}>
