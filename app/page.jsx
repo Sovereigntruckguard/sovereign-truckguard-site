@@ -49,9 +49,9 @@ const TEXT_ES = {
   },
   services: {
     kicker: "Coberturas de precisión",
-    title: "Todo tu ecosistema trucker, blindado como una joya.",
+    title: "Las coberturas no son el punto de entrada. Son el resultado de haber creado bien tu empresa, tu DOT y tu estructura legal.",
     body:
-      "No vendemos pólizas genéricas. Diseñamos estructuras completas para dueños de camiones, fleets pequeños y operadores en crecimiento que quieren jugar en liga mayor.",
+      " Por eso, cuando llega el momento de asegurar, diseñamos coberturas alineadas a tu operación real",
     legalTitle: "Base legal y respaldo real",
     legalBody:
       "Sovereign TruckGuard LLC está registrada en Sheridan, Wyoming y forma parte del ecosistema tecnológico SOLYON.",
@@ -122,8 +122,8 @@ const TEXT_ES = {
     ]
   },
   process: {
-    kicker: "Proceso de cotización",
-    title: "De la llamada al respaldo, en cuatro movimientos precisos.",
+    kicker: "Cómo activamos tu empresa y tu respaldo",
+    title: "De la compra al respaldo, en cuatro movimientos precisos.",
     intro1:
       "Tu tiempo en carretera es oro. Construimos un proceso estandarizado para reducir fricción y darte claridad desde el primer contacto.",
     intro2:
