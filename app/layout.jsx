@@ -56,7 +56,7 @@ export default function RootLayout({ children }) {
         <Script
           id="gtm-script"
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtm.js?id=GTM-NS8XXJ39"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-WGPGWPHJ"
         />
       </head>
 
@@ -66,7 +66,7 @@ export default function RootLayout({ children }) {
         ========================= */}
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-NS8XXJ39"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WGPGWPHJ"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
