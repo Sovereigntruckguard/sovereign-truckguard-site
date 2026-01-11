@@ -616,6 +616,84 @@ function Hero() {
   );
 }
 
+function ServiceRail() {
+  return (
+    <section
+      style={{
+        marginTop: -40,
+        padding: "40px 20px",
+        background: "linear-gradient(180deg, rgba(0,0,0,0.9), #050505)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1120,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px,1fr))",
+          gap: 16,
+        }}
+      >
+        {[
+          {
+            title: "Creación de compañía",
+            desc: "LLC · EIN · DOT · MC · UCR",
+            link: "/services",
+          },
+          {
+            title: "Seguros comerciales",
+            desc: "Auto · Cargo · Liability · Physical Damage",
+            link: "#cotizar",
+          },
+          {
+            title: "Cumplimiento & DOT",
+            desc: "Filings · Workers Comp · Autoridad",
+            link: "/services",
+          },
+          {
+            title: "Tecnología TruckBoss",
+            desc: "Gestión, cotización y control desde la cabina",
+            link: "#tecnologia",
+          },
+        ].map((s) => (
+          <a
+            key={s.title}
+            href={s.link}
+            style={{
+              borderRadius: 18,
+              padding: 18,
+              border: "1px solid rgba(255,255,255,0.15)",
+              background: "rgba(0,0,0,0.85)",
+              textDecoration: "none",
+              color: "white",
+              boxShadow: "0 18px 55px rgba(0,0,0,0.9)",
+            }}
+          >
+            <h3
+              style={{
+                margin: 0,
+                color: colors.gold,
+                fontSize: 16,
+              }}
+            >
+              {s.title}
+            </h3>
+            <p
+              style={{
+                marginTop: 6,
+                fontSize: 13,
+                color: "rgba(255,255,255,0.8)",
+              }}
+            >
+              {s.desc}
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 /* =========================
    SERVICES (COBERTURAS)
    ========================= */
@@ -1444,6 +1522,7 @@ export default function Page() {
     >
       <Header />
       <Hero />
+      <ServiceRail />
       <Services />
       <Process />
       <WhyChooseUs />
