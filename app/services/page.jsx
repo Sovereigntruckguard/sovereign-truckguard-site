@@ -266,18 +266,27 @@ function ServicesHeader() {
 
         {/* CTA correcto para regulatorios (no seguros) */}
         <a
-         href={STRIPE_INTERSTATE}
-         style={{
-           padding: "8px 18px",
-           borderRadius: 999,
-           background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
-           color: "#000",
-           fontWeight: 900,
-           textDecoration: "none",
-           boxShadow: "0 14px 35px rgba(0,0,0,0.6)",
-         }}
+          href={STRIPE_INTERSTATE}
+          onClick={() => {
+            if (typeof window !== "undefined" && window.gtag) {
+              window.gtag("event", "crear_compania_click", {
+                event_category: "conversion",
+                event_label: "header",
+                page_path: window.location.pathname,
+              });
+            }
+          }}
+          style={{
+            padding: "8px 18px",
+            borderRadius: 999,
+            background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+            color: "#000",
+            fontWeight: 900,
+            textDecoration: "none",
+            boxShadow: "0 14px 35px rgba(0,0,0,0.6)",
+          }}
         >
-         Crear mi compañía
+          Crear mi compañía
         </a>
       </div>
     </header>
@@ -520,20 +529,32 @@ function PackageCard({
 
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 6 }}>
           <a
-           href={badge.includes("Interstate") ? STRIPE_INTERSTATE : STRIPE_INTRASTATE}
-           style={{
-             padding: "10px 18px",
-             borderRadius: 999,
-             border: "1px solid rgba(255,255,255,0.18)",
-             background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
-             color: "#000",
-             fontWeight: 900,
-             textDecoration: "none",
-           }}
-          >
-           Comprar
-          </a>
+            href={badge.includes("Interstate") ? STRIPE_INTERSTATE : STRIPE_INTRASTATE}
+            onClick={() => {
+              if (typeof window !== "undefined" && window.gtag) {
+                const eventName = badge.includes("Interstate")
+                  ? "comprar_interstate_click"
+                  : "comprar_intrastate_click";
 
+                window.gtag("event", eventName, {
+                  event_category: "purchase_intent",
+                  event_label: badge,
+                  page_path: window.location.pathname,
+                });
+              }
+            }}
+            style={{
+              padding: "10px 18px",
+              borderRadius: 999,
+              border: "1px solid rgba(255,255,255,0.18)",
+              background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+              color: "#000",
+              fontWeight: 900,
+              textDecoration: "none",
+            }}
+          >
+            Comprar
+          </a>
 
           <button
             onClick={onOpenModal}
