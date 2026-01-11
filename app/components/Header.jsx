@@ -39,7 +39,7 @@ export default function Header() {
       about: "About",
       testimonials: "Testimonials",
       contact: "Contact",
-      cta: "Get a quote"
+      cta: "start my company"
     }
   };
 
@@ -135,7 +135,7 @@ export default function Header() {
               {t.nav.contact}
             </a>
             <a
-              href="#cotizar"
+              href="/services#packages"
               style={{
                 padding: "8px 20px",
                 borderRadius: 999,
