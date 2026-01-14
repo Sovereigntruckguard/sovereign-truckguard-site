@@ -688,8 +688,7 @@ function IndividualCard({ bg, title, price, subtitle, onOpenModal }) {
         </div>
         <div style={{ fontSize: 12, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>{subtitle}</div>
 
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 4 }}>
-          <DisabledCTA label="Comprar" />
+        <div>
           <button
             onClick={onOpenModal}
             style={{
@@ -857,12 +856,14 @@ function Footer() {
             <div style={{ fontSize: 13, color: "rgba(255,255,255,0.85)", lineHeight: 1.8 }}>
               Email: <span style={{ opacity: 0.9 }}>info@sovereigntruckguard.com</span>
               <br />
-              Horario: Lun–Vie
+              Horario: Lun–Vie 9am–6pm EST
+              <br />
+              Teléfono: <span style={{ opacity: 0.9 }}>+1 (307) 689-5306</span>
+              <br />
               <br />
               Atención en español
             </div>
-            <div style={{ marginTop: 14 }}>
-              <DisabledCTA label="Comprar (próximamente)" />
+            <div>
             </div>
           </div>
         </div>
