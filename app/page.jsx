@@ -443,7 +443,7 @@ const TEXT_EN = {
 };
 
 /* =========================
-   HERO
+   HERO (OPTIMIZADO MOBILE-FIRST)
    ========================= */
 
 function Hero() {
@@ -455,15 +455,13 @@ function Hero() {
       style={{
         position: "relative",
         width: "100%",
-        minHeight: "100vh",
         overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        paddingTop: 80
+        paddingTop: 120, // deja respirar al header fijo
+        paddingBottom: 64,
+        background: "#050505",
       }}
     >
-      {/* VIDEO FULL BACKGROUND */}
+      {/* VIDEO BACKGROUND */}
       <video
         src="/hero-truck.mp4"
         autoPlay
@@ -476,52 +474,41 @@ function Hero() {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          filter: "brightness(0.55) saturate(1.1)"
+          filter: "brightness(0.5) saturate(1.05)",
         }}
       />
 
-      {/* OVERLAY PREMIUM */}
+      {/* OVERLAY */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.90))"
+            "linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.92))",
         }}
       />
 
-      {/* CONTENIDO PRINCIPAL (subido)*/}
+      {/* CONTENIDO */}
       <div
         style={{
           position: "relative",
-          zIndex: 5,
-          textAlign: "center",
-          maxWidth: 960,
+          zIndex: 2,
+          maxWidth: 720,
+          margin: "0 auto",
           padding: "0 20px",
-          color: "white",
-          transform: "translateY(-40px)"
+          textAlign: "center",
+          color: "#fff",
         }}
       >
-        {/* LOGO SOBERANO GIGANTE */}
-        <img
-          src="/logo-sovereign.png"
-          alt="Sovereign TruckGuard Logo"
-          style={{
-            width: 240,
-            height: "auto",
-            margin: "0 auto 25px"
-          }}
-        />
-
         {/* SUBTÍTULO */}
         <p
           style={{
             fontSize: 11,
-            letterSpacing: "0.26em",
+            letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: colors.gold,
-            marginBottom: 10,
-            fontFamily: "Montserrat, system-ui"
+            marginBottom: 12,
+            fontFamily: "Montserrat, system-ui",
           }}
         >
           {t.subtitle}
@@ -530,10 +517,10 @@ function Hero() {
         {/* TITULAR */}
         <h1
           style={{
-            fontSize: 40,
-            lineHeight: 1.25,
+            fontSize: 30,
+            lineHeight: 1.2,
             fontWeight: 700,
-            margin: 0
+            margin: 0,
           }}
         >
           {t.titleLine1}
@@ -541,88 +528,64 @@ function Hero() {
           {t.titleLine2}
         </h1>
 
-        {/* TEXTO – INNOVACIÓN / TECNOLOGÍA */}
-        <p
-          style={{
-            marginTop: 20,
-            maxWidth: 720,
-            marginLeft: "auto",
-            marginRight: "auto",
-            fontSize: 16,
-            lineHeight: 1.6,
-            color: "rgba(255,255,255,0.85)"
-          }}
-        >
-          {t.body}
-        </p>
-
-        {/* BOTONES */}
+        {/* CTA PRINCIPAL */}
         <div
           style={{
-            marginTop: 30,
+            marginTop: 26,
             display: "flex",
             justifyContent: "center",
-            gap: 16,
-            flexWrap: "wrap"
           }}
         >
           <a
-            href="/services"
+            href="/services#packages"
             style={{
-              padding: "12px 30px",
+              padding: "14px 34px",
               borderRadius: 999,
-              background:
-                "linear-gradient(90deg, " + colors.gold + ", " + colors.rose + ")",
-              textDecoration: "none",
+              background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
               color: "#000",
               fontWeight: 700,
-              boxShadow: "0 14px 46px rgba(255,215,0,0.35)",
-              fontSize: 14
+              fontSize: 15,
+              textDecoration: "none",
+              boxShadow: "0 16px 40px rgba(255,215,0,0.35)",
             }}
           >
             {t.btnQuote}
           </a>
+        </div>
 
+        {/* CTA SECUNDARIO (SOLO DESKTOP / SCROLLERS) */}
+        <div
+          style={{
+            marginTop: 14,
+          }}
+        >
           <a
             href="#servicios"
             style={{
-              padding: "12px 30px",
-              borderRadius: 999,
-              border: "1px solid rgba(255,255,255,0.55)",
-              background: "rgba(0,0,0,0.45)",
-              backdropFilter: "blur(6px)",
-              textDecoration: "none",
-              color: "white",
-              fontWeight: 600,
-              fontSize: 14
+              fontSize: 13,
+              color: "rgba(255,255,255,0.75)",
+              textDecoration: "underline",
             }}
           >
             {t.btnCoverages}
           </a>
         </div>
-
-        {/* SELLO INFERIOR */}
-        <p
-          style={{
-            marginTop: 16,
-            fontSize: 11,
-            color: "rgba(255,255,255,0.65)"
-          }}
-        >
-          {t.seal}
-        </p>
       </div>
     </section>
   );
 }
 
+/* =========================
+   SERVICE RAIL (CLARO + DIRECTO)
+   ========================= */
+
 function ServiceRail() {
   return (
     <section
       style={{
-        marginTop: -40,
-        padding: "40px 20px",
-        background: "linear-gradient(180deg, rgba(0,0,0,0.9), #050505)",
+        padding: "36px 20px 24px",
+        background:
+          "linear-gradient(180deg, rgba(0,0,0,0.92), #050505)",
       }}
     >
       <div
@@ -630,29 +593,29 @@ function ServiceRail() {
           maxWidth: 1120,
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px,1fr))",
-          gap: 16,
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px,1fr))",
+          gap: 14,
         }}
       >
         {[
           {
-            title: "Creación de compañía",
-            desc: "LLC · EIN · DOT · MC · UCR",
-            link: "/services",
+            title: "Crea tu compañía",
+            desc: "LLC · EIN · DOT · MC",
+            link: "/services#packages",
           },
           {
             title: "Seguros comerciales",
-            desc: "Auto · Cargo · Liability · Physical Damage",
-            link: "#cotizar",
+            desc: "Auto · Cargo · Liability",
+            link: "#servicios",
           },
           {
-            title: "Cumplimiento & DOT",
-            desc: "Filings · Workers Comp · Autoridad",
+            title: "Cumplimiento DOT",
+            desc: "Filings · Workers Comp",
             link: "/services",
           },
           {
             title: "Tecnología TruckBoss",
-            desc: "Gestión, cotización y control desde la cabina",
+            desc: "Gestión desde la cabina",
             link: "#tecnologia",
           },
         ].map((s) => (
@@ -660,20 +623,20 @@ function ServiceRail() {
             key={s.title}
             href={s.link}
             style={{
-              borderRadius: 18,
-              padding: 18,
-              border: "1px solid rgba(255,255,255,0.15)",
+              borderRadius: 16,
+              padding: 16,
+              border: "1px solid rgba(255,255,255,0.14)",
               background: "rgba(0,0,0,0.85)",
               textDecoration: "none",
               color: "white",
-              boxShadow: "0 18px 55px rgba(0,0,0,0.9)",
+              boxShadow: "0 14px 40px rgba(0,0,0,0.85)",
             }}
           >
             <h3
               style={{
                 margin: 0,
+                fontSize: 15,
                 color: colors.gold,
-                fontSize: 16,
               }}
             >
               {s.title}
@@ -693,6 +656,7 @@ function ServiceRail() {
     </section>
   );
 }
+
 
 /* =========================
    SERVICES (COBERTURAS)
