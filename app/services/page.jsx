@@ -403,67 +403,6 @@ function Hero() {
 }
 
 /* =========================
-   TRUST BLOCKS (4)
-========================= */
-
-function TrustBlocks() {
-  const items = [
-    {
-      title: "Transparencia real",
-      text:
-        "Separa tu service fee de los government fees. Nada de cobros ocultos ni retención de pagos oficiales.",
-    },
-    {
-      title: "Seguimiento diario",
-      text:
-        "Te informamos el estado del proceso, tiempos y próximos pasos. No desaparecemos.",
-    },
-    {
-      title: "Hecho para latinos",
-      text:
-        "Te explicamos todo en español, con estructura y sin inglés técnico confuso.",
-    },
-    {
-      title: "Cero malas prácticas",
-      text:
-        "No firmamos por ti, no inventamos datos, no te exponemos a bloqueos ni auditorías por errores.",
-    },
-  ];
-
-  return (
-    <Section style={{ paddingTop: 46 }}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-          gap: 16,
-        }}
-      >
-        {items.map((it) => (
-          <div
-            key={it.title}
-            style={{
-              borderRadius: 18,
-              padding: 18,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.03)",
-              boxShadow: "0 18px 60px rgba(0,0,0,0.85)",
-            }}
-          >
-            <div style={{ color: colors.gold, fontWeight: 900, marginBottom: 8 }}>
-              {it.title}
-            </div>
-            <div style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.85)" }}>
-              {it.text}
-            </div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-/* =========================
    PACKAGE CARDS (Tienda)
 ========================= */
 
@@ -579,6 +518,69 @@ function PackageCard({
     </div>
   );
 }
+
+/* =========================
+   TRUST BLOCKS (4)
+========================= */
+
+function TrustBlocks() {
+  const items = [
+    {
+      title: "Transparencia real",
+      text:
+        "Separa tu service fee de los government fees. Nada de cobros ocultos ni retención de pagos oficiales.",
+    },
+    {
+      title: "Seguimiento diario",
+      text:
+        "Te informamos el estado del proceso, tiempos y próximos pasos. No desaparecemos.",
+    },
+    {
+      title: "Hecho para latinos",
+      text:
+        "Te explicamos todo en español, con estructura y sin inglés técnico confuso.",
+    },
+    {
+      title: "Cero malas prácticas",
+      text:
+        "No firmamos por ti, no inventamos datos, no te exponemos a bloqueos ni auditorías por errores.",
+    },
+  ];
+
+  return (
+    <Section style={{ paddingTop: 46 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap: 16,
+        }}
+      >
+        {items.map((it) => (
+          <div
+            key={it.title}
+            style={{
+              borderRadius: 18,
+              padding: 18,
+              border: "1px solid rgba(255,255,255,0.10)",
+              background: "rgba(255,255,255,0.03)",
+              boxShadow: "0 18px 60px rgba(0,0,0,0.85)",
+            }}
+          >
+            <div style={{ color: colors.gold, fontWeight: 900, marginBottom: 8 }}>
+              {it.title}
+            </div>
+            <div style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.85)" }}>
+              {it.text}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+
 
 /* =========================
    HOW IT WORKS
