@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import Header from "../components/Header.jsx";
 
 /* =========================
    CONFIG
@@ -19,8 +20,10 @@ const layout = {
 };
 
 // STRIPE LINKS (PAQUETES)
-const STRIPE_INTERSTATE = "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
-const STRIPE_INTRASTATE = "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
+const STRIPE_INTERSTATE =
+  "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
+const STRIPE_INTRASTATE =
+  "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
 
 /* =========================
    HELPERS
@@ -42,12 +45,12 @@ function Section({ children, id, style }) {
   );
 }
 
-function PrimaryButton({ children, href }) {
+function PrimaryButton({ href, children }) {
   return (
     <a
       href={href}
       style={{
-        padding: "12px 26px",
+        padding: "12px 28px",
         borderRadius: 999,
         background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
         color: "#000",
@@ -61,10 +64,10 @@ function PrimaryButton({ children, href }) {
   );
 }
 
-function OutlineButton({ children, onClick }) {
+function SecondaryButton({ href, children }) {
   return (
-    <button
-      onClick={onClick}
+    <a
+      href={href}
       style={{
         padding: "11px 22px",
         borderRadius: 999,
@@ -72,71 +75,146 @@ function OutlineButton({ children, onClick }) {
         background: "rgba(0,0,0,0.35)",
         color: colors.white,
         fontSize: 12,
-        fontWeight: 800,
-        cursor: "pointer",
+        textDecoration: "none",
       }}
     >
       {children}
-    </button>
+    </a>
   );
 }
 
 /* =========================
-   HEADER
-========================= */
-
-function Header() {
-  return (
-    <header
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        background: "rgba(0,0,0,0.92)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
-      }}
-    >
-      <Section style={{ padding: "10px 0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <a href="/" style={{ color: "#fff", textDecoration: "none", fontWeight: 900 }}>
-          Sovereign TruckGuard LLC
-        </a>
-
-        <PrimaryButton href={STRIPE_INTERSTATE}>
-          Crear mi compañía
-        </PrimaryButton>
-      </Section>
-    </header>
-  );
-}
-
-/* =========================
-   HERO
+   HERO (VIDEO OK)
 ========================= */
 
 function Hero() {
   return (
-    <section style={{ paddingTop: 120, paddingBottom: 80 }}>
-      <Section>
-        <h1 style={{ fontSize: 42, lineHeight: 1.1 }}>
-          Crear tu <span style={{ color: colors.gold }}>trucking company en USA</span><br />
+    <section
+      style={{
+        position: "relative",
+        minHeight: "90vh",
+        marginTop: 80,
+        overflow: "hidden",
+      }}
+    >
+      <video
+        src="/services/hero/hero-services.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(90deg, rgba(0,0,0,0.85), rgba(0,0,0,0.45))",
+        }}
+      />
+
+      <Section
+        style={{
+          position: "relative",
+          zIndex: 2,
+          paddingTop: 120,
+          paddingBottom: 80,
+        }}
+      >
+        <h1 style={{ fontSize: 46, lineHeight: 1.1 }}>
+          Servicio para crear tu{" "}
+          <span style={{ color: colors.gold }}>
+            trucking company en USA
+          </span>
+          <br />
           DOT · MC · LLC · EIN · UCR
         </h1>
 
-        <p style={{ maxWidth: 760, fontSize: 16, lineHeight: 1.7, marginTop: 16 }}>
-          Servicio profesional en español para camioneros latinos que necesitan
-          crear su compañía legalmente sin errores, retrasos ni riesgos con FMCSA.
+        <p
+          style={{
+            maxWidth: 720,
+            fontSize: 16,
+            lineHeight: 1.7,
+            color: "rgba(255,255,255,0.9)",
+          }}
+        >
+          Servicio profesional en español para camioneros latinos que
+          necesitan crear su compañía legalmente, sin errores ni
+          retrasos con FMCSA.
         </p>
 
-        <div style={{ marginTop: 24, display: "flex", gap: 12 }}>
-          <PrimaryButton href="#packages">Ver paquetes</PrimaryButton>
-          <a href="#individual" style={{ color: "#fff", fontSize: 13 }}>
+        <div style={{ marginTop: 26, display: "flex", gap: 12 }}>
+          <PrimaryButton href="#packages">
+            Ver paquetes
+          </PrimaryButton>
+          <SecondaryButton href="#individual">
             Servicios individuales
-          </a>
+          </SecondaryButton>
         </div>
       </Section>
     </section>
+  );
+}
+
+/* =========================
+   PACKAGE CARD
+========================= */
+
+function PackageCard({ bg, title, price, bullets, buyLink }) {
+  return (
+    <div
+      style={{
+        position: "relative",
+        borderRadius: 24,
+        overflow: "hidden",
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: 420,
+        border: "1px solid rgba(255,255,255,0.18)",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,0,0,0.6)",
+        }}
+      />
+
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          padding: 24,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          gap: 10,
+        }}
+      >
+        <h3 style={{ color: colors.gold }}>{title}</h3>
+
+        <ul style={{ fontSize: 13, lineHeight: 1.6 }}>
+          {bullets.map((b) => (
+            <li key={b}>{b}</li>
+          ))}
+        </ul>
+
+        <strong style={{ fontSize: 22 }}>{price}</strong>
+
+        <PrimaryButton href={buyLink}>Comprar</PrimaryButton>
+      </div>
+    </div>
   );
 }
 
@@ -146,79 +224,124 @@ function Hero() {
 
 function Packages() {
   return (
-    <Section id="packages" style={{ paddingTop: 60 }}>
+    <Section id="packages" style={{ paddingTop: 80 }}>
       <h2>Tienda de creación de compañía</h2>
-      <p style={{ maxWidth: 820 }}>
-        El camino correcto para iniciar legalmente. Tú manejas. Nosotros nos encargamos del papeleo,
-        la validación y la evidencia.
-      </p>
 
-      <div style={{ marginTop: 32, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 24 }}>
-        <div style={{ border: "1px solid rgba(255,255,255,0.15)", borderRadius: 20, padding: 24 }}>
-          <h3 style={{ color: colors.gold }}>Interstate · Completa</h3>
-          <ul>
-            <li>LLC + EIN</li>
-            <li>USDOT + MC Authority</li>
-            <li>BOC-3 + UCR</li>
-            <li>Seguimiento diario</li>
-          </ul>
-          <strong>USD $1,500</strong>
-          <div style={{ marginTop: 16 }}>
-            <PrimaryButton href={STRIPE_INTERSTATE}>Comprar</PrimaryButton>
-          </div>
-        </div>
+      <div
+        style={{
+          marginTop: 30,
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+          gap: 24,
+        }}
+      >
+        <PackageCard
+          bg="/services/packages/interstate-bg.png"
+          title="Interstate · Completa"
+          price="USD $1,500"
+          bullets={[
+            "LLC + EIN",
+            "USDOT + MC Authority",
+            "BOC-3 + UCR",
+            "Seguimiento diario",
+          ]}
+          buyLink={STRIPE_INTERSTATE}
+        />
 
-        <div style={{ border: "1px solid rgba(255,255,255,0.15)", borderRadius: 20, padding: 24 }}>
-          <h3 style={{ color: colors.gold }}>Intrastate · Simple</h3>
-          <ul>
-            <li>LLC + EIN</li>
-            <li>USDOT</li>
-            <li>TXDMV (si aplica)</li>
-            <li>Seguimiento diario</li>
-          </ul>
-          <strong>USD $900</strong>
-          <div style={{ marginTop: 16 }}>
-            <PrimaryButton href={STRIPE_INTRASTATE}>Comprar</PrimaryButton>
-          </div>
-        </div>
+        <PackageCard
+          bg="/services/packages/intrastate-bg.png"
+          title="Intrastate · Simple"
+          price="USD $900"
+          bullets={[
+            "LLC + EIN",
+            "USDOT",
+            "TXDMV (si aplica)",
+            "Seguimiento diario",
+          ]}
+          buyLink={STRIPE_INTRASTATE}
+        />
       </div>
     </Section>
   );
 }
 
 /* =========================
-   INDIVIDUAL SERVICES (LEADS)
+   INDIVIDUAL SERVICES
 ========================= */
 
 function IndividualServices() {
-  const services = [
-    { title: "EIN Filing", price: "USD $99" },
-    { title: "DOT / MCS-150", price: "USD $149" },
-    { title: "MC Authority", price: "USD $249" },
-    { title: "BOC-3", price: "USD $69" },
-    { title: "UCR Filing", price: "USD $89" },
-  ];
+  const services = useMemo(
+    () => [
+      {
+        title: "EIN Filing",
+        price: "USD $99",
+        bg: "/services/individuals/ein-bg.png",
+      },
+      {
+        title: "DOT / MCS-150",
+        price: "USD $149",
+        bg: "/services/individuals/dot-bg.png",
+      },
+      {
+        title: "MC Authority",
+        price: "USD $249",
+        bg: "/services/individuals/mc-bg.png",
+      },
+      {
+        title: "UCR Filing",
+        price: "USD $89",
+        bg: "/services/individuals/ucr-bg.png",
+      },
+    ],
+    []
+  );
 
   return (
-    <Section id="individual" style={{ paddingTop: 80 }}>
+    <Section id="individual" style={{ paddingTop: 90 }}>
       <h2>Servicios individuales</h2>
-      <p style={{ maxWidth: 820 }}>
-        ¿Solo necesitas un trámite puntual? Solicítalo y te guiamos paso a paso.
-      </p>
 
-      <div style={{ marginTop: 24, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+      <div
+        style={{
+          marginTop: 24,
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: 18,
+        }}
+      >
         {services.map((s) => (
-          <div key={s.title} style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: 18, padding: 18 }}>
-            <strong style={{ color: colors.gold }}>{s.title}</strong>
-            <div>{s.price}</div>
-
-            <div style={{ marginTop: 12 }}>
-              <a
-                href="/contact"
-                style={{ color: colors.gold, fontSize: 13 }}
-              >
-                Solicitar este servicio →
-              </a>
+          <div
+            key={s.title}
+            style={{
+              borderRadius: 20,
+              backgroundImage: `url(${s.bg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              minHeight: 260,
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "rgba(0,0,0,0.65)",
+              }}
+            />
+            <div
+              style={{
+                position: "relative",
+                zIndex: 2,
+                padding: 18,
+              }}
+            >
+              <strong style={{ color: colors.gold }}>
+                {s.title}
+              </strong>
+              <div>{s.price}</div>
+              <div style={{ marginTop: 10, fontSize: 13 }}>
+                Ver especificaciones →
+              </div>
             </div>
           </div>
         ))}
@@ -233,18 +356,28 @@ function IndividualServices() {
 
 function Footer() {
   return (
-    <footer style={{ marginTop: 80, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-      <Section style={{ padding: "40px 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
+    <footer
+      style={{
+        marginTop: 90,
+        borderTop: "1px solid rgba(255,255,255,0.08)",
+      }}
+    >
+      <Section
+        style={{
+          padding: "40px 0",
+          display: "grid",
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: 24,
+        }}
+      >
         <div>
-          <strong>Sovereign TruckGuard LLC</strong><br />
-          30 N Gould St, Ste N<br />
-          Sheridan, WY 82801<br />
-          Servicio premium en español
-        </div>
-
-        <div>
-          <strong>Contacto</strong><br />
-          info@sovereigntruckguard.com<br />
+          <strong>Sovereign TruckGuard LLC</strong>
+          <br />
+          30 N Gould St, Ste N
+          <br />
+          Sheridan, WY 82801
+          <br />
           Lun–Vie · 9:00 AM – 6:00 PM CST
         </div>
 
