@@ -858,7 +858,7 @@ function Footer() {
               <br />
               Horario: Lun–Vie 9am–6pm EST
               <br />
-              Teléfono: <span style={{ opacity: 0.9 }}>+1 (307) 689-5306</span>
+              Teléfono: <span style={{ opacity: 0.9 }}>+1 (608) 557-6282</span>
               <br />
               <br />
               Atención en español
