@@ -19,13 +19,9 @@ const layout = {
   sidePadding: 20,
 };
 
-// =========================
-// STRIPE LINKS (PAQUETES)
-// =========================
-const STRIPE_INTERSTATE =
-  "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
-const STRIPE_INTRASTATE =
-  "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
+// STRIPE LINKS (PRODUCCIÓN)
+const STRIPE_INTERSTATE = "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
+const STRIPE_INTRASTATE = "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
 
 /* =========================
    HELPERS
@@ -54,106 +50,16 @@ function Pill({ children }) {
         display: "inline-flex",
         padding: "6px 12px",
         borderRadius: 999,
-        border: "1px solid rgba(255,255,255,0.18)",
-        background: "rgba(0,0,0,0.35)",
+        border: "1px solid rgba(255,255,255,0.25)",
         fontSize: 11,
         letterSpacing: "0.14em",
         textTransform: "uppercase",
         color: "rgba(255,255,255,0.9)",
+        background: "rgba(0,0,0,0.35)",
       }}
     >
       {children}
     </span>
-  );
-}
-
-function PrimaryButton({ children, href }) {
-  return (
-    <a
-      href={href}
-      style={{
-        padding: "12px 26px",
-        borderRadius: 999,
-        background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
-        color: "#000",
-        fontWeight: 900,
-        fontSize: 13,
-        textDecoration: "none",
-        whiteSpace: "nowrap",
-      }}
-    >
-      {children}
-    </a>
-  );
-}
-
-function SecondaryButton({ children, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        padding: "11px 22px",
-        borderRadius: 999,
-        border: "1px solid rgba(255,255,255,0.35)",
-        background: "rgba(0,0,0,0.35)",
-        color: "#fff",
-        fontSize: 12,
-        fontWeight: 800,
-        cursor: "pointer",
-        whiteSpace: "nowrap",
-      }}
-    >
-      {children}
-    </button>
-  );
-}
-
-/* =========================
-   MODAL
-========================= */
-
-function Modal({ open, title, onClose, children }) {
-  if (!open) return null;
-
-  return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 999,
-        background: "rgba(0,0,0,0.85)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20,
-      }}
-    >
-      <div
-        style={{
-          width: "min(900px,100%)",
-          maxHeight: "85vh",
-          overflow: "auto",
-          background: "#0b0b0b",
-          borderRadius: 22,
-          border: "1px solid rgba(255,255,255,0.15)",
-        }}
-      >
-        <div
-          style={{
-            padding: 16,
-            borderBottom: "1px solid rgba(255,255,255,0.1)",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <strong style={{ color: colors.gold }}>{title}</strong>
-          <button onClick={onClose} style={{ color: "#fff" }}>
-            ✕
-          </button>
-        </div>
-        <div style={{ padding: 18 }}>{children}</div>
-      </div>
-    </div>
   );
 }
 
@@ -167,14 +73,15 @@ function Hero() {
       style={{
         position: "relative",
         minHeight: "90vh",
+        width: "100%",
         overflow: "hidden",
       }}
     >
       <video
         src="/services/hero/hero-services.mp4"
         autoPlay
-        muted
         loop
+        muted
         playsInline
         style={{
           position: "absolute",
@@ -184,30 +91,67 @@ function Hero() {
           objectFit: "cover",
         }}
       />
+
+      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)" }} />
       <div
         style={{
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(90deg, rgba(0,0,0,0.9), rgba(0,0,0,0.45))",
+            "linear-gradient(90deg, rgba(0,0,0,0.85), rgba(0,0,0,0.45), rgba(0,0,0,0.15))",
         }}
       />
-      <Section style={{ paddingTop: 120, position: "relative" }}>
-        <h1 style={{ fontSize: 44, lineHeight: 1.1 }}>
-          Servicio para crear tu{" "}
-          <span style={{ color: colors.gold }}>
-            trucking company en USA
-          </span>
-        </h1>
-        <p style={{ maxWidth: 700, fontSize: 16 }}>
-          DOT · MC · LLC · EIN · UCR — lo hacemos bien desde el inicio,
-          sin errores ni letra pequeña.
-        </p>
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <PrimaryButton href="#packages">Ver paquetes</PrimaryButton>
-          <PrimaryButton href="#individual">
-            Servicios individuales
-          </PrimaryButton>
+
+      <Section style={{ position: "relative", zIndex: 2, paddingTop: 140 }}>
+        <div style={{ maxWidth: 760 }}>
+          <p
+            style={{
+              color: colors.gold,
+              fontSize: 12,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+            }}
+          >
+            Servicios regulatorios premium
+          </p>
+
+          <h1 style={{ fontSize: 48, lineHeight: 1.1 }}>
+            Servicio para crear tu{" "}
+            <span style={{ color: colors.gold }}>trucking company en USA</span>
+          </h1>
+
+          <p style={{ marginTop: 12, fontSize: 16, lineHeight: 1.7 }}>
+            DOT · MC · LLC · EIN · UCR — lo hacemos bien desde el inicio, sin errores ni letra pequeña.
+          </p>
+
+          <div style={{ marginTop: 20, display: "flex", gap: 12 }}>
+            <a
+              href="#packages"
+              style={{
+                padding: "12px 26px",
+                borderRadius: 999,
+                background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+                color: "#000",
+                fontWeight: 900,
+                textDecoration: "none",
+              }}
+            >
+              Ver paquetes
+            </a>
+
+            <a
+              href="#individual"
+              style={{
+                padding: "12px 26px",
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.4)",
+                color: "#fff",
+                textDecoration: "none",
+              }}
+            >
+              Servicios individuales
+            </a>
+          </div>
         </div>
       </Section>
     </section>
@@ -218,92 +162,83 @@ function Hero() {
    PACKAGE CARD
 ========================= */
 
-function PackageCard({
-  bg,
-  badge,
-  title,
-  price,
-  bullets,
-  buyLink,
-  onExplain,
-}) {
+function PackageCard({ bg, badge, title, price, bullets, stripe }) {
   return (
     <div
       style={{
         position: "relative",
         borderRadius: 26,
         overflow: "hidden",
+        minHeight: 480,
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        minHeight: 460,
+        boxShadow: "0 30px 90px rgba(0,0,0,0.95)",
       }}
     >
+      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)" }} />
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.9))",
+          background: "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.9))",
         }}
       />
-      <div style={{ position: "relative", padding: 26 }}>
+
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          padding: 28,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          gap: 12,
+        }}
+      >
         <Pill>{badge}</Pill>
-        <h3 style={{ color: colors.gold, marginTop: 10 }}>{title}</h3>
+
+        <h3 style={{ fontSize: 28, color: colors.gold }}>{title}</h3>
+
         <ul>
           {bullets.map((b) => (
             <li key={b}>{b}</li>
           ))}
         </ul>
-        <strong style={{ fontSize: 22 }}>{price}</strong>
-        <div style={{ display: "flex", gap: 10, marginTop: 12 }}>
-          <PrimaryButton href={buyLink}>Comprar</PrimaryButton>
-          <SecondaryButton onClick={onExplain}>
+
+        <div style={{ fontSize: 24, fontWeight: 900 }}>{price}</div>
+
+        <div style={{ display: "flex", gap: 10 }}>
+          <a
+            href={stripe}
+            style={{
+              padding: "12px 24px",
+              borderRadius: 999,
+              background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+              color: "#000",
+              fontWeight: 900,
+              textDecoration: "none",
+            }}
+          >
+            Comprar
+          </a>
+
+          <a
+            href="#how"
+            style={{
+              padding: "12px 24px",
+              borderRadius: 999,
+              border: "1px solid rgba(255,255,255,0.4)",
+              color: "#fff",
+              textDecoration: "none",
+            }}
+          >
             Ver cómo funciona
-          </SecondaryButton>
+          </a>
         </div>
       </div>
     </div>
-  );
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-function Footer() {
-  return (
-    <footer
-      style={{
-        marginTop: 80,
-        borderTop: "1px solid rgba(255,255,255,0.1)",
-      }}
-    >
-      <Section style={{ padding: "40px 0" }}>
-        <div style={{ display: "grid", gap: 20 }}>
-          <div>
-            <strong>Sovereign TruckGuard LLC</strong>
-            <p>
-              Registered in the United States
-              <br />
-              30 N Gould St, Ste N
-              <br />
-              Sheridan, WY 82801
-              <br />
-              Lun–Vie · 9:00 AM – 6:00 PM CST
-              <br />
-              info@sovereigntruckguard.com
-            </p>
-          </div>
-          <iframe
-            src="https://www.google.com/maps?q=30%20N%20Gould%20St%20Ste%20N,%20Sheridan,%20WY%2082801&output=embed"
-            width="100%"
-            height="220"
-            style={{ borderRadius: 14 }}
-          />
-        </div>
-      </Section>
-    </footer>
   );
 }
 
@@ -312,22 +247,20 @@ function Footer() {
 ========================= */
 
 export default function ServicesPage() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalBody, setModalBody] = useState(null);
-
   return (
-    <main style={{ background: colors.bg, color: "#fff" }}>
+    <main style={{ background: colors.bg, color: colors.white }}>
       <Header />
       <Hero />
 
-      <Section id="packages" style={{ paddingTop: 70 }}>
+      <Section id="packages" style={{ paddingTop: 80 }}>
         <h2>Tienda de creación de compañía</h2>
 
         <div
           style={{
+            marginTop: 24,
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
-            gap: 22,
+            gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
+            gap: 24,
           }}
         >
           <PackageCard
@@ -337,20 +270,11 @@ export default function ServicesPage() {
             price="USD $1,500"
             bullets={[
               "LLC + EIN",
-              "USDOT + MC",
+              "USDOT + MC Authority",
               "BOC-3 + UCR",
               "Seguimiento diario",
             ]}
-            buyLink={STRIPE_INTERSTATE}
-            onExplain={() => {
-              setModalBody(
-                <p>
-                  Interstate tarda aprox. 25–30 días por activación
-                  de MC Authority. Fees oficiales se pagan directo.
-                </p>
-              );
-              setModalOpen(true);
-            }}
+            stripe={STRIPE_INTERSTATE}
           />
 
           <PackageCard
@@ -364,29 +288,30 @@ export default function ServicesPage() {
               "TXDMV (si aplica)",
               "Seguimiento diario",
             ]}
-            buyLink={STRIPE_INTRASTATE}
-            onExplain={() => {
-              setModalBody(
-                <p>
-                  Intrastate tarda aprox. 7–10 días. No incluye MC,
-                  BOC-3 ni UCR.
-                </p>
-              );
-              setModalOpen(true);
-            }}
+            stripe={STRIPE_INTRASTATE}
           />
         </div>
       </Section>
 
-      <Footer />
+      {/* Footer */}
+      <footer style={{ marginTop: 100, padding: 40, borderTop: "1px solid #222" }}>
+        <div>
+          <strong>Sovereign TruckGuard LLC</strong><br />
+          Registered in the United States<br />
+          30 N Gould St, Ste N<br />
+          Sheridan, WY 82801<br />
+          Lun–Vie · 9:00 AM – 6:00 PM CST<br />
+          info@sovereigntruckguard.com
+        </div>
 
-      <Modal
-        open={modalOpen}
-        title="Cómo funciona"
-        onClose={() => setModalOpen(false)}
-      >
-        {modalBody}
-      </Modal>
+        <iframe
+          src="https://www.google.com/maps?q=30%20N%20Gould%20St%20Ste%20N,%20Sheridan,%20WY%2082801&output=embed"
+          width="100%"
+          height="220"
+          style={{ border: 0, marginTop: 20 }}
+          loading="lazy"
+        />
+      </footer>
     </main>
   );
 }
