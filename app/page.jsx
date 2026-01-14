@@ -1,119 +1,148 @@
 "use client";
 
-// Landing Sovereign TruckGuard – HOME optimizado a conversión (mobile-first)
+/**
+ * HOME – Sovereign TruckGuard
+ * Objetivo: conversión directa (crear compañía / packages)
+ * Enfoque: mobile-first, autoridad legal, anti-portales automáticos
+ */
 
 import { useLanguage } from "../lib/language";
 import Header from "./components/Header.jsx";
 
 const colors = {
   bg: "#050505",
-  panel: "#0b0b0b",
   gold: "#FFD700",
   rose: "#E8B7B7",
-  white: "#FFFFFF"
+  white: "#FFFFFF",
 };
 
 const layout = {
   maxWidth: 1120,
-  sidePadding: 20
+  sidePadding: 20,
 };
 
 /* =========================
-   COPY ESTRATÉGICO ES / EN
+   COPY (ES / EN)
 ========================= */
 
 const TEXT_ES = {
   hero: {
-    subtitle: "Empresa registrada en EE. UU. · Cumplimiento real · Sin intermediarios",
-    titleLine1: "Creamos tu trucking company",
-    titleLine2: "legal y asegurable desde el día uno.",
+    kicker: "Registro legal + DOT + respaldo real",
+    title: "Creamos tu trucking company en EE. UU.",
+    subtitle: "Sin errores. Sin vueltas. Sin portales automáticos.",
     body:
-      "Registramos tu LLC, EIN, DOT y MC correctamente para que puedas operar y asegurar sin errores que luego cuestan miles. No solo sacamos números: construimos tu base legal.",
-    btnQuote: "Crear mi compañía ahora",
-    btnCoverages: "Ver qué incluye"
+      "Registramos tu empresa correctamente desde el inicio (LLC, EIN, DOT, MC) para que puedas asegurar y operar sin problemas. No somos un formulario. Somos responsables de lo que hacemos.",
+    cta: "Crear mi compañía ahora",
+    trust: "Wyoming LLC · Proceso humano · Soporte real",
   },
-  rail: [
-    { title: "Crear compañía", desc: "LLC · EIN · DOT · MC", link: "/services#packages" },
-    { title: "Seguro comercial", desc: "Auto · Cargo · Liability", link: "#servicios" },
-    { title: "Cumplimiento DOT", desc: "Filings · Workers Comp", link: "/services" },
-    { title: "Soporte real", desc: "Acompañamiento post-registro", link: "/contact" }
-  ],
-  services: {
+
+  diff: {
     title: "Esto es lo que hacemos (y por qué funciona)",
-    bullets: [
+    items: [
       "Registramos tu empresa correctamente desde el inicio.",
       "Evitamos errores que encarecen tu seguro después.",
       "Te dejamos listo para asegurar y operar.",
-      "Respondemos si algo falla."
-    ]
+      "Respondemos si algo falla. No desaparecemos.",
+    ],
   },
+
   process: {
     title: "Nuestro proceso",
     steps: [
-      "Revisión de tu caso y objetivo real.",
+      "Revisión real de tu caso y objetivo.",
       "Estructuración legal correcta.",
       "Preparación para seguro comercial.",
-      "Soporte y seguimiento."
-    ]
+      "Soporte y seguimiento continuo.",
+    ],
   },
+
   why: {
     title: "Por qué Sovereign TruckGuard",
-    bullets: [
+    items: [
       "Empresa real registrada en Wyoming (USA).",
       "Especialistas en camioneros latinos.",
       "No somos un portal automático.",
-      "Te acompañamos después del registro."
-    ]
-  }
+      "Te acompañamos después del registro.",
+    ],
+  },
+
+  ctaFinal: {
+    title: "Empieza bien desde el primer día",
+    subtitle:
+      "Una mala estructura legal hoy se paga caro después. Hazlo bien desde el inicio.",
+    button: "Crear mi compañía",
+  },
+
+  footer: {
+    company: "Sovereign TruckGuard LLC",
+    address: "30 N Gould St, Ste N · Sheridan, WY 82801 · USA",
+    note:
+      "Registered U.S. Limited Liability Company. EIN disponible bajo solicitud formal.",
+    email: "info@sovereigntruckguard.com",
+    phone: "+1 (608) 557-6282",
+  },
 };
 
 const TEXT_EN = {
   hero: {
-    subtitle: "U.S. Registered Company · Real Compliance · No Middlemen",
-    titleLine1: "We build your trucking company",
-    titleLine2: "legal and insurable from day one.",
+    kicker: "Legal setup + DOT + real backing",
+    title: "We build your U.S. trucking company",
+    subtitle: "No mistakes. No portals. No disappearing support.",
     body:
-      "We set up your LLC, EIN, DOT and MC the right way so you can operate and insure without costly mistakes later.",
-    btnQuote: "Start my company",
-    btnCoverages: "See what’s included"
+      "We register your company correctly from day one (LLC, EIN, DOT, MC) so you can insure and operate without problems. We are accountable for what we do.",
+    cta: "Start my company",
+    trust: "Wyoming LLC · Human process · Real support",
   },
-  rail: [
-    { title: "Company setup", desc: "LLC · EIN · DOT · MC", link: "/services#packages" },
-    { title: "Commercial insurance", desc: "Auto · Cargo · Liability", link: "#servicios" },
-    { title: "DOT compliance", desc: "Filings · Workers Comp", link: "/services" },
-    { title: "Real support", desc: "After setup support", link: "/contact" }
-  ],
-  services: {
+
+  diff: {
     title: "What we do (and why it works)",
-    bullets: [
-      "Correct company setup from day one.",
-      "Avoid mistakes that increase insurance costs.",
-      "Ready to operate and insure.",
-      "We stand behind our work."
-    ]
+    items: [
+      "We register your company correctly from the start.",
+      "We avoid mistakes that raise insurance costs later.",
+      "We prepare you to insure and operate.",
+      "We respond if something fails. We don’t disappear.",
+    ],
   },
+
   process: {
     title: "Our process",
     steps: [
-      "Case review and goal alignment.",
+      "Real review of your case and goal.",
       "Correct legal structure.",
-      "Insurance-ready setup.",
-      "Ongoing support."
-    ]
+      "Preparation for commercial insurance.",
+      "Ongoing support and follow-up.",
+    ],
   },
+
   why: {
     title: "Why Sovereign TruckGuard",
-    bullets: [
-      "Real U.S. registered company (Wyoming).",
+    items: [
+      "Real company registered in Wyoming (USA).",
       "Latino trucking specialists.",
       "Not an automated portal.",
-      "Support beyond registration."
-    ]
-  }
+      "Support after registration.",
+    ],
+  },
+
+  ctaFinal: {
+    title: "Start right from day one",
+    subtitle:
+      "Bad legal structure today becomes expensive tomorrow. Do it right from the start.",
+    button: "Start my company",
+  },
+
+  footer: {
+    company: "Sovereign TruckGuard LLC",
+    address: "30 N Gould St, Ste N · Sheridan, WY 82801 · USA",
+    note:
+      "Registered U.S. Limited Liability Company. EIN available upon formal request.",
+    email: "info@sovereigntruckguard.com",
+    phone: "+1 (608) 557-6282",
+  },
 };
 
 /* =========================
-   HERO (MOBILE-FIRST)
+   HERO
 ========================= */
 
 function Hero() {
@@ -124,10 +153,10 @@ function Hero() {
     <section
       style={{
         position: "relative",
-        width: "100%",
         paddingTop: 120,
-        paddingBottom: 64,
-        overflow: "hidden"
+        paddingBottom: 80,
+        background: colors.bg,
+        overflow: "hidden",
       }}
     >
       <video
@@ -142,15 +171,16 @@ function Hero() {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          filter: "brightness(0.45)"
+          filter: "brightness(0.45)",
         }}
       />
+
       <div
         style={{
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.95))"
+            "linear-gradient(to bottom, rgba(0,0,0,.65), rgba(0,0,0,.92))",
         }}
       />
 
@@ -162,165 +192,173 @@ function Hero() {
           margin: "0 auto",
           padding: "0 20px",
           textAlign: "center",
-          color: colors.white
+          color: "#fff",
         }}
       >
         <p
           style={{
             fontSize: 11,
-            letterSpacing: "0.22em",
+            letterSpacing: "0.25em",
             textTransform: "uppercase",
-            color: colors.gold
+            color: colors.gold,
+            marginBottom: 12,
+          }}
+        >
+          {t.kicker}
+        </p>
+
+        <h1 style={{ fontSize: 32, lineHeight: 1.2, margin: 0 }}>
+          {t.title}
+        </h1>
+
+        <p
+          style={{
+            marginTop: 12,
+            fontSize: 18,
+            fontWeight: 600,
+            color: colors.rose,
           }}
         >
           {t.subtitle}
         </p>
 
-        <h1 style={{ fontSize: 30, lineHeight: 1.2, margin: "14px 0" }}>
-          {t.titleLine1}
-          <br />
-          {t.titleLine2}
-        </h1>
-
-        <p style={{ fontSize: 15, opacity: 0.85 }}>{t.body}</p>
+        <p
+          style={{
+            marginTop: 18,
+            fontSize: 15,
+            lineHeight: 1.6,
+            color: "rgba(255,255,255,.85)",
+          }}
+        >
+          {t.body}
+        </p>
 
         <a
           href="/services#packages"
           style={{
+            marginTop: 28,
             display: "inline-block",
-            marginTop: 26,
             padding: "14px 36px",
             borderRadius: 999,
             background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
             color: "#000",
             fontWeight: 700,
             textDecoration: "none",
-            boxShadow: "0 16px 40px rgba(255,215,0,0.35)"
+            boxShadow: "0 16px 40px rgba(255,215,0,.35)",
           }}
         >
-          {t.btnQuote}
+          {t.cta}
         </a>
 
-        <div style={{ marginTop: 12 }}>
-          <a href="#servicios" style={{ fontSize: 13, color: "rgba(255,255,255,0.7)" }}>
-            {t.btnCoverages}
-          </a>
-        </div>
+        <p
+          style={{
+            marginTop: 14,
+            fontSize: 12,
+            color: "rgba(255,255,255,.6)",
+          }}
+        >
+          {t.trust}
+        </p>
       </div>
     </section>
   );
 }
 
 /* =========================
-   SERVICE RAIL
+   SECTION – DIFFERENTIATION
 ========================= */
 
-function ServiceRail() {
-  const { lang } = useLanguage();
-  const items = lang === "es" ? TEXT_ES.rail : TEXT_EN.rail;
-
+function BulletSection({ title, items }) {
   return (
-    <section style={{ padding: "32px 20px" }}>
-      <div
+    <section
+      style={{
+        maxWidth: layout.maxWidth,
+        margin: "80px auto 0",
+        padding: `0 ${layout.sidePadding}px`,
+      }}
+    >
+      <h2 style={{ color: colors.gold, marginBottom: 18 }}>{title}</h2>
+      <ul style={{ paddingLeft: 20, lineHeight: 1.7 }}>
+        {items.map((i) => (
+          <li key={i} style={{ marginBottom: 10 }}>
+            {i}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/* =========================
+   CTA FINAL
+========================= */
+
+function FinalCTA({ t }) {
+  return (
+    <section
+      style={{
+        margin: "100px auto",
+        padding: "60px 20px",
+        textAlign: "center",
+        background:
+          "linear-gradient(180deg, rgba(255,215,0,.08), rgba(0,0,0,0))",
+      }}
+    >
+      <h2 style={{ fontSize: 26, marginBottom: 10 }}>{t.title}</h2>
+      <p
         style={{
-          maxWidth: layout.maxWidth,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px,1fr))",
-          gap: 14
+          maxWidth: 520,
+          margin: "0 auto 24px",
+          color: "rgba(255,255,255,.8)",
         }}
       >
-        {items.map((i) => (
-          <a
-            key={i.title}
-            href={i.link}
-            style={{
-              padding: 16,
-              borderRadius: 16,
-              background: colors.panel,
-              border: "1px solid rgba(255,255,255,0.12)",
-              textDecoration: "none",
-              color: colors.white
-            }}
-          >
-            <h3 style={{ margin: 0, color: colors.gold }}>{i.title}</h3>
-            <p style={{ fontSize: 13, opacity: 0.8 }}>{i.desc}</p>
-          </a>
-        ))}
-      </div>
+        {t.subtitle}
+      </p>
+      <a
+        href="/services#packages"
+        style={{
+          padding: "14px 40px",
+          borderRadius: 999,
+          background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+          color: "#000",
+          fontWeight: 700,
+          textDecoration: "none",
+        }}
+      >
+        {t.button}
+      </a>
     </section>
   );
 }
 
 /* =========================
-   SERVICES
+   FOOTER (RESTAURADO)
 ========================= */
 
-function Services() {
+function Footer() {
   const { lang } = useLanguage();
-  const s = lang === "es" ? TEXT_ES.services : TEXT_EN.services;
+  const f = lang === "es" ? TEXT_ES.footer : TEXT_EN.footer;
 
   return (
-    <section id="servicios" style={{ padding: "48px 20px" }}>
-      <div style={{ maxWidth: layout.maxWidth, margin: "0 auto" }}>
-        <h2 style={{ color: colors.gold }}>{s.title}</h2>
-        <ul style={{ marginTop: 12 }}>
-          {s.bullets.map((b) => (
-            <li key={b} style={{ marginBottom: 8 }}>
-              {b}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-/* =========================
-   PROCESS
-========================= */
-
-function Process() {
-  const { lang } = useLanguage();
-  const p = lang === "es" ? TEXT_ES.process : TEXT_EN.process;
-
-  return (
-    <section style={{ padding: "48px 20px" }}>
-      <div style={{ maxWidth: layout.maxWidth, margin: "0 auto" }}>
-        <h2 style={{ color: colors.gold }}>{p.title}</h2>
-        <ol>
-          {p.steps.map((s) => (
-            <li key={s} style={{ marginBottom: 6 }}>
-              {s}
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
-/* =========================
-   WHY
-========================= */
-
-function WhyChooseUs() {
-  const { lang } = useLanguage();
-  const w = lang === "es" ? TEXT_ES.why : TEXT_EN.why;
-
-  return (
-    <section style={{ padding: "48px 20px" }}>
-      <div style={{ maxWidth: layout.maxWidth, margin: "0 auto" }}>
-        <h2 style={{ color: colors.gold }}>{w.title}</h2>
-        <ul>
-          {w.bullets.map((b) => (
-            <li key={b} style={{ marginBottom: 6 }}>
-              {b}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+    <footer
+      style={{
+        borderTop: "1px solid rgba(255,255,255,.12)",
+        padding: "40px 20px",
+        textAlign: "center",
+        fontSize: 12,
+        color: "rgba(255,255,255,.7)",
+      }}
+    >
+      <strong>{f.company}</strong>
+      <p>{f.address}</p>
+      <p>{f.note}</p>
+      <p>
+        {f.email} · {f.phone}
+      </p>
+      <p style={{ marginTop: 10, fontSize: 11 }}>
+        © {new Date().getFullYear()} Sovereign TruckGuard · Powered by SOLYON
+      </p>
+    </footer>
   );
 }
 
@@ -329,25 +367,24 @@ function WhyChooseUs() {
 ========================= */
 
 export default function Page() {
+  const { lang } = useLanguage();
+  const T = lang === "es" ? TEXT_ES : TEXT_EN;
+
   return (
     <main
       style={{
         minHeight: "100vh",
-        background:
-          "radial-gradient(circle at top, rgba(255,215,0,0.12), transparent 55%)," +
-          "radial-gradient(circle at bottom, rgba(232,183,183,0.12), transparent 55%)," +
-          colors.bg,
+        background: colors.bg,
         color: colors.white,
-        fontFamily:
-          "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
       }}
     >
       <Header />
       <Hero />
-      <ServiceRail />
-      <Services />
-      <Process />
-      <WhyChooseUs />
+      <BulletSection title={T.diff.title} items={T.diff.items} />
+      <BulletSection title={T.process.title} items={T.process.steps} />
+      <BulletSection title={T.why.title} items={T.why.items} />
+      <FinalCTA t={T.ctaFinal} />
+      <Footer />
     </main>
   );
 }
