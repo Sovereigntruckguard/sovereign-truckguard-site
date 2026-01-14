@@ -20,26 +20,25 @@ const layout = {
 };
 
 /* =========================
-   TEXTOS
+   TEXTOS (SEO + CONVERSIÓN)
 ========================= */
 
 const TEXT_ES = {
   hero: {
     subtitle:
       "Sistema soberano de creación y cumplimiento para camioneros latinos en EE. UU.",
-    titleLine1: "Creamos tu trucking company legal",
-    titleLine2: "y te dejamos listo para asegurar y operar.",
+    titleLine1: "Creamos tu DOT y MC correctamente",
+    titleLine2: "para que puedas asegurar y operar sin errores.",
     btnQuote: "Crear mi compañía",
     btnCoverages: "Ver cómo funciona",
   },
 };
 
 /* =========================
-   HERO (YA OPTIMIZADO)
+   HERO (FOCO TOTAL)
 ========================= */
 
 function Hero() {
-  const { lang } = useLanguage();
   const t = TEXT_ES.hero;
 
   return (
@@ -47,7 +46,7 @@ function Hero() {
       style={{
         position: "relative",
         paddingTop: 120,
-        paddingBottom: 70,
+        paddingBottom: 80,
         overflow: "hidden",
       }}
     >
@@ -139,7 +138,7 @@ function Hero() {
 }
 
 /* =========================
-   SERVICE RAIL
+   SERVICE RAIL (LAS CARDS VERDES)
 ========================= */
 
 function ServiceRail() {
@@ -185,7 +184,7 @@ function ServiceRail() {
 }
 
 /* =========================
-   COMO FUNCIONA
+   CÓMO FUNCIONA (SEO CORE)
 ========================= */
 
 function HowItWorks() {
@@ -199,7 +198,7 @@ function HowItWorks() {
       }}
     >
       <h2 style={{ color: colors.gold, fontSize: 26 }}>
-        Cómo evitamos errores caros desde el inicio
+        Cómo sacar tu DOT y MC correctamente (en español)
       </h2>
 
       <div
@@ -214,7 +213,7 @@ function HowItWorks() {
           "Revisamos tu caso antes de registrar nada.",
           "Creamos la estructura correcta según tu objetivo real.",
           "Te dejamos listo para asegurar sin sobrecostos.",
-          "Respondemos después del registro.",
+          "Respondemos después del registro. No te dejamos solo.",
         ].map((text, i) => (
           <div
             key={i}
@@ -273,7 +272,7 @@ function FinalCTA() {
 }
 
 /* =========================
-   FOOTER (LEGAL + MAPS)
+   FOOTER COMPLETO (LEGAL + MAPS)
 ========================= */
 
 function Footer() {
@@ -302,7 +301,10 @@ function Footer() {
             30 N Gould St, Ste N<br />
             Sheridan, WY 82801 · USA
           </p>
-          <p>info@sovereigntruckguard.com<br />+1 (608) 557-6282</p>
+          <p>
+            info@sovereigntruckguard.com<br />
+            +1 (608) 557-6282
+          </p>
         </div>
 
         <div>
@@ -321,7 +323,7 @@ function Footer() {
           textAlign: "center",
           padding: "14px",
           fontSize: 11,
-          opacity: 0.7,
+          opacity: 0.75,
         }}
       >
         © {new Date().getFullYear()} Sovereign TruckGuard LLC · Powered by SOLYON
