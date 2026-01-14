@@ -5,37 +5,39 @@ import { useLanguage } from "../../lib/language.js";
 const colors = {
   gold: "#FFD700",
   rose: "#E8B7B7",
+  white: "#FFFFFF"
 };
 
 const layout = {
   maxWidth: 1120,
-  sidePadding: 20,
+  sidePadding: 20
 };
 
 export default function Header() {
-  const { lang, setLang } = useLanguage();
+  const { lang } = useLanguage();
 
-  const TEXT_ES = {
-    tagline: "Sistema soberano de creación y cumplimiento para camioneros latinos",
-    nav: {
-      services: "Servicios",
-      about: "Nosotros",
-      contact: "Contacto",
-      cta: "Crear mi compañía",
+  const TEXT = {
+    es: {
+      tagline: "Sistema soberano de creación y cumplimiento para camioneros latinos",
+      nav: {
+        services: "Servicios",
+        about: "Nosotros",
+        contact: "Contacto",
+        cta: "Crear mi compañía"
+      }
     },
+    en: {
+      tagline: "Sovereign company setup & compliance for Latino truckers",
+      nav: {
+        services: "Services",
+        about: "About",
+        contact: "Contact",
+        cta: "Start my company"
+      }
+    }
   };
 
-  const TEXT_EN = {
-    tagline: "Sovereign system for Latino truckers compliance & company creation",
-    nav: {
-      services: "Services",
-      about: "About",
-      contact: "Contact",
-      cta: "Start my company",
-    },
-  };
-
-  const t = lang === "es" ? TEXT_ES : TEXT_EN;
+  const t = lang === "es" ? TEXT.es : TEXT.en;
 
   return (
     <header
@@ -45,134 +47,135 @@ export default function Header() {
         left: 0,
         right: 0,
         zIndex: 50,
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
         background: "rgba(0,0,0,0.92)",
         backdropFilter: "blur(14px)",
+        borderBottom: "1px solid rgba(255,255,255,0.08)"
       }}
     >
       <div
         style={{
-          margin: "0 auto",
           maxWidth: layout.maxWidth,
+          margin: "0 auto",
           padding: `10px ${layout.sidePadding}px`,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: 16,
+          gap: 16
         }}
       >
         {/* LOGO + TAGLINE */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <a
+          href="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            textDecoration: "none",
+            color: colors.white
+          }}
+        >
           <img
             src="/logo-sovereign.png"
             alt="Sovereign TruckGuard"
-            style={{ width: 36, height: "auto", objectFit: "contain" }}
+            style={{ width: 34, height: "auto" }}
           />
-          <div>
-            <div
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span
               style={{
                 fontFamily: "Montserrat, system-ui",
                 fontSize: 11,
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.9)",
+                opacity: 0.9
               }}
             >
               Sovereign TruckGuard LLC
-            </div>
-            <p
+            </span>
+            <span
               style={{
-                margin: 0,
-                marginTop: 2,
                 fontSize: 11,
                 color: "rgba(255,255,255,0.6)",
+                display: "none"
               }}
+              className="header-tagline"
             >
               {t.tagline}
-            </p>
+            </span>
           </div>
-        </div>
+        </a>
 
-        {/* NAV + CTA */}
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <nav
+        {/* DESKTOP NAV */}
+        <nav
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 26,
+            fontSize: 13,
+            fontFamily: "Montserrat, system-ui"
+          }}
+          className="desktop-nav"
+        >
+          <a href="/services" style={linkStyle}>
+            {t.nav.services}
+          </a>
+          <a href="/about" style={linkStyle}>
+            {t.nav.about}
+          </a>
+          <a href="/contact" style={linkStyle}>
+            {t.nav.contact}
+          </a>
+
+          <a
+            href="/services#packages"
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 26,
-              fontSize: 13,
-              color: "rgba(255,255,255,0.78)",
-              fontFamily: "Montserrat, system-ui",
+              padding: "8px 22px",
+              borderRadius: 999,
+              background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+              color: "#000",
+              fontWeight: 700,
+              textDecoration: "none",
+              boxShadow: "0 14px 35px rgba(0,0,0,0.6)"
             }}
           >
-            <a
-              href="/services"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              {t.nav.services}
-            </a>
+            {t.nav.cta}
+          </a>
+        </nav>
 
-            <a
-              href="/about"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              {t.nav.about}
-            </a>
-
-            <a
-              href="/contact"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              {t.nav.contact}
-            </a>
-
-            {/* CTA ÚNICO */}
-            <a
-              href="/services#packages"
-              style={{
-                padding: "8px 22px",
-                borderRadius: 999,
-                background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
-                color: "#000",
-                fontWeight: 700,
-                textDecoration: "none",
-                boxShadow: "0 14px 35px rgba(0,0,0,0.6)",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {t.nav.cta}
-            </a>
-          </nav>
-
-          {/* IDIOMA */}
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <button
-              onClick={() => setLang("es")}
-              style={{
-                border: "none",
-                padding: 0,
-                background: "transparent",
-                opacity: lang === "es" ? 1 : 0.35,
-                cursor: "pointer",
-              }}
-            >
-              <img src="/flag-es.svg" alt="ES" style={{ width: 20, height: 20 }} />
-            </button>
-            <button
-              onClick={() => setLang("en")}
-              style={{
-                border: "none",
-                padding: 0,
-                background: "transparent",
-                opacity: lang === "en" ? 1 : 0.35,
-                cursor: "pointer",
-              }}
-            >
-              <img src="/flag-us.svg" alt="EN" style={{ width: 20, height: 20 }} />
-            </button>
-          </div>
-        </div>
+        {/* MOBILE CTA */}
+        <a
+          href="/services#packages"
+          className="mobile-cta"
+          style={{
+            padding: "8px 18px",
+            borderRadius: 999,
+            background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
+            color: "#000",
+            fontWeight: 700,
+            textDecoration: "none",
+            fontSize: 13,
+            display: "none"
+          }}
+        >
+          {t.nav.cta}
+        </a>
       </div>
+
+      {/* SIMPLE RESPONSIVE RULES */}
+      <style>{`
+        @media (max-width: 900px) {
+          .desktop-nav {
+            display: none;
+          }
+          .mobile-cta {
+            display: inline-flex;
+          }
+        }
+      `}</style>
     </header>
   );
 }
+
+const linkStyle = {
+  textDecoration: "none",
+  color: "rgba(255,255,255,0.8)"
+};
