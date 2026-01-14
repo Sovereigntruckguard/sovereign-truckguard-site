@@ -1,46 +1,38 @@
 "use client";
 
-import { useLanguage } from "../../lib/language.js"; // 👈 RUTA CORRECTA (lib en la raíz)
+import { useLanguage } from "../../lib/language.js";
 
 const colors = {
   gold: "#FFD700",
-  rose: "#E8B7B7"
+  rose: "#E8B7B7",
 };
 
 const layout = {
   maxWidth: 1120,
-  sidePadding: 20
+  sidePadding: 20,
 };
 
 export default function Header() {
   const { lang, setLang } = useLanguage();
 
   const TEXT_ES = {
-    tagline: "Regulatorios, seguros y seguimiento premium para camioneros latinos",
+    tagline: "Sistema soberano de creación y cumplimiento para camioneros latinos",
     nav: {
-      coverages: "Coberturas",
-      technology: "Tecnología",
       services: "Servicios",
-      states: "Estados",
       about: "Nosotros",
-      testimonials: "Testimonios",
       contact: "Contacto",
-      cta: "Crear mi compañia"
-    }
+      cta: "Crear mi compañía",
+    },
   };
 
   const TEXT_EN = {
-    tagline: "Luxury insurance agency for Latino truckers",
+    tagline: "Sovereign system for Latino truckers compliance & company creation",
     nav: {
-      coverages: "Coverages",
-      technology: "Technology",
       services: "Services",
-      states: "States",
       about: "About",
-      testimonials: "Testimonials",
       contact: "Contact",
-      cta: "start my company"
-    }
+      cta: "Start my company",
+    },
   };
 
   const t = lang === "es" ? TEXT_ES : TEXT_EN;
@@ -52,28 +44,28 @@ export default function Header() {
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 40,
+        zIndex: 50,
         borderBottom: "1px solid rgba(255,255,255,0.08)",
-        background: "rgba(0,0,0,0.9)",
-        backdropFilter: "blur(14px)"
+        background: "rgba(0,0,0,0.92)",
+        backdropFilter: "blur(14px)",
       }}
     >
       <div
         style={{
           margin: "0 auto",
           maxWidth: layout.maxWidth,
-          padding: "10px " + layout.sidePadding + "px",
+          padding: `10px ${layout.sidePadding}px`,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: 16
+          gap: 16,
         }}
       >
-        {/* Logo + tagline */}
+        {/* LOGO + TAGLINE */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <img
             src="/logo-sovereign.png"
-            alt="Logo Sovereign"
+            alt="Sovereign TruckGuard"
             style={{ width: 36, height: "auto", objectFit: "contain" }}
           />
           <div>
@@ -83,7 +75,7 @@ export default function Header() {
                 fontSize: 11,
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.9)"
+                color: "rgba(255,255,255,0.9)",
               }}
             >
               Sovereign TruckGuard LLC
@@ -93,7 +85,7 @@ export default function Header() {
                 margin: 0,
                 marginTop: 2,
                 fontSize: 11,
-                color: "rgba(255,255,255,0.6)"
+                color: "rgba(255,255,255,0.6)",
               }}
             >
               {t.tagline}
@@ -101,7 +93,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Menú + CTA */}
+        {/* NAV + CTA */}
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <nav
             style={{
@@ -110,48 +102,49 @@ export default function Header() {
               gap: 26,
               fontSize: 13,
               color: "rgba(255,255,255,0.78)",
-              fontFamily: "Montserrat, system-ui"
+              fontFamily: "Montserrat, system-ui",
             }}
           >
-            <a href="/coverages" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.coverages}
-            </a>
-            <a href="/technology" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.technology}
-            </a>
-            <a href="/services" style={{ textDecoration: "none", color: "inherit" }}>
+            <a
+              href="/services"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               {t.nav.services}
             </a>
-            <a href="/states" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.states}
-            </a>
-            <a href="/about" style={{ textDecoration: "none", color: "inherit" }}>
+
+            <a
+              href="/about"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               {t.nav.about}
             </a>
-            <a href="/testimonials" style={{ textDecoration: "none", color: "inherit" }}>
-              {t.nav.testimonials}
-            </a>
-            <a href="/contact" style={{ textDecoration: "none", color: "inherit" }}>
+
+            <a
+              href="/contact"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               {t.nav.contact}
             </a>
+
+            {/* CTA ÚNICO */}
             <a
               href="/services#packages"
               style={{
-                padding: "8px 20px",
+                padding: "8px 22px",
                 borderRadius: 999,
-                background:
-                  "linear-gradient(90deg, " + colors.gold + ", " + colors.rose + ")",
+                background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
                 color: "#000",
-                fontWeight: 600,
+                fontWeight: 700,
                 textDecoration: "none",
-                boxShadow: "0 14px 35px rgba(0,0,0,0.6)"
+                boxShadow: "0 14px 35px rgba(0,0,0,0.6)",
+                whiteSpace: "nowrap",
               }}
             >
               {t.nav.cta}
             </a>
           </nav>
 
-          {/* Switch idioma */}
+          {/* IDIOMA */}
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <button
               onClick={() => setLang("es")}
@@ -160,7 +153,7 @@ export default function Header() {
                 padding: 0,
                 background: "transparent",
                 opacity: lang === "es" ? 1 : 0.35,
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             >
               <img src="/flag-es.svg" alt="ES" style={{ width: 20, height: 20 }} />
@@ -172,7 +165,7 @@ export default function Header() {
                 padding: 0,
                 background: "transparent",
                 opacity: lang === "en" ? 1 : 0.35,
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             >
               <img src="/flag-us.svg" alt="EN" style={{ width: 20, height: 20 }} />
