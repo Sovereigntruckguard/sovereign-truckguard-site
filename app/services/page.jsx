@@ -979,10 +979,19 @@ export default function ServicesPage() {
       
       <Section id="packages" style={{ paddingTop: 70 }}>
         <h1 style={{ margin: 0, fontSize: 34, fontFamily: "Montserrat, system-ui" }}>
-          Crea tu <span style={{ color: colors.gold }}>trucking company en USA</span> hoy
+          Crear tu <span style={{ color: colors.gold }}>trucking company en USA</span>
+          <br />
+          sin errores ni bloqueos
         </h1>
         <p style={{ marginTop: 8, maxWidth: 900, color: "rgba(255,255,255,0.90)", lineHeight: 1.5 }}>
-          Paquetes claros. Precio fijo. Seguimiento diario. Sin errores con FMCSA.
+          Servicios para crear tu empresa de trucking correctamente:
+          LLC, EIN, permisos DOT y MC, con proceso guiado en español.
+        </p>
+
+        <p style={{ maxWidth: 900, marginTop: 14, opacity: 0.85 }}>
+          Estos paquetes están diseñados para quienes quieren iniciar su operación
+          de trucking en Estados Unidos de forma correcta desde el día uno,
+          sin aprender papeleo ni cometer errores que bloqueen su DOT o MC.
         </p>
 
         <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 22 }}>
