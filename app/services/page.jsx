@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Header from "@/components/Header.jsx";
 
 /* =========================
    CONFIG
@@ -202,205 +203,7 @@ function Modal({ open, title, onClose, children }) {
   );
 }
 
-/* =========================
-   HEADER FIJO
-========================= */
 
-function ServicesHeader() {
-  return (
-    <header
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 60,
-        background: "rgba(0,0,0,0.92)",
-        backdropFilter: "blur(16px)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: layout.maxWidth,
-          margin: "0 auto",
-          padding: `10px ${layout.sidePadding}px`,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 20,
-        }}
-      >
-        <a
-          href="/"
-          style={{
-            display: "flex",
-            gap: 12,
-            alignItems: "center",
-            textDecoration: "none",
-            color: colors.white,
-          }}
-        >
-          <img
-            src="/logo-sovereign.png"
-            alt="Sovereign TruckGuard"
-            style={{ width: 36, height: "auto" }}
-          />
-          <div>
-            <div
-              style={{
-                fontFamily: "Montserrat, system-ui",
-                fontSize: 11,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.9)",
-              }}
-            >
-              Sovereign TruckGuard LLC
-            </div>
-            <div style={{ fontSize: 11, opacity: 0.7 }}>
-              Luxury compliance & business
-            </div>
-          </div>
-        </a>
-
-        {/* CTA correcto para regulatorios (no seguros) */}
-        <a
-          href={STRIPE_INTERSTATE}
-          onClick={() => {
-            if (typeof window !== "undefined" && window.gtag) {
-              window.gtag("event", "crear_compania_click", {
-                event_category: "conversion",
-                event_label: "header",
-                page_path: window.location.pathname,
-              });
-            }
-          }}
-          style={{
-            padding: "8px 18px",
-            borderRadius: 999,
-            background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
-            color: "#000",
-            fontWeight: 900,
-            textDecoration: "none",
-            boxShadow: "0 14px 35px rgba(0,0,0,0.6)",
-          }}
-        >
-          Crear mi compañía
-        </a>
-      </div>
-    </header>
-  );
-}
-
-/* =========================
-   HERO VIDEO FULL BLEED
-========================= */
-
-function Hero() {
-  return (
-    <section
-      style={{
-        position: "relative",
-        minHeight: "90vh",
-        width: "100%",
-        overflow: "hidden",
-      }}
-    >
-      <video
-        src="/services/hero/hero-services.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
-      />
-
-      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.60)" }} />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(90deg, rgba(0,0,0,0.88), rgba(0,0,0,0.40), rgba(0,0,0,0.16))",
-        }}
-      />
-
-      <div
-        style={{
-          position: "relative",
-          zIndex: 2,
-          minHeight: "90vh",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Section style={{ paddingTop: 96, paddingBottom: 56 }}>
-          <div style={{ maxWidth: 720 }}>
-            <p
-              style={{
-                margin: 0,
-                fontSize: 12,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: colors.gold,
-                fontFamily: "Montserrat, system-ui",
-              }}
-            >
-              Servicios regulatorios premium
-            </p>
-
-            <h1
-              style={{
-                margin: "10px 0 10px",
-                fontSize: 46,
-                lineHeight: 1.08,
-                fontFamily: "Montserrat, system-ui",
-              }}
-            >
-              Servicio para crear tu{" "}
-              <span style={{ color: colors.gold }}>trucking company en USA</span>
-              <br />
-              DOT · MC · LLC · EIN · UCR —{" "}
-              <span style={{ color: colors.gold }}>nosotros hacemos todo</span>
-            </h1>
-
-            <p
-              style={{
-                margin: "0 0 16px",
-                fontSize: 16,
-                lineHeight: 1.7,
-                color: "rgba(255,255,255,0.90)",
-              }}
-            >
-              Servicio profesional en español para camioneros que ya decidieron emprender
-              y necesitan ayuda real para crear su trucking company legalmente,
-              sin errores ni retrasos con FMCSA.
-              <br />
-              DOT · MC · LLC · EIN · UCR · TXDMV · BOI
-            </p>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-              <PrimaryButton href="#packages">Ver paquetes</PrimaryButton>
-              <SecondaryButton href="#individual">Servicios individuales</SecondaryButton>
-            </div>
-
-            <div style={{ marginTop: 14, fontSize: 12, color: "rgba(255,255,255,0.65)" }}>
-              * Government fees se pagan por separado en portales oficiales.
-            </div>
-          </div>
-        </Section>
-      </div>
-    </section>
-  );
-}
 
 /* =========================
    PACKAGE CARDS (Tienda)
@@ -1171,36 +974,15 @@ export default function ServicesPage() {
 
   return (
     <main style={{ background: colors.bg, color: colors.white, minHeight: "100vh" }}>
-      <ServicesHeader />
+      <Header />
       <div style={{ height: 84 }} />
-
-      <Hero />
-      <TrustBlocks />
-
-      <Section style={{ paddingTop: 50 }}>
-        <h2 style={{ fontFamily: "Montserrat, system-ui" }}>
-          ¿Este servicio es para ti?
-        </h2>
-
-        <ul style={{ marginTop: 12, lineHeight: 1.8, color: "rgba(255,255,255,0.88)" }}>
-          <li>✔ Ya tienes el dinero para iniciar tu compañía</li>
-          <li>✔ No quieres aprender papeleo ni cometer errores</li>
-          <li>✔ Buscas alguien que se haga responsable del proceso</li>
-          <li>✔ Quieres todo documentado, legal y en español</li>
-        </ul>
-
-        <p style={{ marginTop: 10, fontSize: 13, color: "rgba(255,255,255,0.65)" }}>
-          Si solo buscas información gratis o tutoriales, este servicio no es para ti.
-        </p>
-      </Section>
-
-      {/* TIENDA PRIMERO (protagonista) */}
+      
       <Section id="packages" style={{ paddingTop: 70 }}>
-        <h2 style={{ margin: 0, fontSize: 30, fontFamily: "Montserrat, system-ui" }}>
-          Tienda de creación de compañía
-        </h2>
-        <p style={{ marginTop: 10, maxWidth: 900, color: "rgba(255,255,255,0.82)", lineHeight: 1.7 }}>
-          Este es el camino rápido y correcto para iniciar legalmente. Tú manejas. Nosotros nos encargamos del papeleo, la validación y la evidencia.
+        <h1 style={{ margin: 0, fontSize: 34, fontFamily: "Montserrat, system-ui" }}>
+          Crea tu <span style={{ color: colors.gold }}>trucking company en USA</span> hoy
+        </h1>
+        <p style={{ marginTop: 8, maxWidth: 900, color: "rgba(255,255,255,0.90)", lineHeight: 1.5 }}>
+          Paquetes claros. Precio fijo. Seguimiento diario. Sin errores con FMCSA.
         </p>
 
         <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 22 }}>
@@ -1229,6 +1011,25 @@ export default function ServicesPage() {
         <div style={{ marginTop: 16, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
           * Service fee Sovereign. Government fees se pagan por separado en portales oficiales.
         </div>
+      </Section>
+      
+      <TrustBlocks />
+
+      <Section style={{ paddingTop: 50 }}>
+        <h2 style={{ fontFamily: "Montserrat, system-ui" }}>
+          ¿Este servicio es para ti?
+        </h2>
+
+        <ul style={{ marginTop: 12, lineHeight: 1.8, color: "rgba(255,255,255,0.88)" }}>
+          <li>✔ Ya tienes el dinero para iniciar tu compañía</li>
+          <li>✔ No quieres aprender papeleo ni cometer errores</li>
+          <li>✔ Buscas alguien que se haga responsable del proceso</li>
+          <li>✔ Quieres todo documentado, legal y en español</li>
+        </ul>
+
+        <p style={{ marginTop: 10, fontSize: 13, color: "rgba(255,255,255,0.65)" }}>
+          Si solo buscas información gratis o tutoriales, este servicio no es para ti.
+        </p>
       </Section>
 
       <HowItWorks />
