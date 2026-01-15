@@ -5,9 +5,19 @@ export async function GET() {
 
   const urls = [
     "",
+
+    // Core pages
     "/services",
     "/contact",
     "/about",
+
+    // SEO money pages (alta intención)
+    "/permisos-dot-mc-usa",
+    "/crear-trucking-company-usa",
+    "/como-obtener-dot-number",
+    "/como-sacar-dot-number-en-espanol",
+
+    // Other
     "/states",
   ];
 
@@ -19,7 +29,20 @@ ${urls
   <url>
     <loc>${baseUrl}${path}</loc>
     <changefreq>weekly</changefreq>
-    <priority>${path === "" ? "1.0" : "0.9"}</priority>
+    <priority>${
+      path === ""
+        ? "1.0"
+        : path === "/services"
+        ? "0.95"
+        : [
+            "/permisos-dot-mc-usa",
+            "/crear-trucking-company-usa",
+            "/como-obtener-dot-number",
+            "/como-sacar-dot-number-en-espanol",
+          ].includes(path)
+        ? "0.9"
+        : "0.7"
+    }</priority>
   </url>`
   )
   .join("")}
