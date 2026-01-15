@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "app/components/Header.jsx";
+import Header from "@/components/Header";
 
 const colors = {
   bg: "#050505",
@@ -121,12 +121,12 @@ export default function ContactPage() {
               opacity: 0.8,
             }}
           >
-            Esta página funciona también como referencia institucional para
-            aliados, plataformas de pago y validaciones externas.
+            Esta página funciona como referencia institucional para aliados,
+            plataformas de pago y validaciones externas.
           </div>
         </div>
 
-        {/* FORMULARIO */}
+        {/* FORMULARIO ACTIVO */}
         <div
           style={{
             borderRadius: 22,
@@ -141,42 +141,63 @@ export default function ContactPage() {
           </h3>
 
           <p style={{ fontSize: 14, lineHeight: 1.6, opacity: 0.85 }}>
-            Este formulario es informativo. Un miembro del equipo revisará tu
-            situación y te contactará si aplica.
+            Respuesta directa por correo. Conversación real, sin bots.
           </p>
 
-          <form style={{ marginTop: 18, display: "grid", gap: 14 }}>
+          <form
+            style={{ marginTop: 18, display: "grid", gap: 14 }}
+            onSubmit={(e) => {
+              e.preventDefault();
+
+              const name = e.target.name.value;
+              const email = e.target.email.value;
+              const company = e.target.company.value;
+              const message = e.target.message.value;
+
+              const subject = encodeURIComponent(
+                "Nuevo contacto – Sovereign TruckGuard"
+              );
+
+              const body = encodeURIComponent(
+                `Nombre: ${name}\nEmail: ${email}\nEmpresa / USDOT: ${company}\n\nMensaje:\n${message}`
+              );
+
+              window.location.href = `mailto:info@sovereigntruckguard.com?subject=${subject}&body=${body}`;
+            }}
+          >
             <input
               type="text"
+              name="name"
               placeholder="Nombre completo"
-              disabled
+              required
               style={inputStyle}
             />
 
             <input
               type="email"
+              name="email"
               placeholder="Correo electrónico"
-              disabled
+              required
               style={inputStyle}
             />
 
             <input
               type="text"
+              name="company"
               placeholder="Nombre de la empresa o USDOT (opcional)"
-              disabled
               style={inputStyle}
             />
 
             <textarea
+              name="message"
               placeholder="Cuéntanos brevemente tu situación actual y qué necesitas"
               rows={4}
-              disabled
+              required
               style={textareaStyle}
             />
 
             <button
-              type="button"
-              disabled
+              type="submit"
               style={{
                 marginTop: 10,
                 padding: "12px 22px",
@@ -185,17 +206,16 @@ export default function ContactPage() {
                 color: "#000",
                 fontWeight: 900,
                 border: "none",
-                opacity: 0.7,
-                cursor: "not-allowed",
+                cursor: "pointer",
+                boxShadow: "0 18px 50px rgba(0,0,0,0.9)",
               }}
             >
-              Enviar (activación próxima)
+              Enviar mensaje
             </button>
           </form>
 
           <p style={{ marginTop: 14, fontSize: 12, opacity: 0.75 }}>
-            Para contacto inmediato puedes escribirnos a
-            <br />
+            O escríbenos directamente a <br />
             <strong>info@sovereigntruckguard.com</strong>
           </p>
 
@@ -237,8 +257,8 @@ export default function ContactPage() {
               Sovereign TruckGuard LLC 🇺🇸
             </div>
             <p style={{ fontSize: 13, opacity: 0.8, lineHeight: 1.6, marginTop: 10 }}>
-              Firma de cumplimiento y activación para operaciones de trucking
-              en Estados Unidos.
+              Infraestructura de cumplimiento y activación para operaciones
+              de trucking en Estados Unidos.
             </p>
             <p style={{ fontSize: 12, opacity: 0.65, lineHeight: 1.6 }}>
               Nota legal: No ofrecemos asesoría legal ni vendemos seguros.
@@ -273,7 +293,7 @@ export default function ContactPage() {
   );
 }
 
-/* ================= INPUT STYLES ================= */
+/* ================= ESTILOS ================= */
 
 const inputStyle = {
   padding: "12px 14px",
