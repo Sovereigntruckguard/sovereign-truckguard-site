@@ -1,7 +1,6 @@
 "use client";
 
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "app/components/Header.jsx";
 
 const colors = {
   bg: "#050505",
@@ -14,7 +13,7 @@ export default function AboutPage() {
     <main style={{ background: colors.bg, color: colors.white, minHeight: "100vh" }}>
       <Header />
 
-      {/* HERO */}
+      {/* ================= HERO ================= */}
       <section
         style={{
           paddingTop: 140,
@@ -34,7 +33,7 @@ export default function AboutPage() {
             marginBottom: 14,
           }}
         >
-          Nosotros · Base legal y confianza
+          Nosotros · Base legal y operativa
         </p>
 
         <h1
@@ -45,8 +44,10 @@ export default function AboutPage() {
             marginBottom: 18,
           }}
         >
-          Agencia de seguros comerciales en Estados Unidos <br />
-          <span style={{ color: colors.gold }}>para camioneros latinos</span>
+          Infraestructura de cumplimiento y activación <br />
+          <span style={{ color: colors.gold }}>
+            para camioneros latinos en Estados Unidos
+          </span>
         </h1>
 
         <p
@@ -57,13 +58,13 @@ export default function AboutPage() {
             opacity: 0.9,
           }}
         >
-          Sovereign TruckGuard LLC es una agencia registrada en EE. UU. que opera
-          con estructura legal, procesos claros y acompañamiento profesional en
-          español para el operador latino.
+          Sovereign TruckGuard LLC es una firma registrada en Estados Unidos que
+          acompaña al operador latino en la creación, corrección y activación
+          legal de su operación de trucking, con procesos claros y seguimiento real.
         </p>
 
         <p style={{ marginTop: 10, fontSize: 14, opacity: 0.8 }}>
-          Sin pólizas confusas · Sin letra pequeña · Sin barreras de idioma
+          Cumplimiento · Documentación · Evidencia · Acompañamiento en español
         </p>
 
         <div style={{ marginTop: 26 }}>
@@ -79,12 +80,12 @@ export default function AboutPage() {
               boxShadow: "0 18px 50px rgba(0,0,0,0.9)",
             }}
           >
-            Ver servicios y paquetes
+            Ver servicios regulatorios
           </a>
         </div>
       </section>
 
-      {/* BLOQUES DE CONFIANZA */}
+      {/* ================= CONFIANZA ================= */}
       <section
         style={{
           maxWidth: 1200,
@@ -110,14 +111,14 @@ export default function AboutPage() {
 
           <p style={{ fontSize: 15, lineHeight: 1.7, opacity: 0.9 }}>
             Sovereign TruckGuard LLC fue fundada por Sergio Andrés Murillo Estrada,
-            tras más de 8 años dentro del ecosistema del transporte, seguros
-            comerciales y mercado trucker latino en Estados Unidos.
+            tras más de 8 años dentro del ecosistema del transporte comercial,
+            cumplimiento regulatorio y mercado trucker latino en Estados Unidos.
           </p>
 
           <p style={{ fontSize: 15, lineHeight: 1.7, opacity: 0.9 }}>
-            La agencia nace como respuesta a prácticas abusivas, desinformación,
-            barreras de idioma y procesos que históricamente han perjudicado al
-            operador latino.
+            La firma nace para corregir malas prácticas, desinformación,
+            intermediarios informales y procesos mal ejecutados que terminan
+            bloqueando o retrasando la operación del camionero.
           </p>
         </div>
 
@@ -131,20 +132,27 @@ export default function AboutPage() {
           }}
         >
           <h3 style={{ marginTop: 0, color: colors.gold }}>
-            Propósito y misión
+            Qué hacemos (y qué no)
           </h3>
 
-          <ul style={{ paddingLeft: 18, lineHeight: 1.8, fontSize: 15, opacity: 0.9 }}>
-            <li>Protección real con pólizas claras y verificables.</li>
-            <li>Cotizaciones basadas en datos reales, no promesas.</li>
-            <li>Acompañamiento humano y personalizado.</li>
-            <li>Atención completa en español.</li>
-            <li>Procesos alineados a normativas estatales y federales.</li>
+          <ul
+            style={{
+              paddingLeft: 18,
+              lineHeight: 1.8,
+              fontSize: 15,
+              opacity: 0.9,
+            }}
+          >
+            <li>Creamos y ordenamos tu estructura legal de trucking.</li>
+            <li>Ejecutamos procesos regulatorios con evidencia.</li>
+            <li>Te acompañamos paso a paso, en español.</li>
+            <li>Preparamos tu operación para fases posteriores.</li>
+            <li><strong>No</strong> improvisamos ni firmamos por ti.</li>
           </ul>
         </div>
       </section>
 
-      {/* BASE LEGAL */}
+      {/* ================= BASE LEGAL ================= */}
       <section
         style={{
           maxWidth: 1200,
@@ -167,18 +175,72 @@ export default function AboutPage() {
 
           <p style={{ fontSize: 15, lineHeight: 1.7, opacity: 0.9 }}>
             Sovereign TruckGuard LLC está registrada en Sheridan, Wyoming.
-            Nuestra estructura corporativa y operación cumplen con los
-            lineamientos estatales y federales del sector asegurador.
+            Operamos como firma de asistencia administrativa y acompañamiento
+            en procesos regulatorios, alineados a normas estatales y federales.
           </p>
 
           <p style={{ fontSize: 14, lineHeight: 1.6, opacity: 0.8 }}>
-            Operamos con procesos internos estrictos, trazabilidad documental
-            y alineación regulatoria. No improvisamos. No ocultamos información.
+            No vendemos servicios legales ni aseguradores.
+            Nuestro rol es estructurar, documentar y preparar tu operación
+            para que avances sin errores ni bloqueos.
           </p>
         </div>
       </section>
 
-      <Footer />
+      {/* ================= FOOTER INLINE ================= */}
+      <footer
+        style={{
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          background: "rgba(0,0,0,0.95)",
+          padding: "40px 20px",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1200,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: 24,
+          }}
+        >
+          <div>
+            <div style={{ fontWeight: 900 }}>
+              Sovereign TruckGuard LLC 🇺🇸
+            </div>
+            <p style={{ fontSize: 13, opacity: 0.8, lineHeight: 1.6, marginTop: 10 }}>
+              Infraestructura de cumplimiento y activación
+              para operadores de trucking en Estados Unidos.
+            </p>
+            <p style={{ fontSize: 12, opacity: 0.65, lineHeight: 1.6 }}>
+              Nota legal: No ofrecemos asesoría legal ni vendemos seguros.
+              Brindamos acompañamiento administrativo y operativo.
+            </p>
+          </div>
+
+          <div>
+            <div style={{ fontWeight: 900, color: colors.gold, marginBottom: 8 }}>
+              Ubicación
+            </div>
+            <p style={{ fontSize: 13, opacity: 0.8, lineHeight: 1.6 }}>
+              30 N Gould St, Ste N <br />
+              Sheridan, Wyoming 82801
+            </p>
+          </div>
+
+          <div>
+            <div style={{ fontWeight: 900, color: colors.gold, marginBottom: 8 }}>
+              Contacto
+            </div>
+            <p style={{ fontSize: 13, opacity: 0.8, lineHeight: 1.8 }}>
+              Email: info@sovereigntruckguard.com <br />
+              Tel: +1 (608) 557-6282 <br />
+              Atención en español <br />
+              Lun–Vie · 9am–6pm EST
+            </p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
