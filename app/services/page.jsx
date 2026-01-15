@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Header from "@/components/Header.jsx";
+import Header from "app/components/Header.jsx";
 
 /* =========================
    CONFIG
