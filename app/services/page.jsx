@@ -1013,6 +1013,90 @@ export default function ServicesPage() {
         </div>
       </Section>
       
+            {/* ================= GUÍAS CLAVE PARA INICIAR SIN ERRORES ================= */}
+      <section
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "40px 20px 30px",
+        }}
+      >
+        <div
+          style={{
+            borderRadius: 22,
+            padding: 22,
+            border: "1px solid rgba(255,255,255,0.12)",
+            background: "rgba(255,255,255,0.03)",
+          }}
+        >
+          <div
+            style={{
+              fontWeight: 950,
+              color: colors.gold,
+              marginBottom: 12,
+              fontSize: 18,
+            }}
+          >
+            Guías clave para iniciar sin errores
+          </div>
+
+          <p
+            style={{
+              maxWidth: 900,
+              fontSize: 14,
+              lineHeight: 1.6,
+              opacity: 0.85,
+              marginBottom: 16,
+            }}
+          >
+            Estas guías responden las preguntas más comunes antes de iniciar una
+            operación de trucking en Estados Unidos. Cada una conecta
+            directamente con el proceso correcto y los servicios disponibles.
+          </p>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 12,
+            }}
+          >
+            <a href="/permisos-dot-mc-usa" style={hubLinkStyle}>
+              permisos DOT y MC en USA
+            </a>
+
+            <a href="/crear-trucking-company-usa" style={hubLinkStyle}>
+              crear trucking company en USA
+            </a>
+
+            <a href="/como-obtener-dot-number" style={hubLinkStyle}>
+              cómo obtener DOT number
+            </a>
+
+            <a href="/como-sacar-dot-number-en-espanol" style={hubLinkStyle}>
+              cómo sacar el DOT number en español
+            </a>
+          </div>
+
+          <div style={{ marginTop: 14 }}>
+            <a
+              href="#packages"
+              style={{
+                display: "inline-block",
+                padding: "10px 16px",
+                borderRadius: 999,
+                background: `linear-gradient(90deg, ${colors.gold}, #E8B7B7)`,
+                color: "#000",
+                fontWeight: 900,
+                textDecoration: "none",
+              }}
+            >
+              Ver paquetes disponibles
+            </a>
+          </div>
+        </div>
+      </section>
+
       <TrustBlocks />
 
       <Section style={{ paddingTop: 50 }}>
@@ -1070,3 +1154,14 @@ export default function ServicesPage() {
     </main>
   );
 }
+
+const hubLinkStyle = {
+  display: "block",
+  padding: "14px 14px",
+  borderRadius: 14,
+  border: "1px solid rgba(255,255,255,0.14)",
+  background: "rgba(0,0,0,0.35)",
+  color: "rgba(255,255,255,0.92)",
+  textDecoration: "none",
+  fontWeight: 850,
+};

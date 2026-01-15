@@ -102,8 +102,77 @@ export default function ComoObtenerDotNumber() {
           Ver servicio DOT
         </a>
       </section>
+      {/* ================= TAMBIÉN TE PUEDE SERVIR ================= */}
+      <section
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "0 20px 70px",
+        }}
+      >
+        <div
+          style={{
+            borderRadius: 22,
+            padding: 22,
+            border: "1px solid rgba(255,255,255,0.12)",
+            background: "rgba(255,255,255,0.03)",
+          }}
+        >
+          <div style={{ fontWeight: 950, color: colors.gold, marginBottom: 10 }}>
+            También te puede servir
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 12,
+            }}
+          >
+            <a href="/permisos-dot-mc-usa" style={linkCardStyle}>
+              permisos DOT y MC en USA
+            </a>
+
+            <a href="/crear-trucking-company-usa" style={linkCardStyle}>
+              crear trucking company en USA
+            </a>
+
+            <a href="/como-sacar-dot-number-en-espanol" style={linkCardStyle}>
+              cómo sacar el DOT number en español
+            </a>
+          </div>
+
+          <div style={{ marginTop: 12 }}>
+            <a
+              href="/services#packages"
+              style={{
+                display: "inline-block",
+                padding: "10px 16px",
+                borderRadius: 999,
+                background: `linear-gradient(90deg, ${colors.gold}, #E8B7B7)`,
+                color: "#000",
+                fontWeight: 900,
+                textDecoration: "none",
+              }}
+            >
+              Ver servicio DOT
+            </a>
+          </div>
+        </div>
+      </section>
 
       {footer}
     </main>
   );
 }
+
+const linkCardStyle = {
+  display: "block",
+  padding: "14px 14px",
+  borderRadius: 14,
+  border: "1px solid rgba(255,255,255,0.14)",
+  background: "rgba(0,0,0,0.35)",
+  color: "rgba(255,255,255,0.92)",
+  textDecoration: "none",
+  fontWeight: 850,
+};
