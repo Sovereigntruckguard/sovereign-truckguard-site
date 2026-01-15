@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/Header";
+import Header from "app/components/Header.jsx";
 
 const colors = {
   bg: "#050505",
