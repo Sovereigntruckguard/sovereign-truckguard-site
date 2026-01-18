@@ -19,18 +19,11 @@ const layout = {
   sidePadding: 20,
 };
 
-// =========================
-// STRIPE LINKS (SOLO PAQUETES)
-// =========================
 const STRIPE_INTERSTATE = "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
 const STRIPE_INTRASTATE = "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
 
-// ✅ Backend PROD (Cloud Run)
-const BACKEND_BASE_URL =
-  "https://azoth-regulatorios-798731178244.us-central1.run.app";
-
 /* =========================
-   HELPERS UI
+   HELPERS
 ========================= */
 
 function Section({ children, id, style }) {
@@ -49,38 +42,17 @@ function Section({ children, id, style }) {
   );
 }
 
-function Pill({ children }) {
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        padding: "6px 12px",
-        borderRadius: 999,
-        border: "1px solid rgba(255,255,255,0.18)",
-        background: "rgba(0,0,0,0.30)",
-        fontSize: 11,
-        letterSpacing: "0.14em",
-        textTransform: "uppercase",
-        color: "rgba(255,255,255,0.85)",
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
 function PrimaryButton({ children, href }) {
   return (
     <a
       href={href}
       style={{
-        padding: "12px 26px",
+        padding: "14px 28px",
         borderRadius: 999,
         background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
         color: "#000",
-        fontWeight: 900,
-        fontSize: 13,
+        fontWeight: 950,
+        fontSize: 14,
         textDecoration: "none",
         boxShadow: "0 18px 60px rgba(0,0,0,0.9)",
       }}
@@ -95,13 +67,13 @@ function SecondaryButton({ children, href }) {
     <a
       href={href}
       style={{
-        padding: "11px 22px",
+        padding: "13px 24px",
         borderRadius: 999,
-        border: "1px solid rgba(255,255,255,0.40)",
+        border: "1px solid rgba(255,255,255,0.35)",
         color: colors.white,
-        fontSize: 12,
+        fontSize: 13,
         textDecoration: "none",
-        background: "rgba(0,0,0,0.25)",
+        background: "rgba(0,0,0,0.35)",
       }}
     >
       {children}
@@ -109,611 +81,63 @@ function SecondaryButton({ children, href }) {
   );
 }
 
-function DisabledCTA({ label }) {
-  return (
-    <button
-      disabled
-      title="Pagos en línea se habilitan en breve (Stripe)"
-      style={{
-        padding: "10px 18px",
-        borderRadius: 999,
-        border: "1px solid rgba(255,255,255,0.18)",
-        background: "linear-gradient(90deg, rgba(255,215,0,0.16), rgba(232,183,183,0.16))",
-        color: "rgba(255,255,255,0.65)",
-        fontWeight: 900,
-        cursor: "not-allowed",
-        opacity: 0.85,
-      }}
-    >
-      {label}
-    </button>
-  );
-}
-
 /* =========================
-   MODAL
+   PACKAGE CARD
 ========================= */
 
-function Modal({ open, title, onClose, children }) {
-  if (!open) return null;
-
+function PackageCard({ bg, title, price, bullets, buyLink }) {
   return (
     <div
       style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 999,
-        background: "rgba(0,0,0,0.84)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 18,
-      }}
-    >
-      <div
-        style={{
-          width: "min(900px, 100%)",
-          maxHeight: "88vh",
-          overflow: "auto",
-          background: "#0b0b0b",
-          borderRadius: 22,
-          border: "1px solid rgba(255,255,255,0.16)",
-          boxShadow: "0 30px 120px rgba(0,0,0,0.95)",
-        }}
-      >
-        <div
-          style={{
-            position: "sticky",
-            top: 0,
-            background: "rgba(11,11,11,0.92)",
-            backdropFilter: "blur(12px)",
-            borderBottom: "1px solid rgba(255,255,255,0.10)",
-            padding: 18,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 12,
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <div style={{ color: colors.gold, fontWeight: 900 }}>{title}</div>
-            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.65)" }}>
-              Especificaciones, tiempos y fees oficiales (transparencia total)
-            </div>
-          </div>
-
-          <button
-            onClick={onClose}
-            style={{
-              borderRadius: 999,
-              padding: "8px 12px",
-              border: "1px solid rgba(255,255,255,0.18)",
-              background: "rgba(255,255,255,0.06)",
-              color: "white",
-              cursor: "pointer",
-            }}
-          >
-            Cerrar ✕
-          </button>
-        </div>
-
-        <div style={{ padding: 18 }}>{children}</div>
-      </div>
-    </div>
-  );
-}
-
-
-
-/* =========================
-   PACKAGE CARDS (Tienda)
-========================= */
-
-function PackageCard({
-  bg,
-  badge,
-  title,
-  price,
-  bullets,
-  onOpenModal,
-  onBuy,
-  buyLoading,
-  buyError,
-}) {
-  return (
-    <div
-      style={{
-        position: "relative",
         borderRadius: 26,
         overflow: "hidden",
         border: "1px solid rgba(255,255,255,0.18)",
-        boxShadow: "0 26px 90px rgba(0,0,0,0.95)",
-        minHeight: 460,
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        minHeight: 420,
+        position: "relative",
       }}
     >
-      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.58)" }} />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.92))",
-        }}
-      />
+      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.70)" }} />
 
       <div
         style={{
           position: "relative",
           zIndex: 2,
-          height: "100%",
           padding: 26,
+          height: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          gap: 10,
+          gap: 12,
         }}
       >
-        <Pill>{badge}</Pill>
-
-        <h3 style={{ margin: 0, fontSize: 26, fontFamily: "Montserrat, system-ui", color: colors.gold }}>
+        <h3 style={{ margin: 0, fontSize: 26, color: colors.gold }}>
           {title}
         </h3>
 
-        <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "rgba(255,255,255,0.92)", lineHeight: 1.6 }}>
+        <ul style={{ paddingLeft: 18, fontSize: 13, lineHeight: 1.6 }}>
           {bullets.map((b) => (
             <li key={b}>{b}</li>
           ))}
         </ul>
 
-        <div style={{ fontSize: 22, fontWeight: 950 }}>{price}</div>
+        <div style={{ fontSize: 24, fontWeight: 950 }}>{price}</div>
 
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 6 }}>
-          <a
-            href={badge.includes("Interstate") ? STRIPE_INTERSTATE : STRIPE_INTRASTATE}
-            onClick={() => {
-              if (typeof window !== "undefined" && window.gtag) {
-                const eventName = badge.includes("Interstate")
-                  ? "comprar_interstate_click"
-                  : "comprar_intrastate_click";
-
-                window.gtag("event", eventName, {
-                  event_category: "purchase_intent",
-                  event_label: badge,
-                  page_path: window.location.pathname,
-                });
-              }
-            }}
-            style={{
-              padding: "10px 18px",
-              borderRadius: 999,
-              border: "1px solid rgba(255,255,255,0.18)",
-              background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
-              color: "#000",
-              fontWeight: 900,
-              textDecoration: "none",
-            }}
-          >
-            Comprar
-          </a>
-
-          <button
-            onClick={onOpenModal}
-            style={{
-              padding: "10px 18px",
-              borderRadius: 999,
-              border: "1px solid rgba(255,255,255,0.25)",
-              background: "rgba(0,0,0,0.25)",
-              color: "rgba(255,255,255,0.90)",
-              fontWeight: 900,
-              cursor: "pointer",
-            }}
-          >
-            Ver cómo funciona
-          </button>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <PrimaryButton href={buyLink}>Comprar ahora</PrimaryButton>
+          <SecondaryButton href="mailto:info@sovereigntruckguard.com">
+            Consultar por email
+          </SecondaryButton>
+          <SecondaryButton href="tel:+16085576282">
+            Llamar ahora
+          </SecondaryButton>
         </div>
 
-        <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)", marginTop: 4 }}>
-          Service fee Sovereign. Government fees se pagan aparte.
+        <div style={{ fontSize: 12, opacity: 0.75 }}>
+          Service fee Sovereign · Government fees se pagan aparte
         </div>
-      </div>
-    </div>
-  );
-}
-
-/* =========================
-   TRUST BLOCKS (4)
-========================= */
-
-function TrustBlocks() {
-  const items = [
-    {
-      title: "Transparencia real",
-      text:
-        "Separa tu service fee de los government fees. Nada de cobros ocultos ni retención de pagos oficiales.",
-    },
-    {
-      title: "Seguimiento diario",
-      text:
-        "Te informamos el estado del proceso, tiempos y próximos pasos. No desaparecemos.",
-    },
-    {
-      title: "Hecho para latinos",
-      text:
-        "Te explicamos todo en español, con estructura y sin inglés técnico confuso.",
-    },
-    {
-      title: "Cero malas prácticas",
-      text:
-        "No firmamos por ti, no inventamos datos, no te exponemos a bloqueos ni auditorías por errores.",
-    },
-  ];
-
-  return (
-    <Section style={{ paddingTop: 46 }}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-          gap: 16,
-        }}
-      >
-        {items.map((it) => (
-          <div
-            key={it.title}
-            style={{
-              borderRadius: 18,
-              padding: 18,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.03)",
-              boxShadow: "0 18px 60px rgba(0,0,0,0.85)",
-            }}
-          >
-            <div style={{ color: colors.gold, fontWeight: 900, marginBottom: 8 }}>
-              {it.title}
-            </div>
-            <div style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.85)" }}>
-              {it.text}
-            </div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-
-
-/* =========================
-   HOW IT WORKS
-========================= */
-
-function HowItWorks() {
-  const steps = [
-    { n: "01", t: "Eliges paquete o servicio", d: "Ves qué incluye y qué NO incluye (sin letra pequeña)." },
-    { n: "02", t: "Formulario post-pago", d: "Entregas la info necesaria (incluye 3 nombres)." },
-    { n: "03", t: "Validación real", d: "Confirmamos nombre disponible y coherencia de operación." },
-    { n: "04", t: "Ejecución", d: "Procesamos EIN / DOT / MC / etc. con evidencia." },
-    { n: "05", t: "Seguimiento diario", d: "Te informamos estado y tiempos. Sin silencio." },
-    { n: "06", t: "Entrega final", d: "Te entregamos documentos y dejamos el camino listo para seguro." },
-  ];
-
-  return (
-    <Section id="how" style={{ paddingTop: 70 }}>
-      <h2 style={{ margin: 0, fontSize: 28, fontFamily: "Montserrat, system-ui" }}>Cómo funciona</h2>
-      <p style={{ marginTop: 10, maxWidth: 860, color: "rgba(255,255,255,0.80)", lineHeight: 1.7 }}>
-        Este flujo existe para eliminar errores, estafas y retrasos. Todo es visible, documentado y con un responsable real asignado a tu proceso.
-      </p>
-
-      <div
-        style={{
-          marginTop: 18,
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: 16,
-        }}
-      >
-        {steps.map((s) => (
-          <div
-            key={s.n}
-            style={{
-              borderRadius: 18,
-              padding: 18,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.03)",
-            }}
-          >
-            <div style={{ fontSize: 12, letterSpacing: "0.2em", color: colors.gold }}>{s.n}</div>
-            <div style={{ marginTop: 6, fontSize: 15, fontWeight: 950 }}>{s.t}</div>
-            <div style={{ marginTop: 8, fontSize: 13, color: "rgba(255,255,255,0.82)", lineHeight: 1.6 }}>{s.d}</div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-/* =========================
-   TRANSPARENCY BLOCK
-========================= */
-
-function TransparencyBlock() {
-  return (
-    <Section style={{ paddingTop: 70 }}>
-      <div
-        style={{
-          borderRadius: 24,
-          padding: 22,
-          background: "radial-gradient(circle at top, rgba(255,215,0,0.10), rgba(5,5,5,1))",
-          border: "1px solid rgba(255,255,255,0.14)",
-          boxShadow: "0 24px 70px rgba(0,0,0,0.95)",
-        }}
-      >
-        <h2 style={{ margin: 0, fontSize: 22, color: colors.gold, fontFamily: "Montserrat, system-ui" }}>
-          Service fee vs Government fees (sin letra pequeña)
-        </h2>
-        <p style={{ marginTop: 10, fontSize: 13, color: "rgba(255,255,255,0.88)", lineHeight: 1.7 }}>
-          En Sovereign pagas solo por nuestro acompañamiento profesional (service fee). Los fees oficiales
-          (FMCSA, TXDMV, UCR, SoS, process agent, etc.) los pagas tú directamente en portales oficiales.
-        </p>
-        <p style={{ marginTop: 8, fontSize: 12, color: "rgba(255,255,255,0.75)" }}>
-          Nota legal: Sovereign TruckGuard LLC no vende servicios legales. Ofrecemos asistencia administrativa y acompañamiento en procesos de cumplimiento.
-        </p>
-      </div>
-    </Section>
-  );
-}
-
-/* =========================
-   INDIVIDUAL SERVICE CARD
-========================= */
-
-function IndividualCard({ bg, title, price, subtitle, onOpenModal }) {
-  return (
-    <div
-      style={{
-        position: "relative",
-        borderRadius: 22,
-        overflow: "hidden",
-        border: "1px solid rgba(255,255,255,0.12)",
-        backgroundImage: `url(${bg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: 260,
-      }}
-    >
-      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.65)" }} />
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.88))" }} />
-
-      <div style={{ position: "relative", zIndex: 2, padding: 1, paddingBottom: 30, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 10 }}>
-        <div style={{ display: "flex", justifyContent: "flex end", gap: 10, }}>
-          <div style={{ fontWeight: 950, color: colors.gold, fontSize: 15 }}>{title}</div>
-          <div style={{ fontWeight: 950 }}>{price}</div>
-        </div>
-        <div style={{ fontSize: 12, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>{subtitle}</div>
-
-        <div>
-          <button
-            onClick={onOpenModal}
-            style={{
-              padding: "10px 14px",
-              borderRadius: 999,
-              border: "1px solid rgba(255,255,255,0.20)",
-              background: "rgba(0,0,0,0.22)",
-              color: "rgba(255,255,255,0.90)",
-              fontWeight: 900,
-              cursor: "pointer",
-              fontSize: 12,
-            }}
-          >
-            Ver especificaciones
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* =========================
-   TESTIMONIALS
-========================= */
-
-function Testimonials() {
-  const items = [
-    {
-      name: "Juan R. · Texas",
-      text:
-        "Yo ya sabía manejar, pero no sabía papeles. Aquí me llevaron paso a paso y me dejaron todo documentado. No me sentí solo.",
-    },
-    {
-      name: "Luis M. · California",
-      text:
-        "Pagas más que con un gestor, pero duermes tranquilo. Lo mejor es el seguimiento diario y que te dicen la verdad.",
-    },
-    {
-      name: "Carlos P. · Florida",
-      text:
-        "Tenía miedo de equivocarme con MC y DOT. Me corrigieron la ruta y me explicaron en español sin enredos.",
-    },
-  ];
-
-  return (
-    <Section id="testimonios" style={{ paddingTop: 70 }}>
-      <h2 style={{ margin: 0, fontSize: 28, fontFamily: "Montserrat, system-ui" }}>Testimonios</h2>
-      <p style={{ marginTop: 10, maxWidth: 860, color: "rgba(255,255,255,0.80)", lineHeight: 1.7 }}>
-        Camioneros latinos que llegaron con miedo de equivocarse y salieron con orden y evidencia.
-      </p>
-
-      <div style={{ marginTop: 18, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
-        {items.map((t) => (
-          <div key={t.name} style={{ borderRadius: 18, padding: 18, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.03)" }}>
-            <div style={{ color: colors.gold, fontWeight: 950 }}>{t.name}</div>
-            <div style={{ marginTop: 8, fontSize: 13, color: "rgba(255,255,255,0.85)", lineHeight: 1.6 }}>{t.text}</div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-/* =========================
-   FAQ
-========================= */
-
-function FAQ() {
-  const items = [
-    {
-      q: "¿Incluye los government fees?",
-      a: "No. El service fee es nuestro acompañamiento. Los fees oficiales (FMCSA, TXDMV, UCR, SoS, process agent) los pagas tú directamente en portales oficiales.",
-    },
-    {
-      q: "¿Cuánto tarda todo el proceso?",
-      a: "Depende del paquete. Intrastate suele ser 7–10 días. Interstate puede tardar 25–30 días por la activación del MC Authority.",
-    },
-    {
-      q: "¿Qué pasa si ninguno de los 3 nombres está disponible?",
-      a: "Te contactamos, definimos 3 opciones nuevas y validamos antes de someter registros. La idea es evitar rechazos y retrasos.",
-    },
-    {
-      q: "¿Necesito CDL para crear la compañía?",
-      a: "No necesariamente. Puedes ser dueño sin conducir. Si tú vas a conducir, sí necesitas CDL según la operación.",
-    },
-    {
-      q: "¿Hablan español todo el proceso?",
-      a: "Sí. Este servicio existe para que no dependas de inglés técnico ni de tramitadores.",
-    },
-    {
-      q: "¿Después me ayudan con seguro?",
-      a: "Sí. La idea es que nazcas bien con regulatorios y luego tengas seguro, tecnología y crecimiento con nosotros.",
-    },
-  ];
-
-  return (
-    <Section id="faq" style={{ paddingTop: 70 }}>
-      <h2 style={{ margin: 0, fontSize: 28, fontFamily: "Montserrat, system-ui" }}>Preguntas frecuentes</h2>
-
-      <div style={{ marginTop: 18, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
-        {items.map((it) => (
-          <div key={it.q} style={{ borderRadius: 18, padding: 18, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.03)" }}>
-            <div style={{ fontWeight: 950, color: colors.gold }}>{it.q}</div>
-            <div style={{ marginTop: 8, fontSize: 13, color: "rgba(255,255,255,0.85)", lineHeight: 1.6 }}>{it.a}</div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-/* =========================
-   FOOTER (credibilidad)
-========================= */
-
-function Footer() {
-  // Placeholder listo para conectar Google Maps luego:
-  // reemplazar src por tu embed real.
-  const googleMapsEmbed =
-    "https://www.google.com/maps?q=30%20N%20Gould%20St%20Ste.%20N,%20Sheridan,%20WY%2082801&output=embed";
-
-  return (
-    <footer style={{ marginTop: 80, borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.92)" }}>
-      <Section style={{ paddingTop: 34, paddingBottom: 34 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 18 }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <img src="/logo-sovereign.png" style={{ width: 36 }} />
-              <div style={{ fontWeight: 950 }}>Sovereign TruckGuard LLC 🇺🇸</div>
-            </div>
-            <div style={{ marginTop: 10, fontSize: 13, color: "rgba(255,255,255,0.80)", lineHeight: 1.6 }}>
-              Registered in the United States
-              <br />
-              30N gould St, Ste N
-              <br />
-              Sheridan, Wyoming 82801
-              <br />
-              Servicio premium en español para camioneros latinos.
-            </div>
-
-            <div style={{ marginTop: 10, fontSize: 12, color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>
-              Nota legal: Sovereign TruckGuard LLC no vende servicios legales. Ofrecemos asistencia administrativa y acompañamiento en procesos de cumplimiento.
-            </div>
-          </div>
-
-          <div>
-            <div style={{ fontWeight: 950, color: colors.gold, marginBottom: 10 }}>Ubicación</div>
-            <div style={{ borderRadius: 16, overflow: "hidden", border: "1px solid rgba(255,255,255,0.10)" }}>
-              <iframe
-                src={googleMapsEmbed}
-                width="100%"
-                height="220"
-                style={{ border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-            <div style={{ marginTop: 8, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-              * Mapa placeholder. Se conectará al Google Business Profile.
-            </div>
-          </div>
-
-          <div>
-            <div style={{ fontWeight: 950, color: colors.gold, marginBottom: 10 }}>Contacto</div>
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,0.85)", lineHeight: 1.8 }}>
-              Email: <span style={{ opacity: 0.9 }}>info@sovereigntruckguard.com</span>
-              <br />
-              Horario: Lun–Vie 9am–6pm EST
-              <br />
-              Teléfono: <span style={{ opacity: 0.9 }}>+1 (608) 557-6282</span>
-              <br />
-              <br />
-              Atención en español
-            </div>
-            <div>
-            </div>
-          </div>
-        </div>
-      </Section>
-    </footer>
-  );
-}
-
-/* =========================
-   MODAL CONTENTS
-========================= */
-
-function SpecsBlock({ title, rows }) {
-  return (
-    <div style={{ marginTop: 14 }}>
-      <div style={{ fontWeight: 950, color: colors.gold, marginBottom: 10 }}>{title}</div>
-      <div style={{ display: "grid", gap: 10 }}>
-        {rows.map((r, idx) => (
-          <div
-            key={idx}
-            style={{
-              borderRadius: 14,
-              border: "1px solid rgba(255,255,255,0.10)",
-              background: "rgba(255,255,255,0.03)",
-              padding: 12,
-              display: "flex",
-              justifyContent: "space-between",
-              gap: 12,
-              alignItems: "flex-start",
-            }}
-          >
-            <div>
-              <div style={{ fontWeight: 900 }}>{r.name}</div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.78)", marginTop: 4, lineHeight: 1.5 }}>
-                {r.desc}
-              </div>
-            </div>
-            <div style={{ textAlign: "right", minWidth: 180 }}>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.70)" }}>Tiempo</div>
-              <div style={{ fontWeight: 950 }}>{r.time}</div>
-              <div style={{ marginTop: 8, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>Gov fee</div>
-              <div style={{ fontWeight: 950 }}>{r.govFee}</div>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );
@@ -724,453 +148,100 @@ function SpecsBlock({ title, rows }) {
 ========================= */
 
 export default function ServicesPage() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("");
-  const [modalBody, setModalBody] = useState(null);
-// ===== Checkout Intrastate =====
-  const [buyLoading, setBuyLoading] = useState(false);
-  const [buyError, setBuyError] = useState("");
-  const [onboardingReady, setOnboardingReady] = useState(false);
-  
-  async function handleBuyIntrastate() {
-    try {
-      setBuyLoading(true);
-      setBuyError("");
-
-      const res = await fetch(`${BACKEND_BASE_URL}/checkout`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          service_sku: "PKG_INTRASTATE",
-          customer: {
-            email: "cliente@sovereigntruckguard.com",
-            name: "Cliente Sovereign",
-            phone: "0000000000",
-          },
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!data?.ok || !data.checkoutUrl) {
-        throw new Error(data?.error || "No se pudo iniciar el pago");
-      }
-
-      // 🔥 Redirección directa a Stripe Checkout
-      window.location.href = data.checkoutUrl;
-    } catch (err) {
-      setBuyError(err.message || "Error iniciando el pago");
-    } finally {
-      setBuyLoading(false);
-    }
-  }
-
-  const packages = useMemo(() => {
-    return {
-      interstate: {
-        bg: "/services/packages/interstate-bg.png",
-        badge: "Interstate · Completa",
-        title: "Servicio completo para crear tu Compañía Interstate",
-        price: "USD $1,500",
-        bullets: [
-          "LLC + EIN",
-          "USDOT + MC Authority",
-          "BOC-3 + UCR",
-          "TXDMV (si aplica)",
-          "Seguimiento diario + evidencia",
-        ],
-        specs: [
-          { name: "Validación 3 nombres (SoS + FMCSA)", time: "24h", govFee: "$0", desc: "Validamos disponibilidad para evitar rechazos y retrasos." },
-          { name: "LLC Filing (State)", time: "2–5 días", govFee: "Varía por estado", desc: "Registro legal de la compañía en el estado seleccionado." },
-          { name: "EIN (IRS)", time: "24h", govFee: "$0", desc: "IRS no cobra EIN. Nosotros guiamos y documentamos el proceso." },
-          { name: "USDOT (FMCSA)", time: "24–48h", govFee: "$0", desc: "Registro USDOT correctamente alineado a tu operación." },
-          { name: "MC Authority (FMCSA)", time: "21–25 días", govFee: "$300", desc: "Fee oficial FMCSA se paga directo en portal." },
-          { name: "BOC-3 (Process Agent)", time: "24h", govFee: "$20–$50", desc: "Fee del process agent se paga directo al proveedor." },
-          { name: "UCR", time: "Mismo día", govFee: "Según flota", desc: "Pago oficial depende de número de vehículos." },
-          { name: "TXDMV (si aplica)", time: "2–7 días", govFee: "Según TXDMV", desc: "Aplica si operas intrastate en Texas o requisito específico." },
-        ],
-        totalTime: "25–30 días (por MC Authority)",
-        afterPay: [
-          "Pago confirmado",
-          "Formulario post-pago obligatorio (incluye 3 nombres)",
-          "Validación real + coherencia de operación",
-          "Ejecución + evidencia",
-          "Seguimiento diario",
-          "Entrega final documentada + preparación para seguro",
-        ],
-      },
-      intrastate: {
-        bg: "/services/packages/intrastate-bg.png",
-        badge: "Intrastate · Simple",
-        title: "Servicio completo para crear tu Compañía Intrastate",
-        price: "USD $900",
-        bullets: [
-          "LLC + EIN",
-          "USDOT",
-          "TXDMV (si aplica)",
-          "Sin MC / BOC-3 / UCR",
-          "Seguimiento diario + evidencia",
-        ],
-        specs: [
-          { name: "Validación 3 nombres (SoS + FMCSA)", time: "24h", govFee: "$0", desc: "Validamos disponibilidad para evitar rechazos." },
-          { name: "LLC Filing (State)", time: "2–5 días", govFee: "Varía por estado", desc: "Registro legal estatal." },
-          { name: "EIN (IRS)", time: "24h", govFee: "$0", desc: "IRS no cobra. Nosotros guiamos y documentamos." },
-          { name: "USDOT (FMCSA)", time: "24–48h", govFee: "$0", desc: "Registro USDOT correctamente alineado." },
-          { name: "TXDMV (si aplica)", time: "2–7 días", govFee: "Según TXDMV", desc: "Si operas intrastate en Texas." },
-        ],
-        totalTime: "7–10 días (promedio)",
-        afterPay: [
-          "Pago confirmado",
-          "Formulario post-pago obligatorio",
-          "Validación real",
-          "Ejecución + evidencia",
-          "Seguimiento diario",
-          "Entrega final documentada",
-        ],
-      },
-    };
-  }, []);
-
-  const individualServices = useMemo(() => {
-    return [
-      {
-        key: "ein",
-        bg: "/services/individuals/ein-bg.png",
-        title: "EIN Filing",
-        price: "USD $99",
-        subtitle: "IRS · En 24h · Sin fee gubernamental",
-        specs: [
-          { name: "EIN (IRS)", time: "24h", govFee: "$0", desc: "IRS no cobra. Se genera y se documenta correctamente." },
-        ],
-      },
-      {
-        key: "boi",
-        bg: "/services/individuals/boi-bg.png",
-        title: "BOI Filing (FinCEN)",
-        price: "USD $59",
-        subtitle: "Reporte de beneficiarios · 24h",
-        specs: [
-          { name: "BOI Filing", time: "24h", govFee: "$0", desc: "Presentación de BOI con estructura correcta y evidencia." },
-        ],
-      },
-      {
-        key: "dot",
-        bg: "/services/individuals/dot-bg.png",
-        title: "DOT / MCS-150",
-        price: "USD $149",
-        subtitle: "Registro o actualización · 24–48h",
-        specs: [
-          { name: "USDOT / MCS-150", time: "24–48h", govFee: "$0", desc: "Registro o update alineado a operación real." },
-        ],
-      },
-      {
-        key: "mc",
-        bg: "/services/individuals/mc-bg.png",
-        title: "MC Authority Assistance",
-        price: "USD $249",
-        subtitle: "FMCSA · preparación + guía",
-        specs: [
-          { name: "MC Authority (FMCSA)", time: "21–25 días", govFee: "$300", desc: "Fee oficial pagado por cliente en portal FMCSA." },
-        ],
-      },
-      {
-        key: "boc3",
-        bg: "/services/individuals/boc3-bg.png",
-        title: "BOC-3 Assistance",
-        price: "USD $69",
-        subtitle: "Process Agent · 24h",
-        specs: [
-          { name: "BOC-3", time: "24h", govFee: "$20–$50", desc: "Fee del process agent se paga directo al proveedor." },
-        ],
-      },
-      {
-        key: "ucr",
-        bg: "/services/individuals/ucr-bg.png",
-        title: "UCR Filing",
-        price: "USD $89",
-        subtitle: "Mismo día · según flota",
-        specs: [
-          { name: "UCR", time: "Mismo día", govFee: "Según flota", desc: "Pago oficial depende de cantidad de vehículos." },
-        ],
-      },
-      {
-        key: "txdmv",
-        bg: "/services/individuals/txdmv-bg.png",
-        title: "TXDMV Intrastate",
-        price: "USD $179",
-        subtitle: "Texas · 2–7 días",
-        specs: [
-          { name: "TXDMV", time: "2–7 días", govFee: "Según TXDMV", desc: "Requisito intrastate en Texas (si aplica)." },
-        ],
-      },
-      {
-        key: "compliance",
-        bg: "/services/individuals/compliance-bg.png",
-        title: "Compliance Check (diagnóstico)",
-        price: "USD $75",
-        subtitle: "Revisión de riesgo · 24h",
-        specs: [
-          { name: "Diagnóstico compliance", time: "24h", govFee: "$0", desc: "Checklist de riesgos y correcciones recomendadas." },
-        ],
-      },
-      {
-        key: "reactivation",
-        bg: "/services/individuals/reactivation-bg.png",
-        title: "Reactivación USDOT / MC",
-        price: "USD $250",
-        subtitle: "Retorno a operación · depende del caso",
-        specs: [
-          { name: "Reactivación", time: "48–72h", govFee: "Depende", desc: "Depende del estado de tu cuenta en FMCSA." },
-        ],
-      },
-      {
-        key: "namechange",
-        bg: "/services/individuals/namechange-bg.png",
-        title: "Cambio de nombre compañía",
-        price: "USD $200",
-        subtitle: "Actualización estatal + coherencia",
-        specs: [
-          { name: "Cambio de nombre", time: "2–7 días", govFee: "Varía por estado", desc: "Actualización legal según estado + coherencia con registros." },
-        ],
-      },
-    ];
-  }, []);
-
-  function openPackageModal(pkgKey) {
-    const pkg = packages[pkgKey];
-    setModalTitle("Nos encargamos de todo el proceso por ti");
-
-    setModalBody(
-      <div>
-        <SpecsBlock title="Tiempos + Government fees por proceso" rows={pkg.specs} />
-
-        <div style={{ marginTop: 18, borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.03)", padding: 14 }}>
-          <div style={{ color: colors.gold, fontWeight: 950 }}>Tiempo total estimado</div>
-          <div style={{ marginTop: 8, color: "rgba(255,255,255,0.85)" }}>{pkg.totalTime}</div>
-        </div>
-
-        <div style={{ marginTop: 18, borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.03)", padding: 14 }}>
-          <div style={{ color: colors.gold, fontWeight: 950 }}>Qué pasa después de pagar</div>
-          <ol style={{ marginTop: 10, paddingLeft: 18, lineHeight: 1.7, color: "rgba(255,255,255,0.85)" }}>
-            {pkg.afterPay.map((s) => (
-              <li key={s}>{s}</li>
-            ))}
-          </ol>
-          <div style={{ marginTop: 10, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-            Pagos en línea se habilitan en breve (Stripe). Por ahora, el botón de compra está deshabilitado.
-          </div>
-        </div>
-      </div>
-    );
-
-    setModalOpen(true);
-  }
-
-  function openIndividualModal(service) {
-    setModalTitle(`${service.title} — ${service.price}`);
-    setModalBody(<SpecsBlock title="Especificaciones" rows={service.specs} />);
-    setModalOpen(true);
-  }
+  const packages = useMemo(() => ({
+    interstate: {
+      bg: "/services/packages/interstate-bg.png",
+      title: "Paquete Interstate Completo",
+      price: "USD $1,500",
+      bullets: [
+        "LLC + EIN",
+        "USDOT + MC Authority",
+        "BOC-3 + UCR",
+        "Seguimiento diario",
+        "Proceso 100% documentado",
+      ],
+      link: STRIPE_INTERSTATE,
+    },
+    intrastate: {
+      bg: "/services/packages/intrastate-bg.png",
+      title: "Paquete Intrastate",
+      price: "USD $900",
+      bullets: [
+        "LLC + EIN",
+        "USDOT",
+        "TXDMV (si aplica)",
+        "Sin MC / BOC-3 / UCR",
+        "Seguimiento diario",
+      ],
+      link: STRIPE_INTRASTATE,
+    },
+  }), []);
 
   return (
-    <main style={{ background: colors.bg, color: colors.white, minHeight: "100vh" }}>
+    <main style={{ background: colors.bg, color: colors.white }}>
       <Header />
-      <div style={{ height: 84 }} />
-      
-      <Section id="packages" style={{ paddingTop: 70 }}>
-        <h1 style={{ margin: 0, fontSize: 34, fontFamily: "Montserrat, system-ui" }}>
-          Crear tu <span style={{ color: colors.gold }}>trucking company en USA</span>
-          <br />
+      <div style={{ height: 90 }} />
+
+      {/* HERO TRANSACCIONAL */}
+      <Section style={{ paddingTop: 40 }}>
+        <h1 style={{ fontSize: 38, marginBottom: 12 }}>
+          Crea tu <span style={{ color: colors.gold }}>trucking company en USA</span><br />
           sin errores ni bloqueos
         </h1>
-        <p style={{ marginTop: 8, maxWidth: 900, color: "rgba(255,255,255,0.90)", lineHeight: 1.5 }}>
-          Servicios para crear tu empresa de trucking correctamente:
-          LLC, EIN, permisos DOT y MC, con proceso guiado en español.
+
+        <p style={{ maxWidth: 880, fontSize: 16, lineHeight: 1.6, opacity: 0.9 }}>
+          Un error en DOT o MC puede detener tu operación y costarte miles.
+          Aquí nos encargamos del proceso completo, con evidencia y responsable real.
         </p>
-
-        <p style={{ maxWidth: 900, marginTop: 14, opacity: 0.85 }}>
-          Estos paquetes están diseñados para quienes quieren iniciar su operación
-          de trucking en Estados Unidos de forma correcta desde el día uno,
-          sin aprender papeleo ni cometer errores que bloqueen su DOT o MC.
-        </p>
-
-        <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 22 }}>
-          <PackageCard
-            bg={packages.interstate.bg}
-            badge={packages.interstate.badge}
-            title={packages.interstate.title}
-            price={packages.interstate.price}
-            bullets={packages.interstate.bullets}
-            onOpenModal={() => openPackageModal("interstate")}
-          />
-
-          <PackageCard
-            bg={packages.intrastate.bg}
-            badge={packages.intrastate.badge}
-            title={packages.intrastate.title}
-            price={packages.intrastate.price}
-            bullets={packages.intrastate.bullets}
-            onOpenModal={() => openPackageModal("intrastate")}
-            onBuy={handleBuyIntrastate}
-            buyLoading={buyLoading}
-            buyError={buyError}
-          />
-        </div>
-
-        <div style={{ marginTop: 16, fontSize: 12, color: "rgba(255,255,255,0.70)" }}>
-          * Service fee Sovereign. Government fees se pagan por separado en portales oficiales.
-        </div>
       </Section>
-      
-            {/* ================= GUÍAS CLAVE PARA INICIAR SIN ERRORES ================= */}
-      <section
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "40px 20px 30px",
-        }}
-      >
+
+      {/* PAQUETES */}
+      <Section style={{ paddingTop: 40 }}>
         <div
           style={{
-            borderRadius: 22,
-            padding: 22,
-            border: "1px solid rgba(255,255,255,0.12)",
-            background: "rgba(255,255,255,0.03)",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: 22,
           }}
         >
-          <div
-            style={{
-              fontWeight: 950,
-              color: colors.gold,
-              marginBottom: 12,
-              fontSize: 18,
-            }}
-          >
-            Guías clave para iniciar sin errores
-          </div>
-
-          <p
-            style={{
-              maxWidth: 900,
-              fontSize: 14,
-              lineHeight: 1.6,
-              opacity: 0.85,
-              marginBottom: 16,
-            }}
-          >
-            Estas guías responden las preguntas más comunes antes de iniciar una
-            operación de trucking en Estados Unidos. Cada una conecta
-            directamente con el proceso correcto y los servicios disponibles.
-          </p>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: 12,
-            }}
-          >
-            <a href="/permisos-dot-mc-usa" style={hubLinkStyle}>
-              permisos DOT y MC en USA
-            </a>
-
-            <a href="/crear-trucking-company-usa" style={hubLinkStyle}>
-              crear trucking company en USA
-            </a>
-
-            <a href="/como-obtener-dot-number" style={hubLinkStyle}>
-              cómo obtener DOT number
-            </a>
-
-            <a href="/como-sacar-dot-number-en-espanol" style={hubLinkStyle}>
-              cómo sacar el DOT number en español
-            </a>
-          </div>
-
-          <div style={{ marginTop: 14 }}>
-            <a
-              href="#packages"
-              style={{
-                display: "inline-block",
-                padding: "10px 16px",
-                borderRadius: 999,
-                background: `linear-gradient(90deg, ${colors.gold}, #E8B7B7)`,
-                color: "#000",
-                fontWeight: 900,
-                textDecoration: "none",
-              }}
-            >
-              Ver paquetes disponibles
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <TrustBlocks />
-
-      <Section style={{ paddingTop: 50 }}>
-        <h2 style={{ fontFamily: "Montserrat, system-ui" }}>
-          ¿Este servicio es para ti?
-        </h2>
-
-        <ul style={{ marginTop: 12, lineHeight: 1.8, color: "rgba(255,255,255,0.88)" }}>
-          <li>✔ Ya tienes el dinero para iniciar tu compañía</li>
-          <li>✔ No quieres aprender papeleo ni cometer errores</li>
-          <li>✔ Buscas alguien que se haga responsable del proceso</li>
-          <li>✔ Quieres todo documentado, legal y en español</li>
-        </ul>
-
-        <p style={{ marginTop: 10, fontSize: 13, color: "rgba(255,255,255,0.65)" }}>
-          Si solo buscas información gratis o tutoriales, este servicio no es para ti.
-        </p>
-      </Section>
-
-      <HowItWorks />
-      <TransparencyBlock />
-
-      {/* INDIVIDUALES */}
-      <Section id="individual" style={{ paddingTop: 70 }}>
-        <h2 style={{ margin: 0, fontSize: 28, fontFamily: "Montserrat, system-ui" }}>
-          Servicios individuales
-        </h2>
-        <p style={{ marginTop: 10, maxWidth: 900, color: "rgba(255,255,255,0.80)", lineHeight: 1.7 }}>
-          Si no necesitas el paquete completo, inicia por un servicio puntual.
-          Los pagos en línea para servicios individuales se habilitan en breve (Stripe).
-          Por ahora, puedes revisar especificaciones y tiempos.
-        </p>
-
-        <div style={{ marginTop: 18, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 16 }}>
-          {individualServices.map((s) => (
-            <IndividualCard
-              key={s.key}
-              bg={s.bg}
-              title={s.title}
-              price={s.price}
-              subtitle={s.subtitle}
-              onOpenModal={() => openIndividualModal(s)}
-            />
-          ))}
+          <PackageCard {...packages.interstate} buyLink={packages.interstate.link} />
+          <PackageCard {...packages.intrastate} buyLink={packages.intrastate.link} />
         </div>
       </Section>
 
-      <Testimonials />
-      <FAQ />
-      <Footer />
+      {/* PRUEBA SOCIAL */}
+      <Section style={{ paddingTop: 70 }}>
+        <h2>Camioneros reales, procesos reales</h2>
+        <p style={{ maxWidth: 800, opacity: 0.85 }}>
+          “Llegué con miedo de equivocarme. Hoy tengo mi compañía activa y todo documentado.”
+          <br />— Juan R., Texas
+        </p>
+      </Section>
 
-      <Modal open={modalOpen} title={modalTitle} onClose={() => setModalOpen(false)}>
-        {modalBody}
-      </Modal>
+      {/* CTA FINAL */}
+      <Section style={{ paddingTop: 60, paddingBottom: 80 }}>
+        <div
+          style={{
+            borderRadius: 24,
+            padding: 26,
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.14)",
+          }}
+        >
+          <h3 style={{ color: colors.gold }}>
+            ¿Listo para hacerlo bien desde el inicio?
+          </h3>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 14 }}>
+            <PrimaryButton href={STRIPE_INTERSTATE}>Comprar paquete</PrimaryButton>
+            <SecondaryButton href="mailto:info@sovereigntruckguard.com">
+              Escribir por email
+            </SecondaryButton>
+            <SecondaryButton href="tel:+16085576282">
+              Llamar ahora
+            </SecondaryButton>
+          </div>
+        </div>
+      </Section>
     </main>
   );
 }
-
-const hubLinkStyle = {
-  display: "block",
-  padding: "14px 14px",
-  borderRadius: 14,
-  border: "1px solid rgba(255,255,255,0.14)",
-  background: "rgba(0,0,0,0.35)",
-  color: "rgba(255,255,255,0.92)",
-  textDecoration: "none",
-  fontWeight: 850,
-};
