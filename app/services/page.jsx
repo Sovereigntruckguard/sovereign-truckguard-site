@@ -43,9 +43,9 @@ const layout = {
   sidePadding: 20,
 };
 
-const STRIPE_ENTRY = "https://buy.stripe.com/5kQ3cx4A97MJ28n1Kx9Zm04";
-const STRIPE_INTERSTATE = "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
-const STRIPE_INTRASTATE = "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
+const STRIPE_ENTRY = "https://checkout.sovereigntruckguard.com/b/5kQ3cx4A97MJ28n1Kx9Zm04";
+const STRIPE_INTERSTATE = "https://checkout.sovereigntruckguard.com/b/7sYeVffeN6IF8wLbl79Zm02";
+const STRIPE_INTRASTATE = "https://checkout.sovereigntruckguard.com/b/dRm7sNd6Fgjf8wLah39Zm03";
 
 /* =========================
    HELPERS

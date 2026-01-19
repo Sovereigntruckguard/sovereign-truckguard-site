@@ -1,7 +1,7 @@
 // app/layout.jsx
 import Providers from "./providers.jsx";
 import Script from "next/script";
-
+import { Analytics } from "@vercel/analytics/next"
 /* =========================
    METADATA GLOBAL (SEO BASE)
 ========================= */
