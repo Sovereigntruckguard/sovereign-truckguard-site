@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Header from "app/components/Header.jsx";
 
 /* =========================
@@ -19,17 +19,20 @@ const layout = {
   sidePadding: 20,
 };
 
-const STRIPE_INTERSTATE = "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
-const STRIPE_INTRASTATE = "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
+const STRIPE_ENTRY =
+  "https://buy.stripe.com/5kQ3cx4A97MJ28n1Kx9Zm04";
+const STRIPE_INTERSTATE =
+  "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
+const STRIPE_INTRASTATE =
+  "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
 
 /* =========================
    HELPERS
 ========================= */
 
-function Section({ children, id, style }) {
+function Section({ children, style }) {
   return (
     <section
-      id={id}
       style={{
         maxWidth: layout.maxWidth,
         margin: "0 auto",
@@ -54,7 +57,6 @@ function PrimaryButton({ children, href }) {
         fontWeight: 950,
         fontSize: 14,
         textDecoration: "none",
-        boxShadow: "0 18px 60px rgba(0,0,0,0.9)",
       }}
     >
       {children}
@@ -126,12 +128,9 @@ function PackageCard({ bg, title, price, bullets, buyLink }) {
         <div style={{ fontSize: 24, fontWeight: 950 }}>{price}</div>
 
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          <PrimaryButton href={buyLink}>Comprar ahora</PrimaryButton>
-          <SecondaryButton href="mailto:info@sovereigntruckguard.com">
-            Consultar por email
-          </SecondaryButton>
-          <SecondaryButton href="tel:+16085576282">
-            Llamar ahora
+          <PrimaryButton href={buyLink}>Comprar paquete</PrimaryButton>
+          <SecondaryButton href={STRIPE_ENTRY}>
+            ¿Dudas? Diagnóstico $49
           </SecondaryButton>
         </div>
 
@@ -140,6 +139,56 @@ function PackageCard({ bg, title, price, bullets, buyLink }) {
         </div>
       </div>
     </div>
+  );
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+function Footer() {
+  return (
+    <footer
+      style={{
+        borderTop: "1px solid rgba(255,255,255,0.12)",
+        padding: "40px 0",
+        marginTop: 80,
+        background: "#050505",
+      }}
+    >
+      <Section>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: 30,
+          }}
+        >
+          <div>
+            <strong>Sovereign TruckGuard LLC</strong>
+            <p style={{ fontSize: 13, opacity: 0.8 }}>
+              30 N Gould St Ste N<br />
+              Sheridan, WY 82801 – USA<br />
+              Tel: +1 (608) 557-6282<br />
+              Email: info@sovereigntruckguard.com
+            </p>
+            <p style={{ fontSize: 11, opacity: 0.6 }}>
+              No ofrecemos servicios legales. Asistencia administrativa y operativa.
+            </p>
+          </div>
+
+          <div>
+            <iframe
+              src="https://www.google.com/maps?q=30+N+Gould+St+Ste+N+Sheridan+WY+82801&output=embed"
+              width="100%"
+              height="200"
+              style={{ border: 0, borderRadius: 12 }}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </Section>
+    </footer>
   );
 }
 
@@ -158,7 +207,7 @@ export default function ServicesPage() {
         "USDOT + MC Authority",
         "BOC-3 + UCR",
         "Seguimiento diario",
-        "Proceso 100% documentado",
+        "Proceso documentado",
       ],
       link: STRIPE_INTERSTATE,
     },
@@ -182,21 +231,24 @@ export default function ServicesPage() {
       <Header />
       <div style={{ height: 90 }} />
 
-      {/* HERO TRANSACCIONAL */}
-      <Section style={{ paddingTop: 40 }}>
-        <h1 style={{ fontSize: 38, marginBottom: 12 }}>
-          Crea tu <span style={{ color: colors.gold }}>trucking company en USA</span><br />
-          sin errores ni bloqueos
+      {/* HERO */}
+      <Section>
+        <h1 style={{ fontSize: 38 }}>
+          Crea tu <span style={{ color: colors.gold }}>trucking company en USA</span>
         </h1>
-
-        <p style={{ maxWidth: 880, fontSize: 16, lineHeight: 1.6, opacity: 0.9 }}>
-          Un error en DOT o MC puede detener tu operación y costarte miles.
-          Aquí nos encargamos del proceso completo, con evidencia y responsable real.
+        <p style={{ maxWidth: 880, fontSize: 16, opacity: 0.9 }}>
+          Antes de pagar $900 o $1500, valida tu caso y evita errores costosos.
         </p>
+
+        <div style={{ marginTop: 20 }}>
+          <PrimaryButton href={STRIPE_ENTRY}>
+            Iniciar diagnóstico por $49
+          </PrimaryButton>
+        </div>
       </Section>
 
       {/* PAQUETES */}
-      <Section style={{ paddingTop: 40 }}>
+      <Section style={{ paddingTop: 60 }}>
         <div
           style={{
             display: "grid",
@@ -209,39 +261,7 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      {/* PRUEBA SOCIAL */}
-      <Section style={{ paddingTop: 70 }}>
-        <h2>Camioneros reales, procesos reales</h2>
-        <p style={{ maxWidth: 800, opacity: 0.85 }}>
-          “Llegué con miedo de equivocarme. Hoy tengo mi compañía activa y todo documentado.”
-          <br />— Juan R., Texas
-        </p>
-      </Section>
-
-      {/* CTA FINAL */}
-      <Section style={{ paddingTop: 60, paddingBottom: 80 }}>
-        <div
-          style={{
-            borderRadius: 24,
-            padding: 26,
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.14)",
-          }}
-        >
-          <h3 style={{ color: colors.gold }}>
-            ¿Listo para hacerlo bien desde el inicio?
-          </h3>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 14 }}>
-            <PrimaryButton href={STRIPE_INTERSTATE}>Comprar paquete</PrimaryButton>
-            <SecondaryButton href="mailto:info@sovereigntruckguard.com">
-              Escribir por email
-            </SecondaryButton>
-            <SecondaryButton href="tel:+16085576282">
-              Llamar ahora
-            </SecondaryButton>
-          </div>
-        </div>
-      </Section>
+      <Footer />
     </main>
   );
 }
