@@ -2,13 +2,12 @@ import Header from "app/components/Header.jsx";
 
 /* =========================
    METADATA (SEO real)
-   ✅ App Router compatible (server component)
 ========================= */
 
 export const metadata = {
   title: "Crear trucking company en USA | Diagnóstico $49 + Paquetes Interstate/Intrastate",
   description:
-    "Crea tu trucking company en USA con proceso guiado y documentado. Antes de pagar $900 o $1500, valida tu caso con un diagnóstico inicial de $49. Paquetes Interstate e Intrastate.",
+    "Crea tu trucking company en USA con proceso guiado y documentado. Antes de pagar $900 o $1500, valida tu caso con un diagnóstico inicial de $49.",
   alternates: {
     canonical: "https://www.sovereigntruckguard.com/services",
   },
@@ -152,7 +151,6 @@ function PackageCard({ bg, title, price, bullets, buyLink }) {
 
         <div style={{ fontSize: 24, fontWeight: 950 }}>{price}</div>
 
-        {/* ✅ 2 CTAs max: comprar + diagnóstico (sin parálisis) */}
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <PrimaryButton href={buyLink}>Comprar paquete</PrimaryButton>
           <SecondaryButton href={STRIPE_ENTRY}>¿Dudas? Diagnóstico $49</SecondaryButton>
@@ -259,32 +257,24 @@ export default function ServicesPage() {
       <Header />
       <div style={{ height: 90 }} />
 
-      {/* HERO (Entry + Premium) */}
-      <Section style={{ paddingTop: 10 }}>
-        <h1 style={{ fontSize: 38, marginBottom: 10 }}>
+      {/* HERO */}
+      <Section>
+        <h1 style={{ fontSize: 38 }}>
           Crear tu <span style={{ color: colors.gold }}>trucking company en USA</span>
         </h1>
 
-        <p style={{ maxWidth: 920, fontSize: 16, opacity: 0.9, lineHeight: 1.6 }}>
-          Antes de pagar <strong>$900</strong> o <strong>$1500</strong>, valida tu caso con un diagnóstico inicial.
-          Te damos claridad sobre tu operación (interstate/intrastate) y el camino correcto para avanzar.
+        <p style={{ maxWidth: 920, fontSize: 16, opacity: 0.9 }}>
+          Antes de pagar $900 o $1500, valida tu caso con un diagnóstico inicial.
+          Te damos claridad real y el camino correcto para avanzar.
         </p>
 
-        <div style={{ marginTop: 18, display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <PrimaryButton href={STRIPE_ENTRY}>Iniciar diagnóstico por $49</PrimaryButton>
-          <SecondaryButton href="#paquetes">Ver paquetes premium</SecondaryButton>
-        </div>
-
-        {/* SEO safe keywords (sin claims oficiales) */}
-        <p style={{ marginTop: 12, fontSize: 12, opacity: 0.7, maxWidth: 920, lineHeight: 1.6 }}>
-          Búsquedas comunes: <strong>cómo obtener DOT number</strong>, <strong>cómo sacar DOT number</strong>,
-          <strong> permisos DOT y MC en USA</strong>, <strong>MC authority</strong>, <strong>crear trucking company en USA</strong>.
-          Aquí te guiamos con estructura y documentación.
-        </p>
+        <PrimaryButton href={STRIPE_ENTRY}>
+          Iniciar diagnóstico por $49
+        </PrimaryButton>
       </Section>
 
-      {/* PAQUETES PREMIUM */}
-      <Section id="paquetes" style={{ paddingTop: 55 }}>
+      {/* PAQUETES */}
+      <Section id="paquetes" style={{ paddingTop: 60 }}>
         <div
           style={{
             display: "grid",
@@ -297,7 +287,30 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      {/* INTERLINK SEO (HUB) */}
+      {/* BLOQUE AUTORIDAD / RTS (ACOPLADO AQUÍ) */}
+      <Section style={{ paddingTop: 80 }}>
+        <h2 style={{ color: colors.gold }}>Estructura real, no improvisación</h2>
+        <p style={{ maxWidth: 900, opacity: 0.88, lineHeight: 1.6 }}>
+          Nuestro proceso está alineado a estándares operativos reales del mercado de
+          transporte en Estados Unidos, incluyendo preparación para
+          <strong> factoring, fuel y herramientas financieras </strong>
+          utilizadas por miles de carriers activos.
+        </p>
+
+        <ul style={{ marginTop: 16, lineHeight: 1.8 }}>
+          <li>✔ Preparación correcta para evaluación financiera</li>
+          <li>✔ Documentación ordenada y trazable</li>
+          <li>✔ Alineación con requisitos operativos reales</li>
+          <li>✔ Acompañamiento posterior al registro</li>
+        </ul>
+
+        <p style={{ marginTop: 10, fontSize: 12, opacity: 0.65 }}>
+          Las opciones de factoring y servicios financieros están sujetas a aprobación
+          independiente por terceros aliados. Sovereign no garantiza aprobación financiera.
+        </p>
+      </Section>
+
+      {/* INTERLINK SEO HUB */}
       <Section style={{ paddingTop: 70 }}>
         <div
           style={{
@@ -348,7 +361,7 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      {/* FAQ SEO (short, keyword-rich, legal-safe) */}
+      {/* FAQ SEO */}
       <Section style={{ paddingTop: 70 }}>
         <h2 style={{ color: colors.gold }}>Preguntas frecuentes</h2>
         <div style={{ marginTop: 18, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 14 }}>
