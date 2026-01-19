@@ -71,6 +71,7 @@ export default function RootLayout({ children }) {
 
       <body style={{ margin: 0 }}>
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
