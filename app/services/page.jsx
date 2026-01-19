@@ -1,7 +1,32 @@
-"use client";
-
-import { useMemo } from "react";
 import Header from "app/components/Header.jsx";
+
+/* =========================
+   METADATA (SEO real)
+   ✅ App Router compatible (server component)
+========================= */
+
+export const metadata = {
+  title: "Crear trucking company en USA | Diagnóstico $49 + Paquetes Interstate/Intrastate",
+  description:
+    "Crea tu trucking company en USA con proceso guiado y documentado. Antes de pagar $900 o $1500, valida tu caso con un diagnóstico inicial de $49. Paquetes Interstate e Intrastate.",
+  alternates: {
+    canonical: "https://www.sovereigntruckguard.com/services",
+  },
+  openGraph: {
+    title: "Crear trucking company en USA | Diagnóstico $49 + Paquetes",
+    description:
+      "Proceso guiado y documentado para estructurar tu empresa de trucking. Diagnóstico $49 antes de invertir $900–$1500.",
+    url: "https://www.sovereigntruckguard.com/services",
+    siteName: "Sovereign TruckGuard LLC",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Crear trucking company en USA | Diagnóstico $49 + Paquetes",
+    description:
+      "Diagnóstico inicial $49 + Paquetes Interstate/Intrastate para iniciar correctamente.",
+  },
+};
 
 /* =========================
    CONFIG
@@ -19,20 +44,18 @@ const layout = {
   sidePadding: 20,
 };
 
-const STRIPE_ENTRY =
-  "https://buy.stripe.com/5kQ3cx4A97MJ28n1Kx9Zm04";
-const STRIPE_INTERSTATE =
-  "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
-const STRIPE_INTRASTATE =
-  "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
+const STRIPE_ENTRY = "https://buy.stripe.com/5kQ3cx4A97MJ28n1Kx9Zm04";
+const STRIPE_INTERSTATE = "https://buy.stripe.com/7sYeVffeN6IF8wLbl79Zm02";
+const STRIPE_INTRASTATE = "https://buy.stripe.com/dRm7sNd6Fgjf8wLah39Zm03";
 
 /* =========================
    HELPERS
 ========================= */
 
-function Section({ children, style }) {
+function Section({ children, style, id }) {
   return (
     <section
+      id={id}
       style={{
         maxWidth: layout.maxWidth,
         margin: "0 auto",
@@ -57,6 +80,7 @@ function PrimaryButton({ children, href }) {
         fontWeight: 950,
         fontSize: 14,
         textDecoration: "none",
+        display: "inline-block",
       }}
     >
       {children}
@@ -76,6 +100,7 @@ function SecondaryButton({ children, href }) {
         fontSize: 13,
         textDecoration: "none",
         background: "rgba(0,0,0,0.35)",
+        display: "inline-block",
       }}
     >
       {children}
@@ -127,11 +152,10 @@ function PackageCard({ bg, title, price, bullets, buyLink }) {
 
         <div style={{ fontSize: 24, fontWeight: 950 }}>{price}</div>
 
+        {/* ✅ 2 CTAs max: comprar + diagnóstico (sin parálisis) */}
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <PrimaryButton href={buyLink}>Comprar paquete</PrimaryButton>
-          <SecondaryButton href={STRIPE_ENTRY}>
-            ¿Dudas? Diagnóstico $49
-          </SecondaryButton>
+          <SecondaryButton href={STRIPE_ENTRY}>¿Dudas? Diagnóstico $49</SecondaryButton>
         </div>
 
         <div style={{ fontSize: 12, opacity: 0.75 }}>
@@ -173,7 +197,7 @@ function Footer() {
               Email: info@sovereigntruckguard.com
             </p>
             <p style={{ fontSize: 11, opacity: 0.6 }}>
-              No ofrecemos servicios legales. Asistencia administrativa y operativa.
+              No ofrecemos servicios legales. Brindamos asistencia administrativa y operativa.
             </p>
           </div>
 
@@ -193,62 +217,74 @@ function Footer() {
 }
 
 /* =========================
+   DATA
+========================= */
+
+const packages = {
+  interstate: {
+    bg: "/services/packages/interstate-bg.png",
+    title: "Paquete Interstate Completo",
+    price: "USD $1,500",
+    bullets: [
+      "LLC + EIN",
+      "USDOT + MC Authority",
+      "BOC-3 + UCR",
+      "Seguimiento diario",
+      "Proceso documentado",
+    ],
+    link: STRIPE_INTERSTATE,
+  },
+  intrastate: {
+    bg: "/services/packages/intrastate-bg.png",
+    title: "Paquete Intrastate",
+    price: "USD $900",
+    bullets: [
+      "LLC + EIN",
+      "USDOT",
+      "TXDMV (si aplica)",
+      "Sin MC / BOC-3 / UCR",
+      "Seguimiento diario",
+    ],
+    link: STRIPE_INTRASTATE,
+  },
+};
+
+/* =========================
    PAGE
 ========================= */
 
 export default function ServicesPage() {
-  const packages = useMemo(() => ({
-    interstate: {
-      bg: "/services/packages/interstate-bg.png",
-      title: "Paquete Interstate Completo",
-      price: "USD $1,500",
-      bullets: [
-        "LLC + EIN",
-        "USDOT + MC Authority",
-        "BOC-3 + UCR",
-        "Seguimiento diario",
-        "Proceso documentado",
-      ],
-      link: STRIPE_INTERSTATE,
-    },
-    intrastate: {
-      bg: "/services/packages/intrastate-bg.png",
-      title: "Paquete Intrastate",
-      price: "USD $900",
-      bullets: [
-        "LLC + EIN",
-        "USDOT",
-        "TXDMV (si aplica)",
-        "Sin MC / BOC-3 / UCR",
-        "Seguimiento diario",
-      ],
-      link: STRIPE_INTRASTATE,
-    },
-  }), []);
-
   return (
     <main style={{ background: colors.bg, color: colors.white }}>
       <Header />
       <div style={{ height: 90 }} />
 
-      {/* HERO */}
-      <Section>
-        <h1 style={{ fontSize: 38 }}>
-          Crea tu <span style={{ color: colors.gold }}>trucking company en USA</span>
+      {/* HERO (Entry + Premium) */}
+      <Section style={{ paddingTop: 10 }}>
+        <h1 style={{ fontSize: 38, marginBottom: 10 }}>
+          Crear tu <span style={{ color: colors.gold }}>trucking company en USA</span>
         </h1>
-        <p style={{ maxWidth: 880, fontSize: 16, opacity: 0.9 }}>
-          Antes de pagar $900 o $1500, valida tu caso y evita errores costosos.
+
+        <p style={{ maxWidth: 920, fontSize: 16, opacity: 0.9, lineHeight: 1.6 }}>
+          Antes de pagar <strong>$900</strong> o <strong>$1500</strong>, valida tu caso con un diagnóstico inicial.
+          Te damos claridad sobre tu operación (interstate/intrastate) y el camino correcto para avanzar.
         </p>
 
-        <div style={{ marginTop: 20 }}>
-          <PrimaryButton href={STRIPE_ENTRY}>
-            Iniciar diagnóstico por $49
-          </PrimaryButton>
+        <div style={{ marginTop: 18, display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <PrimaryButton href={STRIPE_ENTRY}>Iniciar diagnóstico por $49</PrimaryButton>
+          <SecondaryButton href="#paquetes">Ver paquetes premium</SecondaryButton>
         </div>
+
+        {/* SEO safe keywords (sin claims oficiales) */}
+        <p style={{ marginTop: 12, fontSize: 12, opacity: 0.7, maxWidth: 920, lineHeight: 1.6 }}>
+          Búsquedas comunes: <strong>cómo obtener DOT number</strong>, <strong>cómo sacar DOT number</strong>,
+          <strong> permisos DOT y MC en USA</strong>, <strong>MC authority</strong>, <strong>crear trucking company en USA</strong>.
+          Aquí te guiamos con estructura y documentación.
+        </p>
       </Section>
 
-      {/* PAQUETES */}
-      <Section style={{ paddingTop: 60 }}>
+      {/* PAQUETES PREMIUM */}
+      <Section id="paquetes" style={{ paddingTop: 55 }}>
         <div
           style={{
             display: "grid",
@@ -261,14 +297,36 @@ export default function ServicesPage() {
         </div>
       </Section>
 
+      {/* INTERLINK SEO (HUB) */}
+      <Section style={{ paddingTop: 70 }}>
+        <div
+          style={{
+            borderRadius: 22,
+            padding: 20,
+            border: "1px solid rgba(255,255,255,0.12)",
+            background: "rgba(255,255,255,0.03)",
+          }}
+        >
+          <div style={{ fontWeight: 950, color: colors.gold, marginBottom: 10 }}>
+            Guías clave (alta intención)
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+            <a href="/permisos-dot-mc-usa" style={hubLinkStyle}>permisos DOT y MC en USA</a>
+            <a href="/crear-trucking-company-usa" style={hubLinkStyle}>crear trucking company en USA</a>
+            <a href="/como-obtener-dot-number" style={hubLinkStyle}>cómo obtener DOT number</a>
+            <a href="/como-sacar-dot-number-en-espanol" style={hubLinkStyle}>cómo sacar el DOT number en español</a>
+          </div>
+        </div>
+      </Section>
+
       {/* BLOQUE 1 — ¿ES PARA TI? */}
       <Section style={{ paddingTop: 80 }}>
         <h2 style={{ color: colors.gold }}>¿Este servicio es para ti?</h2>
         <ul style={{ marginTop: 16, lineHeight: 1.8, opacity: 0.9 }}>
           <li>✔️ Estás iniciando tu operación de trucking en USA</li>
-          <li>✔️ No quieres cometer errores en DOT o MC</li>
+          <li>✔️ No quieres cometer errores que te frenen</li>
           <li>✔️ Prefieres un proceso guiado y documentado</li>
-          <li>✔️ Quieres empezar a operar sin bloqueos</li>
+          <li>✔️ Quieres avanzar con claridad y estructura</li>
           <li>❌ No es para quienes buscan hacerlo gratis</li>
           <li>❌ No es para quienes no están listos para iniciar</li>
         </ul>
@@ -280,15 +338,44 @@ export default function ServicesPage() {
         <ol style={{ marginTop: 16, lineHeight: 1.8, opacity: 0.9 }}>
           <li>Inicias con el diagnóstico ($49) o compras un paquete</li>
           <li>Revisamos tu caso y validamos tu tipo de operación</li>
-          <li>Ejecutamos el proceso correcto según tu perfil</li>
-          <li>Te entregamos todo documentado</li>
-          <li>Te acompañamos hasta quedar operativo</li>
+          <li>Definimos el camino correcto según tu perfil</li>
+          <li>Ejecutamos con trazabilidad y documentación</li>
+          <li>Te acompañamos hasta quedar listo para avanzar</li>
         </ol>
 
-        <div style={{ marginTop: 24 }}>
-          <PrimaryButton href={STRIPE_ENTRY}>
-            Iniciar diagnóstico por $49
-          </PrimaryButton>
+        <div style={{ marginTop: 22 }}>
+          <PrimaryButton href={STRIPE_ENTRY}>Iniciar diagnóstico por $49</PrimaryButton>
+        </div>
+      </Section>
+
+      {/* FAQ SEO (short, keyword-rich, legal-safe) */}
+      <Section style={{ paddingTop: 70 }}>
+        <h2 style={{ color: colors.gold }}>Preguntas frecuentes</h2>
+        <div style={{ marginTop: 18, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 14 }}>
+          <div style={faqCard}>
+            <div style={faqQ}>¿Cómo obtener un DOT number?</div>
+            <div style={faqA}>
+              Te guiamos para entender qué información necesitas y cómo prepararte correctamente según tu operación.
+            </div>
+          </div>
+          <div style={faqCard}>
+            <div style={faqQ}>¿Necesito MC authority para operar?</div>
+            <div style={faqA}>
+              Depende del tipo de operación. En el diagnóstico definimos si aplica y cuál es el camino correcto.
+            </div>
+          </div>
+          <div style={faqCard}>
+            <div style={faqQ}>¿El diagnóstico incluye trámites oficiales?</div>
+            <div style={faqA}>
+              No. Es una evaluación inicial para darte claridad y próximos pasos. Los fees oficiales se pagan aparte.
+            </div>
+          </div>
+          <div style={faqCard}>
+            <div style={faqQ}>¿Cuándo conviene comprar el paquete premium?</div>
+            <div style={faqA}>
+              Cuando ya estás decidido a iniciar y quieres que el proceso se ejecute con seguimiento y documentación.
+            </div>
+          </div>
         </div>
       </Section>
 
@@ -296,3 +383,28 @@ export default function ServicesPage() {
     </main>
   );
 }
+
+/* =========================
+   STYLES
+========================= */
+
+const hubLinkStyle = {
+  display: "block",
+  padding: "14px 14px",
+  borderRadius: 14,
+  border: "1px solid rgba(255,255,255,0.14)",
+  background: "rgba(0,0,0,0.35)",
+  color: "rgba(255,255,255,0.92)",
+  textDecoration: "none",
+  fontWeight: 850,
+};
+
+const faqCard = {
+  borderRadius: 16,
+  padding: 16,
+  border: "1px solid rgba(255,255,255,0.10)",
+  background: "rgba(255,255,255,0.03)",
+};
+
+const faqQ = { fontWeight: 950, color: "#FFD700" };
+const faqA = { marginTop: 8, fontSize: 13, opacity: 0.88, lineHeight: 1.6 };
