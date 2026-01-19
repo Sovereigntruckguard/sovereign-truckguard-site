@@ -5,7 +5,7 @@ import Header from "app/components/Header.jsx";
 ========================= */
 
 export const metadata = {
-  title: "Crear trucking company en USA | Diagnóstico $49 + Paquetes",
+  title: "Crear trucking company en USA | Diagnóstico $49 + Paquetes Interstate/Intrastate",
   description:
     "Crea tu trucking company en USA con proceso guiado y documentado. Antes de pagar $900 o $1500, valida tu caso con un diagnóstico inicial de $49.",
   alternates: {
@@ -153,9 +153,7 @@ function PackageCard({ bg, title, price, bullets, buyLink }) {
 
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <PrimaryButton href={buyLink}>Comprar paquete</PrimaryButton>
-          <SecondaryButton href={STRIPE_ENTRY}>
-            ¿Dudas? Diagnóstico $49
-          </SecondaryButton>
+          <SecondaryButton href={STRIPE_ENTRY}>¿Dudas? Diagnóstico $49</SecondaryButton>
         </div>
 
         <div style={{ fontSize: 12, opacity: 0.75 }}>
@@ -264,10 +262,12 @@ export default function ServicesPage() {
         <h1 style={{ fontSize: 38 }}>
           Crear tu <span style={{ color: colors.gold }}>trucking company en USA</span>
         </h1>
+
         <p style={{ maxWidth: 920, fontSize: 16, opacity: 0.9 }}>
           Antes de pagar $900 o $1500, valida tu caso con un diagnóstico inicial.
           Te damos claridad real y el camino correcto para avanzar.
         </p>
+
         <PrimaryButton href={STRIPE_ENTRY}>
           Iniciar diagnóstico por $49
         </PrimaryButton>
@@ -287,13 +287,14 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      {/* AUTORIDAD + RTS */}
+      {/* BLOQUE AUTORIDAD / RTS (ACOPLADO AQUÍ) */}
       <Section style={{ paddingTop: 80 }}>
         <h2 style={{ color: colors.gold }}>Estructura real, no improvisación</h2>
-        <p style={{ maxWidth: 900, opacity: 0.88 }}>
-          Nuestro proceso está alineado a estándares operativos reales del mercado
-          de transporte en Estados Unidos, incluyendo preparación para factoring,
-          fuel y herramientas financieras utilizadas por miles de carriers activos.
+        <p style={{ maxWidth: 900, opacity: 0.88, lineHeight: 1.6 }}>
+          Nuestro proceso está alineado a estándares operativos reales del mercado de
+          transporte en Estados Unidos, incluyendo preparación para
+          <strong> factoring, fuel y herramientas financieras </strong>
+          utilizadas por miles de carriers activos.
         </p>
 
         <ul style={{ marginTop: 16, lineHeight: 1.8 }}>
@@ -303,45 +304,138 @@ export default function ServicesPage() {
           <li>✔ Acompañamiento posterior al registro</li>
         </ul>
 
-        <p style={{ fontSize: 12, opacity: 0.65 }}>
-          RTS Financial y otros aliados evalúan cada caso de forma independiente.
-          Sovereign no garantiza aprobación financiera.
+        <p style={{ marginTop: 10, fontSize: 12, opacity: 0.65 }}>
+          Las opciones de factoring y servicios financieros están sujetas a aprobación
+          independiente por terceros aliados. Sovereign no garantiza aprobación financiera.
         </p>
       </Section>
 
-      {/* INTERLINK SEO */}
+      {/* TRUST / ECOSYSTEM PARTNERS */}
+      <Section style={{ paddingTop: 30 }}>
+        <div
+          style={{
+            borderRadius: 18,
+            padding: 20,
+            border: "1px solid rgba(255,255,255,0.12)",
+            background: "rgba(255,255,255,0.02)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 14,
+              fontWeight: 800,
+              color: colors.gold,
+              marginBottom: 10,
+            }}
+          >
+            Alineados al ecosistema real de trucking en USA
+         </div>
+
+         <div
+           style={{
+             fontSize: 13,
+             opacity: 0.9,
+             lineHeight: 1.6,
+           }}
+         >
+           Nuestros procesos están diseñados para ser compatibles con los
+           estándares operativos y documentales utilizados por empresas líderes
+           de factoring y fuel en Estados Unidos, incluyendo el ecosistema de RTS.
+         </div>
+
+         <div
+           style={{
+             marginTop: 12,
+             fontSize: 11,
+             opacity: 0.65,
+           }}
+         >
+           RTS Financial, RTS Pro y otros servicios financieros evalúan cada caso
+           de forma independiente. Sovereign TruckGuard no actúa como garante ni
+           representante legal de estas entidades.
+         </div>
+       </div>
+     </Section>
+
+
+      {/* INTERLINK SEO HUB */}
       <Section style={{ paddingTop: 70 }}>
-        <h3 style={{ color: colors.gold }}>Guías clave (alta intención)</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
-          <a href="/permisos-dot-mc-usa" style={hubLinkStyle}>permisos DOT y MC en USA</a>
-          <a href="/crear-trucking-company-usa" style={hubLinkStyle}>crear trucking company en USA</a>
-          <a href="/como-obtener-dot-number" style={hubLinkStyle}>cómo obtener DOT number</a>
-          <a href="/como-sacar-dot-number-en-espanol" style={hubLinkStyle}>cómo sacar el DOT number en español</a>
+        <div
+          style={{
+            borderRadius: 22,
+            padding: 20,
+            border: "1px solid rgba(255,255,255,0.12)",
+            background: "rgba(255,255,255,0.03)",
+          }}
+        >
+          <div style={{ fontWeight: 950, color: colors.gold, marginBottom: 10 }}>
+            Guías clave (alta intención)
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+            <a href="/permisos-dot-mc-usa" style={hubLinkStyle}>permisos DOT y MC en USA</a>
+            <a href="/crear-trucking-company-usa" style={hubLinkStyle}>crear trucking company en USA</a>
+            <a href="/como-obtener-dot-number" style={hubLinkStyle}>cómo obtener DOT number</a>
+            <a href="/como-sacar-dot-number-en-espanol" style={hubLinkStyle}>cómo sacar el DOT number en español</a>
+          </div>
         </div>
       </Section>
 
-      {/* ¿ES PARA TI? */}
+      {/* BLOQUE 1 — ¿ES PARA TI? */}
       <Section style={{ paddingTop: 80 }}>
         <h2 style={{ color: colors.gold }}>¿Este servicio es para ti?</h2>
-        <ul style={{ lineHeight: 1.8 }}>
-          <li>✔ Estás iniciando tu operación de trucking</li>
-          <li>✔ Quieres hacerlo bien desde el inicio</li>
-          <li>✔ No quieres errores que te frenen</li>
-          <li>❌ No buscas hacerlo gratis</li>
+        <ul style={{ marginTop: 16, lineHeight: 1.8, opacity: 0.9 }}>
+          <li>✔️ Estás iniciando tu operación de trucking en USA</li>
+          <li>✔️ No quieres cometer errores que te frenen</li>
+          <li>✔️ Prefieres un proceso guiado y documentado</li>
+          <li>✔️ Quieres avanzar con claridad y estructura</li>
+          <li>❌ No es para quienes buscan hacerlo gratis</li>
+          <li>❌ No es para quienes no están listos para iniciar</li>
         </ul>
       </Section>
 
-      {/* FAQ */}
+      {/* BLOQUE 2 — CÓMO FUNCIONA */}
+      <Section style={{ paddingTop: 70 }}>
+        <h2 style={{ color: colors.gold }}>Cómo funciona el proceso</h2>
+        <ol style={{ marginTop: 16, lineHeight: 1.8, opacity: 0.9 }}>
+          <li>Inicias con el diagnóstico ($49) o compras un paquete</li>
+          <li>Revisamos tu caso y validamos tu tipo de operación</li>
+          <li>Definimos el camino correcto según tu perfil</li>
+          <li>Ejecutamos con trazabilidad y documentación</li>
+          <li>Te acompañamos hasta quedar listo para avanzar</li>
+        </ol>
+
+        <div style={{ marginTop: 22 }}>
+          <PrimaryButton href={STRIPE_ENTRY}>Iniciar diagnóstico por $49</PrimaryButton>
+        </div>
+      </Section>
+
+      {/* FAQ SEO */}
       <Section style={{ paddingTop: 70 }}>
         <h2 style={{ color: colors.gold }}>Preguntas frecuentes</h2>
-        <div style={{ display: "grid", gap: 14 }}>
+        <div style={{ marginTop: 18, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 14 }}>
           <div style={faqCard}>
-            <strong>¿Cómo obtener un DOT number?</strong>
-            <p>Te guiamos paso a paso según tu tipo de operación.</p>
+            <div style={faqQ}>¿Cómo obtener un DOT number?</div>
+            <div style={faqA}>
+              Te guiamos para entender qué información necesitas y cómo prepararte correctamente según tu operación.
+            </div>
           </div>
           <div style={faqCard}>
-            <strong>¿Necesito MC authority?</strong>
-            <p>Depende. Lo definimos en el diagnóstico inicial.</p>
+            <div style={faqQ}>¿Necesito MC authority para operar?</div>
+            <div style={faqA}>
+              Depende del tipo de operación. En el diagnóstico definimos si aplica y cuál es el camino correcto.
+            </div>
+          </div>
+          <div style={faqCard}>
+            <div style={faqQ}>¿El diagnóstico incluye trámites oficiales?</div>
+            <div style={faqA}>
+              No. Es una evaluación inicial para darte claridad y próximos pasos. Los fees oficiales se pagan aparte.
+            </div>
+          </div>
+          <div style={faqCard}>
+            <div style={faqQ}>¿Cuándo conviene comprar el paquete premium?</div>
+            <div style={faqA}>
+              Cuando ya estás decidido a iniciar y quieres que el proceso se ejecute con seguimiento y documentación.
+            </div>
           </div>
         </div>
       </Section>
@@ -356,11 +450,12 @@ export default function ServicesPage() {
 ========================= */
 
 const hubLinkStyle = {
-  padding: "14px",
+  display: "block",
+  padding: "14px 14px",
   borderRadius: 14,
   border: "1px solid rgba(255,255,255,0.14)",
   background: "rgba(0,0,0,0.35)",
-  color: "#fff",
+  color: "rgba(255,255,255,0.92)",
   textDecoration: "none",
   fontWeight: 850,
 };
@@ -371,3 +466,6 @@ const faqCard = {
   border: "1px solid rgba(255,255,255,0.10)",
   background: "rgba(255,255,255,0.03)",
 };
+
+const faqQ = { fontWeight: 950, color: "#FFD700" };
+const faqA = { marginTop: 8, fontSize: 13, opacity: 0.88, lineHeight: 1.6 };
