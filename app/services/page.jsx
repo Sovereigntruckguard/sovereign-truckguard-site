@@ -261,6 +261,37 @@ export default function ServicesPage() {
         </div>
       </Section>
 
+      {/* BLOQUE 1 — ¿ES PARA TI? */}
+      <Section style={{ paddingTop: 80 }}>
+        <h2 style={{ color: colors.gold }}>¿Este servicio es para ti?</h2>
+        <ul style={{ marginTop: 16, lineHeight: 1.8, opacity: 0.9 }}>
+          <li>✔️ Estás iniciando tu operación de trucking en USA</li>
+          <li>✔️ No quieres cometer errores en DOT o MC</li>
+          <li>✔️ Prefieres un proceso guiado y documentado</li>
+          <li>✔️ Quieres empezar a operar sin bloqueos</li>
+          <li>❌ No es para quienes buscan hacerlo gratis</li>
+          <li>❌ No es para quienes no están listos para iniciar</li>
+        </ul>
+      </Section>
+
+      {/* BLOQUE 2 — CÓMO FUNCIONA */}
+      <Section style={{ paddingTop: 70 }}>
+        <h2 style={{ color: colors.gold }}>Cómo funciona el proceso</h2>
+        <ol style={{ marginTop: 16, lineHeight: 1.8, opacity: 0.9 }}>
+          <li>Inicias con el diagnóstico ($49) o compras un paquete</li>
+          <li>Revisamos tu caso y validamos tu tipo de operación</li>
+          <li>Ejecutamos el proceso correcto según tu perfil</li>
+          <li>Te entregamos todo documentado</li>
+          <li>Te acompañamos hasta quedar operativo</li>
+        </ol>
+
+        <div style={{ marginTop: 24 }}>
+          <PrimaryButton href={STRIPE_ENTRY}>
+            Iniciar diagnóstico por $49
+          </PrimaryButton>
+        </div>
+      </Section>
+
       <Footer />
     </main>
   );
