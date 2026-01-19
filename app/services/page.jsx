@@ -310,6 +310,54 @@ export default function ServicesPage() {
         </p>
       </Section>
 
+      {/* TRUST / ECOSYSTEM PARTNERS */}
+      <Section style={{ paddingTop: 30 }}>
+        <div
+          style={{
+            borderRadius: 18,
+            padding: 20,
+            border: "1px solid rgba(255,255,255,0.12)",
+            background: "rgba(255,255,255,0.02)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 14,
+              fontWeight: 800,
+              color: colors.gold,
+              marginBottom: 10,
+            }}
+          >
+            Alineados al ecosistema real de trucking en USA
+         </div>
+
+         <div
+           style={{
+             fontSize: 13,
+             opacity: 0.9,
+             lineHeight: 1.6,
+           }}
+         >
+           Nuestros procesos están diseñados para ser compatibles con los
+           estándares operativos y documentales utilizados por empresas líderes
+           de factoring y fuel en Estados Unidos, incluyendo el ecosistema de RTS.
+         </div>
+
+         <div
+           style={{
+             marginTop: 12,
+             fontSize: 11,
+             opacity: 0.65,
+           }}
+         >
+           RTS Financial, RTS Pro y otros servicios financieros evalúan cada caso
+           de forma independiente. Sovereign TruckGuard no actúa como garante ni
+           representante legal de estas entidades.
+         </div>
+       </div>
+     </Section>
+
+
       {/* INTERLINK SEO HUB */}
       <Section style={{ paddingTop: 70 }}>
         <div
