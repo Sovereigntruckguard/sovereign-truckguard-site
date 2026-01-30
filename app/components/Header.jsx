@@ -73,17 +73,12 @@ export default function Header() {
             gap: 10,
             textDecoration: "none",
             color: colors.white,
-            minWidth: 0,
           }}
         >
           <img
-            src="/logo-sovereign.png"
+            src="/logo-sovereign-full.png"
             alt="Sovereign TruckGuard"
-            style={{
-              width: 32,
-              height: "auto",
-              flexShrink: 0,
-            }}
+            style={{ width: 34, height: "auto" }}
           />
           <span
             style={{
@@ -91,10 +86,8 @@ export default function Header() {
               fontSize: 11,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
               opacity: 0.9,
+              whiteSpace: "nowrap",
             }}
           >
             Sovereign TruckGuard LLC
@@ -112,15 +105,9 @@ export default function Header() {
             fontFamily: "Montserrat, system-ui",
           }}
         >
-          <a href="/services" style={linkStyle}>
-            {t.nav.services}
-          </a>
-          <a href="/about" style={linkStyle}>
-            {t.nav.about}
-          </a>
-          <a href="/contact" style={linkStyle}>
-            {t.nav.contact}
-          </a>
+          <a href="/services" style={linkStyle}>{t.nav.services}</a>
+          <a href="/about" style={linkStyle}>{t.nav.about}</a>
+          <a href="/contact" style={linkStyle}>{t.nav.contact}</a>
 
           <a
             href="/services#packages"
@@ -131,7 +118,6 @@ export default function Header() {
               color: "#000",
               fontWeight: 700,
               textDecoration: "none",
-              boxShadow: "0 12px 32px rgba(0,0,0,0.6)",
             }}
           >
             {t.nav.cta}
@@ -151,27 +137,16 @@ export default function Header() {
             fontWeight: 700,
             fontSize: 12,
             textDecoration: "none",
-            whiteSpace: "nowrap",
           }}
         >
           {t.nav.cta}
         </a>
       </div>
 
-      {/* RESPONSIVE RULES */}
       <style>{`
         @media (max-width: 900px) {
-          header {
-            height: ${layout.headerHeightMobile}px;
-          }
-
-          .desktop-nav {
-            display: none !important;
-          }
-
-          .mobile-cta {
-            display: inline-flex !important;
-          }
+          .desktop-nav { display: none !important; }
+          .mobile-cta { display: inline-flex !important; }
         }
       `}</style>
     </header>
