@@ -26,7 +26,7 @@ const layout = {
 };
 
 /* =========================
-   COPY PRINCIPAL (SEO + MARCA)
+   HERO COPY
 ========================= */
 
 const HERO = {
@@ -46,15 +46,7 @@ const HERO = {
 
 function Hero() {
   return (
-    <section
-      style={{
-        position: "relative",
-        paddingTop: 120,
-        paddingBottom: 100,
-        overflow: "hidden",
-      }}
-    >
-      {/* Video Hero */}
+    <section style={{ position: "relative", paddingTop: 120, paddingBottom: 100 }}>
       <video
         src="/hero-truck.mp4"
         autoPlay
@@ -70,8 +62,6 @@ function Hero() {
           filter: "brightness(0.55)",
         }}
       />
-
-      {/* Overlay */}
       <div
         style={{
           position: "absolute",
@@ -81,7 +71,6 @@ function Hero() {
         }}
       />
 
-      {/* Content */}
       <div
         style={{
           position: "relative",
@@ -99,45 +88,36 @@ function Hero() {
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: colors.gold,
-            marginBottom: 14,
           }}
         >
           {HERO.eyebrow}
         </p>
 
-        <h1 style={{ fontSize: 34, lineHeight: 1.2, margin: 0 }}>
+        <h1 style={{ fontSize: 34, lineHeight: 1.2 }}>
           {HERO.title1}
           <br />
           {HERO.title2}
         </h1>
 
-        <p
-          style={{
-            marginTop: 18,
-            fontSize: 15,
-            lineHeight: 1.6,
-            color: colors.muted,
-          }}
-        >
+        <p style={{ marginTop: 18, fontSize: 15, color: colors.muted }}>
           {HERO.description}
         </p>
 
-        <div style={{ marginTop: 34 }}>
-          <a
-            href="/services"
-            style={{
-              padding: "14px 38px",
-              borderRadius: 999,
-              background: `linear-gradient(90deg, ${colors.gold}, #E8B7B7)`,
-              color: "#000",
-              fontWeight: 700,
-              textDecoration: "none",
-              boxShadow: "0 16px 40px rgba(255,215,0,0.35)",
-            }}
-          >
-            {HERO.ctaPrimary}
-          </a>
-        </div>
+        <a
+          href="/services"
+          style={{
+            marginTop: 34,
+            display: "inline-block",
+            padding: "14px 38px",
+            borderRadius: 999,
+            background: `linear-gradient(90deg, ${colors.gold}, #E8B7B7)`,
+            color: "#000",
+            fontWeight: 700,
+            textDecoration: "none",
+          }}
+        >
+          {HERO.ctaPrimary}
+        </a>
 
         <div style={{ marginTop: 14 }}>
           <a
@@ -157,7 +137,7 @@ function Hero() {
 }
 
 /* =========================
-   PILARES DEL ECOSISTEMA
+   ECOSYSTEM MAP
 ========================= */
 
 function Ecosystem() {
@@ -165,76 +145,118 @@ function Ecosystem() {
     <section
       id="ecosistema"
       style={{
-        margin: "90px auto 0",
+        margin: "100px auto 0",
+        maxWidth: layout.maxWidth,
+        padding: "0 " + layout.sidePadding + "px",
+        textAlign: "center",
+      }}
+    >
+      <h2 style={{ color: colors.gold, fontSize: 26 }}>
+        Cómo funciona el ecosistema Sovereign
+      </h2>
+
+      <p style={{ marginTop: 12, maxWidth: 860, marginInline: "auto" }}>
+        Diagnóstico, creación, cumplimiento, operación y crecimiento.
+        Todo guiado, documentado y protegido.
+      </p>
+
+      <img
+        src="/ecosystem-map.png"
+        alt="Ecosistema Sovereign TruckGuard"
+        style={{
+          marginTop: 40,
+          width: "100%",
+          maxWidth: 900,
+          borderRadius: 18,
+        }}
+      />
+    </section>
+  );
+}
+
+/* =========================
+   MOCKUPS
+========================= */
+
+function Mockups() {
+  return (
+    <section
+      style={{
+        margin: "120px auto 0",
         maxWidth: layout.maxWidth,
         padding: "0 " + layout.sidePadding + "px",
       }}
     >
-      <h2 style={{ color: colors.gold, fontSize: 26 }}>
-        Un ecosistema creado desde la experiencia real
+      <h2 style={{ color: colors.gold, fontSize: 26, textAlign: "center" }}>
+        Tecnología que te acompaña todos los días
       </h2>
-
-      <p style={{ marginTop: 10, fontSize: 15, maxWidth: 860 }}>
-        No somos un trámite suelto. Somos una estructura completa que protege,
-        ordena y potencia compañías de camiones latinas desde su nacimiento hasta
-        su crecimiento.
-      </p>
 
       <div
         style={{
-          marginTop: 32,
+          marginTop: 40,
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px,1fr))",
-          gap: 18,
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px,1fr))",
+          gap: 30,
         }}
       >
-        {[
-          ["Start", "LLC · EIN · DOT · MC sin errores"],
-          ["Compliance", "Cumplimiento DOT real y documentado"],
-          ["Insurance Readiness", "Preparación correcta para asegurar"],
-          ["Rescue", "Rescate de compañías en riesgo o bloqueadas"],
-          ["Growth", "Seguimiento, educación y estructura"],
-        ].map(([title, desc]) => (
-          <div
-            key={title}
-            style={{
-              padding: 22,
-              borderRadius: 18,
-              background: "rgba(0,0,0,0.9)",
-              border: "1px solid rgba(255,255,255,0.14)",
-            }}
-          >
-            <h3 style={{ margin: 0, color: colors.gold }}>{title}</h3>
-            <p style={{ marginTop: 8, fontSize: 14 }}>{desc}</p>
-          </div>
-        ))}
+        <img src="/mockup-mobile-truckboss.png" alt="TruckBoss App" />
+        <img src="/mockup-desktop-azoth.png" alt="AZOTH Control Center" />
+        <img src="/mockup-desktop-ops.png" alt="Centro Operativo Sovereign" />
       </div>
     </section>
   );
 }
 
 /* =========================
-   TRANSPARENCIA DE FEES
+   FEES
 ========================= */
 
-function FeeExplanation() {
+function Fees() {
   return (
     <section
       style={{
-        margin: "100px auto 0",
+        margin: "120px auto 0",
         maxWidth: layout.maxWidth,
         padding: "0 " + layout.sidePadding + "px",
+        textAlign: "center",
       }}
     >
       <h2 style={{ color: colors.gold, fontSize: 24 }}>
-        Service fee vs Government fees
+        Transparencia total de costos
       </h2>
 
-      <p style={{ marginTop: 12, fontSize: 15, maxWidth: 900 }}>
-        Nuestro fee es únicamente por el acompañamiento profesional. Los fees
-        oficiales (FMCSA, UCR, TXDMV, Secretary of State, Process Agent) los pagas
-        tú directamente en portales oficiales. Transparencia total.
-      </p>
+      <img
+        src="/fees-transparency.png"
+        alt="Service fee vs Government fees"
+        style={{ marginTop: 30, maxWidth: 700, width: "100%" }}
+      />
+    </section>
+  );
+}
+
+/* =========================
+   OFFICE
+========================= */
+
+function Office() {
+  return (
+    <section
+      style={{
+        margin: "120px auto 0",
+        maxWidth: layout.maxWidth,
+        padding: "0 " + layout.sidePadding + "px",
+        textAlign: "center",
+      }}
+    >
+      <h2 style={{ color: colors.gold, fontSize: 24 }}>
+        Operación real, nivel institucional
+      </h2>
+
+      <img
+        src="/office-ops.png"
+        alt="Oficina institucional Sovereign"
+        style={{ marginTop: 30, maxWidth: 900, width: "100%" }}
+      />
     </section>
   );
 }
@@ -247,7 +269,7 @@ function FinalCTA() {
   return (
     <section
       style={{
-        margin: "120px auto 0",
+        margin: "140px auto 0",
         padding: "90px 20px",
         textAlign: "center",
         background:
@@ -257,7 +279,7 @@ function FinalCTA() {
       <h2 style={{ fontSize: 30 }}>
         Empieza con orden. Crece con respaldo.
       </h2>
-      <p style={{ marginTop: 12, fontSize: 16 }}>
+      <p style={{ marginTop: 12 }}>
         La improvisación quiebra compañías. La estructura las hace crecer.
       </p>
 
@@ -288,29 +310,22 @@ function Footer() {
   return (
     <footer
       style={{
-        marginTop: 110,
-        background: "rgba(0,0,0,0.95)",
+        marginTop: 120,
+        padding: "40px 20px",
+        textAlign: "center",
         borderTop: "1px solid rgba(255,255,255,0.16)",
       }}
     >
-      <div
-        style={{
-          maxWidth: layout.maxWidth,
-          margin: "0 auto",
-          padding: "40px 20px",
-          textAlign: "center",
-        }}
-      >
-        <h3 style={{ color: colors.gold }}>Sovereign TruckGuard LLC</h3>
-        <p>
-          30 N Gould St, Ste N · Sheridan, Wyoming 82801 · USA
-          <br />
-          info@sovereigntruckguard.com · +1 (608) 557-6282
-        </p>
-        <p style={{ fontSize: 12, opacity: 0.7 }}>
-          © {new Date().getFullYear()} · Powered by SOLYON
-        </p>
-      </div>
+      <p>
+        <strong>Sovereign TruckGuard LLC</strong>
+        <br />
+        30 N Gould St, Ste N · Sheridan, Wyoming 82801 · USA
+        <br />
+        info@sovereigntruckguard.com · +1 (608) 557-6282
+      </p>
+      <p style={{ fontSize: 12, opacity: 0.7 }}>
+        © {new Date().getFullYear()} · Powered by SOLYON
+      </p>
     </footer>
   );
 }
@@ -321,18 +336,13 @@ function Footer() {
 
 export default function Page() {
   return (
-    <main
-      style={{
-        background:
-          "radial-gradient(circle at top, rgba(255,215,0,0.12), transparent 55%)," +
-          colors.bg,
-        color: colors.white,
-      }}
-    >
+    <main style={{ background: colors.bg, color: colors.white }}>
       <Header />
       <Hero />
       <Ecosystem />
-      <FeeExplanation />
+      <Mockups />
+      <Fees />
+      <Office />
       <FinalCTA />
       <Footer />
     </main>
