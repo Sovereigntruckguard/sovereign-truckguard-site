@@ -3,14 +3,17 @@
 import { useLanguage } from "../../lib/language.js";
 
 const colors = {
+  bg: "rgba(255,255,255,0.92)",
+  border: "rgba(0,0,0,0.08)",
+  text: "#1A1A1A",
+  muted: "#666",
   gold: "#FFD700",
   rose: "#E8B7B7",
-  white: "#FFFFFF",
 };
 
 const layout = {
   maxWidth: 1120,
-  sidePadding: 16,
+  sidePadding: 20,
   headerHeightDesktop: 72,
   headerHeightMobile: 64,
 };
@@ -48,9 +51,9 @@ export default function Header() {
         right: 0,
         height: layout.headerHeightDesktop,
         zIndex: 100,
-        background: "rgba(0,0,0,0.94)",
+        background: colors.bg,
         backdropFilter: "blur(14px)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        borderBottom: `1px solid ${colors.border}`,
       }}
     >
       <div
@@ -72,13 +75,18 @@ export default function Header() {
             alignItems: "center",
             gap: 10,
             textDecoration: "none",
-            color: colors.white,
+            color: colors.text,
+            minWidth: 0,
           }}
         >
           <img
-            src="/logo-sovereign-full.png"
+            src="/logo-sovereign.png"
             alt="Sovereign TruckGuard"
-            style={{ width: 34, height: "auto" }}
+            style={{
+              width: 32,
+              height: "auto",
+              flexShrink: 0,
+            }}
           />
           <span
             style={{
@@ -86,8 +94,11 @@ export default function Header() {
               fontSize: 11,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              opacity: 0.9,
               whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              color: colors.text,
+              opacity: 0.85,
             }}
           >
             Sovereign TruckGuard LLC
@@ -100,24 +111,32 @@ export default function Header() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 26,
+            gap: 28,
             fontSize: 13,
             fontFamily: "Montserrat, system-ui",
           }}
         >
-          <a href="/services" style={linkStyle}>{t.nav.services}</a>
-          <a href="/about" style={linkStyle}>{t.nav.about}</a>
-          <a href="/contact" style={linkStyle}>{t.nav.contact}</a>
+          <a href="/services" style={linkStyle}>
+            {t.nav.services}
+          </a>
+          <a href="/about" style={linkStyle}>
+            {t.nav.about}
+          </a>
+          <a href="/contact" style={linkStyle}>
+            {t.nav.contact}
+          </a>
 
           <a
             href="/services#packages"
             style={{
-              padding: "8px 22px",
+              padding: "10px 24px",
               borderRadius: 999,
               background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
               color: "#000",
               fontWeight: 700,
               textDecoration: "none",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+              whiteSpace: "nowrap",
             }}
           >
             {t.nav.cta}
@@ -130,23 +149,34 @@ export default function Header() {
           className="mobile-cta"
           style={{
             display: "none",
-            padding: "8px 16px",
+            padding: "8px 18px",
             borderRadius: 999,
             background: `linear-gradient(90deg, ${colors.gold}, ${colors.rose})`,
             color: "#000",
             fontWeight: 700,
             fontSize: 12,
             textDecoration: "none",
+            whiteSpace: "nowrap",
           }}
         >
           {t.nav.cta}
         </a>
       </div>
 
+      {/* RESPONSIVE */}
       <style>{`
         @media (max-width: 900px) {
-          .desktop-nav { display: none !important; }
-          .mobile-cta { display: inline-flex !important; }
+          header {
+            height: ${layout.headerHeightMobile}px;
+          }
+
+          .desktop-nav {
+            display: none !important;
+          }
+
+          .mobile-cta {
+            display: inline-flex !important;
+          }
         }
       `}</style>
     </header>
@@ -155,5 +185,6 @@ export default function Header() {
 
 const linkStyle = {
   textDecoration: "none",
-  color: "rgba(255,255,255,0.8)",
+  color: "#333",
+  opacity: 0.85,
 };
