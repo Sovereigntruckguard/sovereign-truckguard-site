@@ -1,148 +1,159 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useLanguage } from "../../lib/language";
 
 const theme = {
-  bg: "rgba(255,255,255,0.72)",
-  border: "rgba(15,23,42,0.10)",
-  text: "#1F2937",
-  muted: "#4B5563",
+  bg: "rgba(5,5,5,0.78)",
+  border: "rgba(255,255,255,0.10)",
+  text: "rgba(255,255,255,0.90)",
+  muted: "rgba(255,255,255,0.70)",
   gold: "#C9A227",
-};
-
-const layout = {
-  maxWidth: 1120,
-  pad: 20,
-  height: 72,
 };
 
 export default function Header() {
   const { lang } = useLanguage();
+  const [visible, setVisible] = useState(false);
 
   const TEXT = {
     es: {
       services: "Servicios",
       about: "Nosotros",
       contact: "Contacto",
-      cta: "Quiero mi diagnóstico",
+      cta: "Iniciar diagnóstico",
     },
     en: {
       services: "Services",
       about: "About",
       contact: "Contact",
-      cta: "Get my assessment",
+      cta: "Start assessment",
     },
   };
-
   const t = lang === "es" ? TEXT.es : TEXT.en;
+
+  useEffect(() => {
+    const onScroll = () => {
+      // header aparece después de pasar el hero (umbral simple)
+      setVisible(window.scrollY > 60);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header
       style={{
         position: "fixed",
-        top: 0,
+        top: 12,
         left: 0,
         right: 0,
-        height: layout.height,
-        zIndex: 100,
-        background: theme.bg,
-        backdropFilter: "blur(12px)",
-        borderBottom: `1px solid ${theme.border}`,
+        zIndex: 200,
+        pointerEvents: visible ? "auto" : "none",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(-18px)",
+        transition: "opacity 220ms ease, transform 220ms ease",
       }}
     >
       <div
         style={{
-          maxWidth: layout.maxWidth,
+          maxWidth: 1120,
           margin: "0 auto",
-          height: "100%",
-          padding: `0 ${layout.pad}px`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          padding: "0 16px",
         }}
       >
-        {/* LOGO */}
-        <a
-          href="/"
+        <div
           style={{
+            height: 64,
             display: "flex",
             alignItems: "center",
-            gap: 10,
-            textDecoration: "none",
-            color: theme.text,
+            justifyContent: "space-between",
+            borderRadius: 16,
+            background: theme.bg,
+            backdropFilter: "blur(14px)",
+            border: `1px solid ${theme.border}`,
+            padding: "0 14px",
           }}
         >
-          <img
-            src="/logo-sovereign-full.png"
-            alt="Sovereign TruckGuard"
-            style={{ width: 36, height: "auto" }}
-          />
-          <span
-            style={{
-              fontSize: 12,
-              fontWeight: 800,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Sovereign TruckGuard
-          </span>
-        </a>
-
-        {/* NAV */}
-        <nav
-          className="desktop-nav"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 26,
-            fontSize: 14,
-            fontWeight: 600,
-          }}
-        >
-          <a href="/services" style={linkStyle}>
-            {t.services}
-          </a>
-          <a href="/about" style={linkStyle}>
-            {t.about}
-          </a>
-          <a href="/contact" style={linkStyle}>
-            {t.contact}
-          </a>
-
+          {/* Left */}
           <a
-            href="#diagnostico"
+            href="/"
             style={{
-              marginLeft: 8,
-              padding: "10px 18px",
-              borderRadius: 999,
-              background: theme.gold,
-              color: "#000",
-              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
               textDecoration: "none",
-              boxShadow: "0 10px 28px rgba(0,0,0,0.18)",
-              whiteSpace: "nowrap",
+              color: theme.text,
+              minWidth: 0,
             }}
           >
-            {t.cta}
+            {/* Recomendado: icon para header (se ve más pro y limpio) */}
+            <img
+              src="/logo-sovereign-icon.png"
+              alt="Sovereign"
+              style={{ width: 34, height: 34, objectFit: "contain" }}
+            />
+            <div style={{ lineHeight: 1.1 }}>
+              <div
+                style={{
+                  fontSize: 12,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  fontWeight: 800,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                SOVEREIGN
+              </div>
+              <div style={{ fontSize: 12, color: theme.muted, whiteSpace: "nowrap" }}>
+                TruckGuard LLC
+              </div>
+            </div>
           </a>
-        </nav>
-      </div>
 
-      {/* RESPONSIVE */}
-      <style>{`
-        @media (max-width: 900px) {
-          .desktop-nav {
-            display: none !important;
-          }
-        }
-      `}</style>
+          {/* Desktop nav */}
+          <nav className="nav" style={{ display: "flex", alignItems: "center", gap: 18 }}>
+            <a href="/services" style={linkStyle}>
+              {t.services}
+            </a>
+            <a href="/about" style={linkStyle}>
+              {t.about}
+            </a>
+            <a href="/contact" style={linkStyle}>
+              {t.contact}
+            </a>
+
+            <a
+              href="#diagnostico"
+              style={{
+                marginLeft: 6,
+                padding: "10px 16px",
+                borderRadius: 999,
+                background: theme.gold,
+                color: "#000",
+                fontWeight: 900,
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {t.cta}
+            </a>
+          </nav>
+
+          <style>{`
+            @media (max-width: 900px) {
+              .nav { display: none !important; }
+            }
+          `}</style>
+        </div>
+      </div>
     </header>
   );
 }
 
 const linkStyle = {
-  color: "#1F2937",
+  color: "rgba(255,255,255,0.86)",
   textDecoration: "none",
+  fontSize: 13,
+  fontWeight: 700,
 };

@@ -3,28 +3,48 @@
 import Header from "./components/Header.jsx";
 
 const theme = {
-  black: "#050505",
-  ink: "#0E1726",
-  text: "#1F2937",
-  muted: "#5B6576",
-  line: "rgba(15,23,42,0.10)",
+  bg: "#050505",
   gold: "#C9A227",
-  bg: "#F6F7FB",      // fondo institucional
-  card: "#FFFFFF",
+  white: "#FFFFFF",
+  ink: "rgba(255,255,255,0.92)",
+  muted: "rgba(255,255,255,0.70)",
+  line: "rgba(255,255,255,0.10)",
+  soft: "rgba(255,255,255,0.06)",
 };
 
 const layout = {
-  maxWidth: 1120,
+  max: 1120,
   pad: 22,
 };
 
 function Container({ children }) {
   return (
+    <div style={{ maxWidth: layout.max, margin: "0 auto", padding: `0 ${layout.pad}px` }}>
+      {children}
+    </div>
+  );
+}
+
+function Divider() {
+  return <div style={{ height: 1, background: theme.line, margin: "54px 0" }} />;
+}
+
+function GoldTag({ children }) {
+  return (
     <div
       style={{
-        maxWidth: layout.maxWidth,
-        margin: "0 auto",
-        padding: `0 ${layout.pad}px`,
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 10,
+        padding: "8px 14px",
+        borderRadius: 999,
+        border: `1px solid ${theme.line}`,
+        background: "rgba(0,0,0,0.35)",
+        color: theme.gold,
+        fontWeight: 800,
+        letterSpacing: "0.16em",
+        textTransform: "uppercase",
+        fontSize: 11,
       }}
     >
       {children}
@@ -32,7 +52,7 @@ function Container({ children }) {
   );
 }
 
-function ButtonPrimary({ href, children }) {
+function PrimaryCTA({ href, children }) {
   return (
     <a
       href={href}
@@ -44,9 +64,9 @@ function ButtonPrimary({ href, children }) {
         borderRadius: 999,
         background: theme.gold,
         color: "#000",
-        fontWeight: 800,
+        fontWeight: 900,
         textDecoration: "none",
-        boxShadow: "0 14px 34px rgba(0,0,0,0.22)",
+        boxShadow: "0 18px 48px rgba(0,0,0,0.45)",
         whiteSpace: "nowrap",
       }}
     >
@@ -55,7 +75,7 @@ function ButtonPrimary({ href, children }) {
   );
 }
 
-function ButtonGhost({ href, children }) {
+function GhostCTA({ href, children }) {
   return (
     <a
       href={href}
@@ -65,11 +85,11 @@ function ButtonGhost({ href, children }) {
         justifyContent: "center",
         padding: "12px 18px",
         borderRadius: 999,
-        background: "rgba(255,255,255,0.10)",
-        color: "rgba(255,255,255,0.92)",
-        fontWeight: 700,
+        border: `1px solid ${theme.line}`,
+        background: "rgba(255,255,255,0.05)",
+        color: "rgba(255,255,255,0.88)",
+        fontWeight: 800,
         textDecoration: "none",
-        border: "1px solid rgba(255,255,255,0.18)",
         whiteSpace: "nowrap",
       }}
     >
@@ -78,29 +98,22 @@ function ButtonGhost({ href, children }) {
   );
 }
 
-function Card({ children }) {
+/* =========================
+   HERO = PUERTA (sin header)
+========================= */
+function HeroPortal() {
   return (
-    <div
+    <section
       style={{
-        background: theme.card,
-        border: `1px solid ${theme.line}`,
-        borderRadius: 18,
-        padding: 22,
-        boxShadow: "0 18px 55px rgba(15,23,42,0.08)",
+        position: "relative",
+        minHeight: "100vh",
+        // si en móvil te queda demasiado alto, cambia a 92vh:
+        // minHeight: "92vh",
+        display: "flex",
+        alignItems: "center",
+        overflow: "hidden",
       }}
     >
-      {children}
-    </div>
-  );
-}
-
-/* =========================
-   HERO (oscuro + video)
-========================= */
-
-function Hero() {
-  return (
-    <section style={{ position: "relative", paddingTop: 140, paddingBottom: 120, overflow: "hidden" }}>
       <video
         src="/hero-truck.mp4"
         autoPlay
@@ -121,43 +134,53 @@ function Hero() {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.62), rgba(0,0,0,0.90))",
+            "radial-gradient(circle at 30% 20%, rgba(201,162,39,0.18), transparent 45%)," +
+            "linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.92))",
         }}
       />
 
       <Container>
-        <div style={{ position: "relative", zIndex: 2, textAlign: "center", color: "#fff" }}>
-          <p
-            style={{
-              margin: 0,
-              fontSize: 11,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: theme.gold,
-              opacity: 0.95,
-            }}
-          >
-            Ecosistema soberano de protección y crecimiento para camioneros latinos
-          </p>
+        <div style={{ position: "relative", zIndex: 2, textAlign: "center", color: theme.ink }}>
+          {/* Sello minimal (sin header) */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
+            <GoldTag>PORTAL SOBERANO</GoldTag>
+          </div>
 
-          <h1 style={{ marginTop: 14, fontSize: 40, lineHeight: 1.15 }}>
-            Protegemos y ordenamos <br />
-            tu compañía de camiones en Estados Unidos
+          {/* Marca como acto */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
+            <img
+              src="/logo-sovereign-full.png"
+              alt="Sovereign TruckGuard"
+              style={{
+                width: 168,
+                maxWidth: "55vw",
+                height: "auto",
+                filter: "drop-shadow(0 18px 40px rgba(0,0,0,0.55))",
+              }}
+            />
+          </div>
+
+          <h1 style={{ margin: "0 auto", fontSize: 44, lineHeight: 1.08, maxWidth: 980 }}>
+            Protección y crecimiento <br />
+            para compañías de camiones latinas
           </h1>
 
-          <p style={{ marginTop: 14, fontSize: 16, opacity: 0.9, maxWidth: 860, marginInline: "auto" }}>
-            Antes de gastar dinero en trámites o cometer errores, te damos un diagnóstico claro y un plan:
-            inicio si eres nuevo, o rescate si ya estás operando con problemas.
+          <p style={{ marginTop: 16, color: theme.muted, fontSize: 16, maxWidth: 860, marginInline: "auto" }}>
+            Esto no es un trámite. Es un sistema de orden, cumplimiento y control.
+            Si vas a entrar, primero evaluamos tu situación y definimos el camino correcto.
           </p>
 
-          <div style={{ marginTop: 28, display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-            <ButtonPrimary href="#diagnostico">Quiero mi diagnóstico</ButtonPrimary>
-            <ButtonGhost href="/services">Ver servicios</ButtonGhost>
+          <div style={{ marginTop: 30, display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+            <PrimaryCTA href="#diagnostico">Iniciar Diagnóstico Soberano</PrimaryCTA>
+            <GhostCTA href="/services">Ver servicios</GhostCTA>
           </div>
 
-          <div style={{ marginTop: 16 }}>
-            <a href="#como-funciona" style={{ color: "rgba(255,255,255,0.78)", textDecoration: "underline", fontSize: 13 }}>
-              Cómo funciona el proceso
+          <div style={{ marginTop: 18 }}>
+            <a
+              href="#manifiesto"
+              style={{ color: "rgba(255,255,255,0.70)", textDecoration: "underline", fontSize: 13 }}
+            >
+              Entrar al sistema ↓
             </a>
           </div>
         </div>
@@ -167,338 +190,132 @@ function Hero() {
 }
 
 /* =========================
-   SECCIÓN BASE (clara)
+   MANIFIESTO (editorial)
 ========================= */
-
-function LightSection({ id, title, subtitle, children }) {
+function Manifiesto() {
   return (
-    <section id={id} style={{ background: theme.bg, padding: "84px 0" }}>
+    <section id="manifiesto" style={{ background: theme.bg, padding: "90px 0" }}>
       <Container>
-        <div style={{ textAlign: "center" }}>
-          <h2 style={{ margin: 0, fontSize: 30, color: theme.ink }}>{title}</h2>
-          {subtitle ? (
-            <p style={{ marginTop: 12, color: theme.muted, fontSize: 16, maxWidth: 860, marginInline: "auto" }}>
-              {subtitle}
-            </p>
-          ) : null}
-        </div>
+        <div style={{ maxWidth: 900 }}>
+          <GoldTag>MANIFIESTO</GoldTag>
 
-        <div style={{ marginTop: 38 }}>{children}</div>
+          <h2 style={{ marginTop: 18, fontSize: 34, lineHeight: 1.15, color: theme.ink }}>
+            No creamos compañías. <br />
+            Creamos estructura.
+          </h2>
+
+          <div style={{ marginTop: 22, color: theme.muted, fontSize: 17, lineHeight: 1.75 }}>
+            <p style={{ margin: 0 }}>
+              No vendemos trámites. Protegemos operaciones reales.
+            </p>
+            <p style={{ margin: "10px 0 0" }}>
+              No prometemos éxito. Construimos orden, cumplimiento y control.
+            </p>
+            <p style={{ margin: "10px 0 0" }}>
+              La mayoría quiebra por desorden, no por falta de trabajo. Sovereign existe para evitar eso.
+            </p>
+          </div>
+
+          <Divider />
+
+          <div style={{ color: theme.ink, fontSize: 18, lineHeight: 1.7 }}>
+            <span style={{ color: theme.gold, fontWeight: 900 }}>Regla:</span>{" "}
+            antes de avanzar, se define el camino. Sin diagnóstico, no hay sistema.
+          </div>
+        </div>
       </Container>
     </section>
   );
 }
 
 /* =========================
-   DIAGNÓSTICO SOBERANO (core)
+   UMBRAL + DIAGNÓSTICO
 ========================= */
-
 function Diagnostico() {
   return (
-    <LightSection
-      id="diagnostico"
-      title="Diagnóstico Soberano"
-      subtitle="Te decimos exactamente qué camino seguir antes de gastar dinero: plan de inicio si eres nuevo, o plan de rescate si ya estás operando con problemas."
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: 18,
-          alignItems: "stretch",
-        }}
-      >
-        <Card>
-          <h3 style={{ margin: 0, fontSize: 18, color: theme.ink }}>Soy camionero nuevo</h3>
-          <p style={{ marginTop: 10, color: theme.muted, lineHeight: 1.55 }}>
-            Te damos un checklist completo y te acompañamos paso a paso para crear tu empresa de forma impecable:
-            LLC, EIN, DOT/MC, setup y preparación para operar.
-          </p>
-          <div style={{ marginTop: 16 }}>
-            <a href="/services#packages" style={{ color: theme.ink, fontWeight: 800, textDecoration: "none" }}>
-              Ver Plan de Inicio →
-            </a>
-          </div>
-        </Card>
-
-        <Card>
-          <h3 style={{ margin: 0, fontSize: 18, color: theme.ink }}>Ya tengo compañía / estoy en problemas</h3>
-          <p style={{ marginTop: 10, color: theme.muted, lineHeight: 1.55 }}>
-            Si tienes bloqueos, vencimientos, desorden o estás al borde: diseñamos un plan estricto de rescate y cumplimiento
-            para recuperar control y proteger tu operación.
-          </p>
-          <div style={{ marginTop: 16 }}>
-            <a href="/services#packages" style={{ color: theme.ink, fontWeight: 800, textDecoration: "none" }}>
-              Ver Plan de Rescate →
-            </a>
-          </div>
-        </Card>
-      </div>
-    </LightSection>
-  );
-}
-
-/* =========================
-   CÓMO FUNCIONA
-========================= */
-
-function ComoFunciona() {
-  const steps = [
-    ["Diagnóstico", "Entendemos tu situación y definimos el camino correcto."],
-    ["Plan", "Inicio o Rescate, con checklist y responsables claros."],
-    ["Ejecución", "Trámites, estructura y puesta en marcha sin errores."],
-    ["Cumplimiento", "Calendario, seguimiento y control para evitar multas."],
-    ["Crecimiento", "Orden financiero, herramientas y acompañamiento real."],
-  ];
-
-  return (
-    <LightSection
-      id="como-funciona"
-      title="Cómo funciona (sin improvisación)"
-      subtitle="Proceso simple, documentado y trazable. Así se protege un negocio real."
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: 14,
-        }}
-      >
-        {steps.map(([t, d], idx) => (
-          <div
-            key={t}
-            style={{
-              background: theme.card,
-              border: `1px solid ${theme.line}`,
-              borderRadius: 16,
-              padding: 18,
-            }}
-          >
-            <div style={{ fontWeight: 900, color: theme.gold, fontSize: 12, letterSpacing: "0.12em" }}>
-              PASO {idx + 1}
-            </div>
-            <div style={{ marginTop: 8, fontSize: 16, fontWeight: 900, color: theme.ink }}>{t}</div>
-            <div style={{ marginTop: 8, color: theme.muted, lineHeight: 1.55 }}>{d}</div>
-          </div>
-        ))}
-      </div>
-    </LightSection>
-  );
-}
-
-/* =========================
-   ECOSYSTEM MAP (contenida + con copy)
-========================= */
-
-function EcosystemMap() {
-  return (
-    <LightSection
-      id="ecosistema"
-      title="Mapa del ecosistema"
-      subtitle="Visual, claro y en español. Así te llevamos de cero a operación sólida, y de problemas a control."
-    >
-      <div
-        style={{
-          background: theme.card,
-          border: `1px solid ${theme.line}`,
-          borderRadius: 18,
-          padding: 18,
-          boxShadow: "0 18px 55px rgba(15,23,42,0.08)",
-        }}
-      >
-        <img
-          src="/ecosystem-map.png"
-          alt="Ecosistema Sovereign TruckGuard"
-          style={{ width: "100%", maxWidth: 980, display: "block", margin: "0 auto", borderRadius: 14 }}
-        />
-      </div>
-    </LightSection>
-  );
-}
-
-/* =========================
-   TECNOLOGÍA (mockups con captions)
-========================= */
-
-function Tecnologia() {
-  const items = [
-    {
-      src: "/mockup-mobile-truckboss.png",
-      title: "TruckBoss (operación del camionero)",
-      desc: "Checklist, control y guía diaria para operar sin errores.",
-    },
-    {
-      src: "/mockup-desktop-azoth.png",
-      title: "AZOTH (control ejecutivo)",
-      desc: "Panel institucional para seguimiento, casos y trazabilidad.",
-    },
-    {
-      src: "/mockup-desktop-ops.png",
-      title: "Centro Operativo (seguimiento)",
-      desc: "Calendario, alertas y cumplimiento bajo control.",
-    },
-  ];
-
-  return (
-    <LightSection
-      id="tecnologia"
-      title="Tecnología que respalda el ecosistema"
-      subtitle="No vendemos humo. Esto es operación real: control, seguimiento, evidencia y decisiones."
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: 18,
-          alignItems: "start",
-        }}
-      >
-        {items.map((it) => (
-          <div
-            key={it.src}
-            style={{
-              background: theme.card,
-              border: `1px solid ${theme.line}`,
-              borderRadius: 18,
-              overflow: "hidden",
-              boxShadow: "0 18px 55px rgba(15,23,42,0.08)",
-            }}
-          >
-            <div style={{ padding: 14, borderBottom: `1px solid ${theme.line}` }}>
-              <div style={{ fontWeight: 900, color: theme.ink }}>{it.title}</div>
-              <div style={{ marginTop: 6, color: theme.muted, fontSize: 14, lineHeight: 1.5 }}>{it.desc}</div>
-            </div>
-            <div style={{ padding: 14 }}>
-              <img src={it.src} alt={it.title} style={{ width: "100%", display: "block", borderRadius: 12 }} />
-            </div>
-          </div>
-        ))}
-      </div>
-    </LightSection>
-  );
-}
-
-/* =========================
-   FEES (con copy real)
-========================= */
-
-function Transparencia() {
-  return (
-    <LightSection
-      id="transparencia"
-      title="Transparencia total de costos"
-      subtitle="Pagas por acompañamiento profesional. Los fees gubernamentales se pagan directamente en portales oficiales."
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: 18,
-          alignItems: "center",
-        }}
-      >
-        <Card>
-          <h3 style={{ margin: 0, color: theme.ink }}>Sin letra pequeña</h3>
-          <p style={{ marginTop: 10, color: theme.muted, lineHeight: 1.6 }}>
-            En Sovereign TruckGuard no retenemos ni controlamos fees gubernamentales. Tú pagas directamente a FMCSA,
-            Secretary of State, UCR, TXDMV/IRP/IFTA y Process Agent.
-          </p>
-          <p style={{ marginTop: 10, color: theme.muted, lineHeight: 1.6 }}>
-            Esto protege tu dinero y tu operación. Es la base de la confianza.
-          </p>
-          <div style={{ marginTop: 16 }}>
-            <a href="/services" style={{ color: theme.ink, fontWeight: 900, textDecoration: "none" }}>
-              Ver servicios y paquetes →
-            </a>
-          </div>
-        </Card>
-
-        <div
-          style={{
-            background: theme.card,
-            border: `1px solid ${theme.line}`,
-            borderRadius: 18,
-            padding: 14,
-            boxShadow: "0 18px 55px rgba(15,23,42,0.08)",
-          }}
-        >
-          <img
-            src="/fees-transparency.png"
-            alt="Service fee vs Government fees"
-            style={{ width: "100%", maxWidth: 680, display: "block", margin: "0 auto", borderRadius: 12 }}
-          />
-        </div>
-      </div>
-    </LightSection>
-  );
-}
-
-/* =========================
-   OPERACIÓN (lujo institucional)
-========================= */
-
-function Operacion() {
-  return (
-    <LightSection
-      id="operacion"
-      title="Operación real, nivel institucional"
-      subtitle="No somos un call center. Somos una operación estructurada con seguimiento, procesos y control."
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: 18,
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            background: theme.card,
-            border: `1px solid ${theme.line}`,
-            borderRadius: 18,
-            padding: 14,
-            boxShadow: "0 18px 55px rgba(15,23,42,0.08)",
-          }}
-        >
-          <img
-            src="/office-ops.png"
-            alt="Oficina institucional Sovereign"
-            style={{ width: "100%", display: "block", borderRadius: 12 }}
-          />
-        </div>
-
-        <Card>
-          <h3 style={{ margin: 0, color: theme.ink }}>Acompañamiento y seguimiento</h3>
-          <p style={{ marginTop: 10, color: theme.muted, lineHeight: 1.6 }}>
-            Te guiamos paso a paso, dejamos evidencia y te mantenemos al día con calendarios, checklist y recordatorios.
-            El objetivo es simple: proteger tu compañía y hacerla crecer con orden.
-          </p>
-          <div style={{ marginTop: 16 }}>
-            <ButtonPrimary href="#diagnostico">Quiero mi diagnóstico</ButtonPrimary>
-          </div>
-        </Card>
-      </div>
-    </LightSection>
-  );
-}
-
-/* =========================
-   CTA FINAL
-========================= */
-
-function FinalCTA() {
-  return (
-    <section style={{ background: theme.black, padding: "110px 0", color: "#fff" }}>
+    <section id="diagnostico" style={{ background: theme.bg, padding: "90px 0" }}>
       <Container>
         <div style={{ textAlign: "center" }}>
-          <h2 style={{ fontSize: 34, margin: 0 }}>Empieza con orden. Crece con respaldo.</h2>
-          <p style={{ marginTop: 12, opacity: 0.85, fontSize: 16, maxWidth: 860, marginInline: "auto" }}>
-            Antes de crear tu compañía, recibe un diagnóstico claro y un plan real.
-            Eso evita errores caros y te pone a operar como se debe.
+          <GoldTag>ENTRADA</GoldTag>
+
+          <h2 style={{ marginTop: 18, fontSize: 34, color: theme.ink }}>
+            Entrar al Sistema Soberano
+          </h2>
+
+          <p style={{ marginTop: 12, color: theme.muted, fontSize: 16, maxWidth: 860, marginInline: "auto" }}>
+            Elige tu realidad. Nosotros diseñamos el plan y ejecutamos con trazabilidad.
           </p>
-          <div style={{ marginTop: 26 }}>
-            <ButtonPrimary href="#diagnostico">Quiero mi diagnóstico</ButtonPrimary>
+        </div>
+
+        <div
+          style={{
+            marginTop: 36,
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+            gap: 18,
+            alignItems: "stretch",
+          }}
+        >
+          {/* Opción 1 */}
+          <div
+            style={{
+              padding: 26,
+              borderRadius: 18,
+              border: `1px solid ${theme.line}`,
+              background: theme.soft,
+            }}
+          >
+            <div style={{ color: theme.gold, fontWeight: 900, letterSpacing: "0.14em", fontSize: 11 }}>
+              CAMINO 1
+            </div>
+            <div style={{ marginTop: 10, color: theme.ink, fontWeight: 900, fontSize: 20 }}>
+              Iniciar una compañía desde cero
+            </div>
+            <div style={{ marginTop: 10, color: theme.muted, lineHeight: 1.65 }}>
+              Plan de inicio: LLC, EIN, DOT/MC, setup, checklist operativo y preparación para operar sin errores.
+            </div>
+            <div style={{ marginTop: 16 }}>
+              <a href="/services#packages" style={{ color: theme.ink, fontWeight: 900, textDecoration: "none" }}>
+                Ver Plan de Inicio →
+              </a>
+            </div>
+          </div>
+
+          {/* Opción 2 */}
+          <div
+            style={{
+              padding: 26,
+              borderRadius: 18,
+              border: `1px solid ${theme.line}`,
+              background: theme.soft,
+            }}
+          >
+            <div style={{ color: theme.gold, fontWeight: 900, letterSpacing: "0.14em", fontSize: 11 }}>
+              CAMINO 2
+            </div>
+            <div style={{ marginTop: 10, color: theme.ink, fontWeight: 900, fontSize: 20 }}>
+              Recuperar una compañía en riesgo
+            </div>
+            <div style={{ marginTop: 10, color: theme.muted, lineHeight: 1.65 }}>
+              Plan de rescate: cumplimiento, vencimientos, bloqueos, orden documental, control y seguimiento estricto.
+            </div>
+            <div style={{ marginTop: 16 }}>
+              <a href="/services#packages" style={{ color: theme.ink, fontWeight: 900, textDecoration: "none" }}>
+                Ver Plan de Rescate →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <Divider />
+
+        <div style={{ textAlign: "center" }}>
+          <p style={{ color: theme.muted, fontSize: 15, maxWidth: 900, marginInline: "auto", lineHeight: 1.7 }}>
+            Ningún proceso comienza sin un diagnóstico claro.  
+            Aquí no se improvisa: se entra con estructura.
+          </p>
+          <div style={{ marginTop: 18 }}>
+            <PrimaryCTA href="/services#packages">Iniciar Diagnóstico Soberano</PrimaryCTA>
           </div>
         </div>
       </Container>
@@ -507,18 +324,226 @@ function FinalCTA() {
 }
 
 /* =========================
-   FOOTER
+   EVIDENCIA (sin galería)
 ========================= */
+function Evidencia() {
+  return (
+    <section style={{ background: theme.bg, padding: "90px 0" }}>
+      <Container>
+        <div style={{ textAlign: "center" }}>
+          <GoldTag>EVIDENCIA</GoldTag>
+          <h2 style={{ marginTop: 18, fontSize: 34, color: theme.ink }}>
+            El sistema existe. Opera.
+          </h2>
+          <p style={{ marginTop: 12, color: theme.muted, maxWidth: 900, marginInline: "auto", lineHeight: 1.7 }}>
+            Control, seguimiento y trazabilidad. No vendemos humo.
+          </p>
+        </div>
+
+        <Divider />
+
+        {/* 1) Tecnología */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 18 }}>
+          <div style={{ maxWidth: 920 }}>
+            <div style={{ color: theme.gold, fontWeight: 900, letterSpacing: "0.14em", fontSize: 11 }}>
+              TECNOLOGÍA
+            </div>
+            <div style={{ marginTop: 10, color: theme.ink, fontWeight: 900, fontSize: 22 }}>
+              Herramientas diarias para operar con control
+            </div>
+            <div style={{ marginTop: 10, color: theme.muted, lineHeight: 1.7 }}>
+              TruckBoss (camionero) + AZOTH (control ejecutivo) + Ops (seguimiento).  
+              Esto se usa todos los días.
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 16,
+              alignItems: "start",
+            }}
+          >
+            {[
+              { src: "/mockup-mobile-truckboss.png", alt: "TruckBoss" },
+              { src: "/mockup-desktop-azoth.png", alt: "AZOTH" },
+              { src: "/mockup-desktop-ops.png", alt: "Ops" },
+            ].map((it) => (
+              <div
+                key={it.src}
+                style={{
+                  borderRadius: 18,
+                  border: `1px solid ${theme.line}`,
+                  background: "rgba(255,255,255,0.04)",
+                  padding: 12,
+                }}
+              >
+                <img
+                  src={it.src}
+                  alt={it.alt}
+                  style={{
+                    width: "100%",
+                    display: "block",
+                    borderRadius: 14,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Divider />
+
+        {/* 2) Transparencia */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: 18, alignItems: "center" }}>
+          <div style={{ maxWidth: 820 }}>
+            <div style={{ color: theme.gold, fontWeight: 900, letterSpacing: "0.14em", fontSize: 11 }}>
+              TRANSPARENCIA
+            </div>
+            <div style={{ marginTop: 10, color: theme.ink, fontWeight: 900, fontSize: 22 }}>
+              Service fee vs Government fees
+            </div>
+            <div style={{ marginTop: 10, color: theme.muted, lineHeight: 1.7 }}>
+              Tú pagas fees gubernamentales directamente en portales oficiales.  
+              Sovereign cobra solo acompañamiento profesional. Sin letra pequeña.
+            </div>
+            <div style={{ marginTop: 14 }}>
+              <a href="/services" style={{ color: theme.ink, fontWeight: 900, textDecoration: "none" }}>
+                Ver servicios y paquetes →
+              </a>
+            </div>
+          </div>
+
+          <div
+            style={{
+              borderRadius: 18,
+              border: `1px solid ${theme.line}`,
+              background: "rgba(255,255,255,0.04)",
+              padding: 12,
+            }}
+          >
+            <img
+              src="/fees-transparency.png"
+              alt="Fees transparency"
+              style={{ width: "100%", display: "block", borderRadius: 14 }}
+            />
+          </div>
+        </div>
+
+        <Divider />
+
+        {/* 3) Operación */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: 18, alignItems: "center" }}>
+          <div
+            style={{
+              borderRadius: 18,
+              border: `1px solid ${theme.line}`,
+              background: "rgba(255,255,255,0.04)",
+              padding: 12,
+            }}
+          >
+            <img
+              src="/office-ops.png"
+              alt="Operación institucional"
+              style={{ width: "100%", display: "block", borderRadius: 14 }}
+            />
+          </div>
+
+          <div style={{ maxWidth: 820 }}>
+            <div style={{ color: theme.gold, fontWeight: 900, letterSpacing: "0.14em", fontSize: 11 }}>
+              OPERACIÓN
+            </div>
+            <div style={{ marginTop: 10, color: theme.ink, fontWeight: 900, fontSize: 22 }}>
+              Acompañamiento real, nivel institucional
+            </div>
+            <div style={{ marginTop: 10, color: theme.muted, lineHeight: 1.7 }}>
+              Esto no es un call center. Es una operación con seguimiento, procesos y control.
+            </div>
+            <div style={{ marginTop: 18 }}>
+              <PrimaryCTA href="#diagnostico">Iniciar Diagnóstico</PrimaryCTA>
+            </div>
+          </div>
+        </div>
+
+        <Divider />
+
+        {/* 4) Ecosistema */}
+        <div style={{ textAlign: "center" }}>
+          <div style={{ color: theme.gold, fontWeight: 900, letterSpacing: "0.14em", fontSize: 11 }}>
+            ECOSISTEMA
+          </div>
+          <div style={{ marginTop: 10, color: theme.ink, fontWeight: 900, fontSize: 22 }}>
+            Mapa del sistema
+          </div>
+          <div style={{ marginTop: 10, color: theme.muted, maxWidth: 900, marginInline: "auto", lineHeight: 1.7 }}>
+            Diagnóstico → Inicio/Rescate → Creación → Operación → Control → Crecimiento.
+          </div>
+
+          <div
+            style={{
+              marginTop: 18,
+              borderRadius: 18,
+              border: `1px solid ${theme.line}`,
+              background: "rgba(255,255,255,0.04)",
+              padding: 12,
+              maxWidth: 980,
+              marginInline: "auto",
+            }}
+          >
+            <img
+              src="/ecosystem-map.png"
+              alt="Ecosystem map"
+              style={{ width: "100%", display: "block", borderRadius: 14 }}
+            />
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* =========================
+   CIERRE (Acceso)
+========================= */
+function FinalAccess() {
+  return (
+    <section style={{ background: "#000", padding: "120px 0" }}>
+      <Container>
+        <div style={{ textAlign: "center", color: theme.ink }}>
+          <GoldTag>ACCESO</GoldTag>
+
+          <h2 style={{ marginTop: 18, fontSize: 38, lineHeight: 1.12 }}>
+            Empieza con orden. <br />
+            Crece con respaldo.
+          </h2>
+
+          <p style={{ marginTop: 14, color: theme.muted, maxWidth: 920, marginInline: "auto", lineHeight: 1.7 }}>
+            Si vas a construir una compañía real, entra con estructura.  
+            El diagnóstico define el camino. El sistema ejecuta.
+          </p>
+
+          <div style={{ marginTop: 26 }}>
+            <PrimaryCTA href="#diagnostico">Solicitar acceso al sistema</PrimaryCTA>
+          </div>
+
+          <div style={{ marginTop: 28, color: "rgba(255,255,255,0.55)", fontSize: 12 }}>
+            powered by Solyon Technologies
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
 
 function Footer() {
   return (
-    <footer style={{ background: theme.black, color: "rgba(255,255,255,0.86)", padding: "34px 0" }}>
+    <footer style={{ background: "#000", padding: "36px 0", borderTop: `1px solid ${theme.line}` }}>
       <Container>
-        <div style={{ textAlign: "center", borderTop: "1px solid rgba(255,255,255,0.12)", paddingTop: 22 }}>
-          <div style={{ fontWeight: 900 }}>Sovereign TruckGuard LLC</div>
-          <div style={{ marginTop: 8, fontSize: 13, opacity: 0.85 }}>
-            30 N Gould St, Ste N · Sheridan, Wyoming 82801 · USA · info@sovereigntruckguard.com · +1 (608) 557-6282
-          </div>
+        <div style={{ textAlign: "center", color: "rgba(255,255,255,0.78)", fontSize: 13, lineHeight: 1.8 }}>
+          <div style={{ fontWeight: 900, color: "rgba(255,255,255,0.92)" }}>Sovereign TruckGuard LLC</div>
+          <div>30 N Gould St, Ste N · Sheridan, Wyoming 82801 · USA</div>
+          <div>info@sovereigntruckguard.com · +1 (608) 557-6282</div>
           <div style={{ marginTop: 10, fontSize: 12, opacity: 0.65 }}>
             © {new Date().getFullYear()} · Powered by SOLYON
           </div>
@@ -531,19 +556,18 @@ function Footer() {
 /* =========================
    PAGE
 ========================= */
-
 export default function Page() {
   return (
-    <main style={{ background: theme.black }}>
+    <main style={{ background: theme.bg }}>
+      {/* Header aparece solo después de scroll */}
       <Header />
-      <Hero />
+
+      {/* Portal */}
+      <HeroPortal />
+      <Manifiesto />
       <Diagnostico />
-      <ComoFunciona />
-      <EcosystemMap />
-      <Tecnologia />
-      <Transparencia />
-      <Operacion />
-      <FinalCTA />
+      <Evidencia />
+      <FinalAccess />
       <Footer />
     </main>
   );
