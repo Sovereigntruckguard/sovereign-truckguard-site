@@ -27,63 +27,68 @@ export default function Header() {
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "16px 22px",
+          padding: "18px 22px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
 
-        {/* LOGO */}
+        {/* LOGO + NOMBRE */}
         <Link
           href="/"
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 10,
+            gap: 12,
             textDecoration: "none",
           }}
         >
           <img
             src="/logo-sovereign-icon.png"
-            style={{ width: 42 }}
+            alt="Sovereign TruckGuard"
+            style={{ width: 52 }}
           />
 
-          <div>
-            <div style={{
-              fontWeight: 800,
-              fontSize: 14,
-              color: "#1F4D3B"
-            }}>
+          <div style={{ lineHeight: 1.1 }}>
+            <div
+              style={{
+                fontWeight: 900,
+                fontSize: 16,
+                color: "#1F4D3B",
+                letterSpacing: ".02em",
+              }}
+            >
               Sovereign TruckGuard LLC
             </div>
 
-            <div style={{
-              fontSize: 10,
-              color: "#5A6B63"
-            }}>
+            <div
+              style={{
+                fontSize: 11,
+                color: "#5A6B63",
+              }}
+            >
               Powered by Solyon Technologies
             </div>
           </div>
         </Link>
 
-
-        {/* NAV */}
+        {/* NAVEGACIÓN */}
         <nav
           style={{
             display: "flex",
-            gap: 22,
+            gap: 26,
             fontSize: 14,
           }}
         >
-          {nav.map(item => (
+          {nav.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               style={{
                 textDecoration: "none",
                 color: "#1A1A1A",
-                fontWeight: 500,
+                fontWeight: 600,
               }}
             >
               {item.name}
@@ -91,16 +96,15 @@ export default function Header() {
           ))}
         </nav>
 
-
         {/* CTA */}
         <a
           href="#diagnostico"
           style={{
-            background: "#5B4FFF",
+            background: "#1F4D3B",
             color: "white",
-            padding: "10px 18px",
+            padding: "12px 20px",
             borderRadius: 10,
-            fontWeight: 700,
+            fontWeight: 800,
             textDecoration: "none",
           }}
         >
