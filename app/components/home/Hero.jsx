@@ -1,7 +1,12 @@
 "use client";
 
 export default function Hero() {
+
+  const formLink =
+    "https://docs.google.com/forms/d/e/1FAIpQLSeOVegHUq_GpBrjg8BZVB0cbpgAU5OlDaovYpIPCPJMVrr-hw/viewform?usp=header";
+
   return (
+
     <section
       style={{
         position: "relative",
@@ -13,6 +18,7 @@ export default function Hero() {
     >
 
       {/* VIDEO */}
+
       <video
         src="/hero-truck.mp4"
         autoPlay
@@ -28,7 +34,8 @@ export default function Hero() {
         }}
       />
 
-      {/* OVERLAY VERDE */}
+      {/* OVERLAY */}
+
       <div
         style={{
           position: "absolute",
@@ -52,6 +59,7 @@ export default function Hero() {
       >
 
         {/* TEXTO HERO */}
+
         <div style={{ color: "white" }}>
 
           <p
@@ -89,7 +97,8 @@ export default function Hero() {
           </p>
 
           <a
-            href="#diagnostico"
+            href={formLink}
+            target="_blank"
             style={{
               marginTop: 30,
               display: "inline-block",
@@ -108,6 +117,7 @@ export default function Hero() {
 
 
         {/* CARD CONVERSIÓN */}
+
         <div
           style={{
             background: "white",
@@ -141,13 +151,15 @@ export default function Hero() {
             La mayoría de camioneros latinos pierde dinero
             por falta de estructura.
 
-            Este simulador te dice si tu operación
-            es viable antes de comprometer tu capital.
+            Evalúa tu situación antes de comprometer tu capital.
           </p>
 
-          <button
+          <a
+            href={formLink}
+            target="_blank"
             style={{
               marginTop: 24,
+              display: "block",
               background: "#C9A227",
               width: "100%",
               padding: 14,
@@ -155,10 +167,13 @@ export default function Hero() {
               border: "none",
               fontWeight: 800,
               fontSize: 15,
+              textAlign: "center",
+              textDecoration: "none",
+              color: "#000"
             }}
           >
-            Simular mi Ruta
-          </button>
+            Evaluar mi Operación
+          </a>
 
           <p
             style={{
@@ -168,12 +183,13 @@ export default function Hero() {
               textAlign: "center",
             }}
           >
-            8–12 minutos · Sin costo · Resultado inmediato
+            Aplicación gratuita · Resultado inmediato
           </p>
 
         </div>
 
       </div>
+
     </section>
   );
 }

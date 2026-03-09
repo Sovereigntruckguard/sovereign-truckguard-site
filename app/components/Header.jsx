@@ -6,12 +6,15 @@ export default function Header() {
 
   const nav = [
     { name: "Método", href: "/metodo" },
-    { name: "Simulador", href: "/simulador" },
-    { name: "Academy", href: "/academy" },
-    { name: "Comunidad", href: "/comunidad" },
-    { name: "Respaldo", href: "/respaldo" },
-    { name: "Aliados", href: "/aliados" },
+    { name: "Simulador", href: "#simulador" },
+    { name: "Academy", href: "#academy" },
+    { name: "Comunidad", href: "#comunidad" },
+    { name: "Respaldo", href: "#respaldo" },
+    { name: "Aliados", href: "#aliados" },
   ];
+
+  const formLink =
+    "https://docs.google.com/forms/d/e/1FAIpQLSeOVegHUq_GpBrjg8BZVB0cbpgAU5OlDaovYpIPCPJMVrr-hw/viewform?usp=header";
 
   return (
     <header
@@ -34,7 +37,8 @@ export default function Header() {
         }}
       >
 
-        {/* LOGO + NOMBRE */}
+        {/* LOGO */}
+
         <Link
           href="/"
           style={{
@@ -73,7 +77,9 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* NAVEGACIÓN */}
+
+        {/* NAV */}
+
         <nav
           style={{
             display: "flex",
@@ -82,7 +88,7 @@ export default function Header() {
           }}
         >
           {nav.map((item) => (
-            <Link
+            <a
               key={item.name}
               href={item.href}
               style={{
@@ -92,13 +98,16 @@ export default function Header() {
               }}
             >
               {item.name}
-            </Link>
+            </a>
           ))}
         </nav>
 
-        {/* CTA */}
+
+        {/* CTA PRINCIPAL */}
+
         <a
-          href="#diagnostico"
+          href={formLink}
+          target="_blank"
           style={{
             background: "#1F4D3B",
             color: "white",
