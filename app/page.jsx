@@ -14,6 +14,17 @@ import Respaldo from "./components/home/Respaldo";
 import CTA from "./components/home/CTA";
 import Footer from "./components/home/Footer";
 
+const theme = {
+  bg: "#F4F7F6",
+  green: "#1F4D3B",
+  greenDark: "#123A2D",
+  gold: "#C9A227",
+  text: "#1A1A1A",
+  muted: "#5A6B63",
+  line: "#E3E8E6",
+  card: "#FFFFFF",
+};
+
 export default function Page() {
   return (
     <main style={{ background: "#050505", color: "white" }}>
