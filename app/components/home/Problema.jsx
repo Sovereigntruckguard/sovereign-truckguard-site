@@ -13,7 +13,7 @@ export default function Problema() {
     <section
       style={{
         background: "#F4F7F6",
-        padding: "110px 0"
+        padding: "120px 0"
       }}
     >
 
@@ -29,9 +29,9 @@ export default function Problema() {
         {/* TITULO */}
         <h2
           style={{
-            fontSize: 40,
+            fontSize: 42,
             color: "#1F4D3B",
-            fontWeight: 800
+            fontWeight: 900
           }}
         >
           El problema no es entrar al negocio.
@@ -39,9 +39,9 @@ export default function Problema() {
 
         <p
           style={{
-            marginTop: 12,
+            marginTop: 14,
             color: "#5A6B63",
-            fontSize: 16
+            fontSize: 17
           }}
         >
           El problema es entrar sin estructura.
@@ -51,10 +51,10 @@ export default function Problema() {
         {/* CARDS */}
         <div
           style={{
-            marginTop: 42,
+            marginTop: 50,
             display: "flex",
             justifyContent: "center",
-            gap: 18,
+            gap: 22,
             flexWrap: "wrap"
           }}
         >
@@ -63,14 +63,15 @@ export default function Problema() {
             <div
               key={p}
               style={{
-                padding: "14px 22px",
-                borderRadius: 10,
+                padding: "22px 32px",
+                borderRadius: 12,
                 border: "1px solid #E3E8E6",
                 background: "white",
                 color: "#1A1A1A",
-                fontWeight: 600,
-                fontSize: 14,
-                boxShadow: "0 8px 24px rgba(0,0,0,0.05)"
+                fontWeight: 700,
+                fontSize: 16,
+                minWidth: 280,
+                boxShadow: "0 10px 26px rgba(0,0,0,0.06)"
               }}
             >
               {p}
