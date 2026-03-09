@@ -20,23 +20,14 @@ export default function Page() {
       <Header />
 
       <Hero />
-
       <Problema />
-
       <Guardian />
-
       <Metodo />
-
       <Tecnologia />
-
       <Simulador />
-
       <Academy />
-
       <Comunidad />
-
       <Respaldo />
-
       <CTA />
 
       <Footer />

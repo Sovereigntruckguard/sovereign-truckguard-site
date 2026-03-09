@@ -1,45 +1,44 @@
 "use client";
 
 export default function Metodo() {
-  const fases = [
+
+  const fases=[
     "Análisis Inicial",
-    "Dealer + Pre-Inspección",
+    "Dealer + Inspección",
     "Seguros + Financiamiento",
     "Control Operativo",
     "Escudo Operativo",
     "Telemática + Automatización",
-    "Expansión de Flota",
+    "Expansión de Flota"
   ];
 
-  return (
-    <section style={{ padding: "100px 0", background: "#050505" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 22px" }}>
-        <h2 style={{ fontSize: 36 }}>El Método Sovereign</h2>
+  return(
+    <section style={{padding:"100px 0"}}>
 
-        <div
-          style={{
-            marginTop: 40,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
-            gap: 18,
-          }}
-        >
-          {fases.map((f, i) => (
-            <div
-              key={f}
-              style={{
-                padding: 22,
-                borderRadius: 12,
-                border: "1px solid rgba(255,255,255,0.08)",
-                background: "rgba(255,255,255,0.03)",
-              }}
-            >
-              <strong>Fase {i + 1}</strong>
-              <div style={{ marginTop: 6 }}>{f}</div>
+      <div style={{maxWidth:1200,margin:"0 auto",padding:"0 22px"}}>
+
+        <h2>El Método Sovereign</h2>
+
+        <div style={{
+          display:"grid",
+          gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",
+          gap:20,
+          marginTop:40
+        }}>
+          {fases.map((f,i)=>(
+            <div key={f} style={{
+              border:"1px solid rgba(255,255,255,.08)",
+              padding:20,
+              borderRadius:12
+            }}>
+              <strong>Fase {i+1}</strong>
+              <div>{f}</div>
             </div>
           ))}
         </div>
+
       </div>
+
     </section>
-  );
+  )
 }

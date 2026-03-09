@@ -2,16 +2,11 @@
 
 export default function Hero() {
   return (
-    <section
-      style={{
-        position: "relative",
-        minHeight: "90vh",
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <section style={{ position: "relative", minHeight: "100vh" }}>
+      
+      {/* VIDEO PLACEHOLDER */}
       <video
-        src="/hero-truck.mp4"
+        src="/placeholder-hero.mp4"
         autoPlay
         muted
         loop
@@ -30,7 +25,7 @@ export default function Hero() {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.92))",
+            "linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.95))",
         }}
       />
 
@@ -43,6 +38,8 @@ export default function Hero() {
           display: "grid",
           gridTemplateColumns: "1fr 420px",
           gap: 60,
+          alignItems: "center",
+          minHeight: "100vh",
         }}
       >
         <div>
@@ -55,12 +52,16 @@ export default function Hero() {
           </h1>
 
           <p style={{ marginTop: 20, opacity: 0.7 }}>
-            Sovereign TruckGuard existe para filtrar, diagnosticar,
-            convertir y activar operadores latinos bajo un modelo
-            cerrado de control, estructura y ejecución.
+            Sovereign TruckGuard filtra, diagnostica y activa operadores latinos bajo un modelo cerrado de control, estructura y ejecución.
           </p>
+
+          <div style={{ marginTop: 28, display: "flex", gap: 12 }}>
+            <button className="primary">Inicia tu Ruta Soberana</button>
+            <button className="ghost">Ver Arquitectura</button>
+          </div>
         </div>
 
+        {/* SIMULATOR CARD */}
         <div
           style={{
             background: "#0D1A33",
