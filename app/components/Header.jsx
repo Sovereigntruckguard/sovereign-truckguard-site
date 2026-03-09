@@ -3,14 +3,24 @@
 import Link from "next/link";
 
 export default function Header() {
+
+  const nav = [
+    { name: "Método", href: "/metodo" },
+    { name: "Simulador", href: "/simulador" },
+    { name: "Academy", href: "/academy" },
+    { name: "Comunidad", href: "/comunidad" },
+    { name: "Respaldo", href: "/respaldo" },
+    { name: "Aliados", href: "/aliados" },
+  ];
+
   return (
     <header
       style={{
         position: "sticky",
         top: 0,
         zIndex: 100,
-        background: "#040816",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        background: "#F4F7F6",
+        borderBottom: "1px solid #E3E8E6",
       }}
     >
       <div
@@ -23,44 +33,80 @@ export default function Header() {
           justifyContent: "space-between",
         }}
       >
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+
+        {/* LOGO */}
+        <Link
+          href="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            textDecoration: "none",
+          }}
+        >
           <img
             src="/logo-sovereign-icon.png"
             style={{ width: 42 }}
           />
 
           <div>
-            <div style={{ fontWeight: 800, fontSize: 14 }}>
+            <div style={{
+              fontWeight: 800,
+              fontSize: 14,
+              color: "#1F4D3B"
+            }}>
               Sovereign TruckGuard LLC
             </div>
-            <div style={{ fontSize: 10, opacity: 0.6 }}>
+
+            <div style={{
+              fontSize: 10,
+              color: "#5A6B63"
+            }}>
               Powered by Solyon Technologies
             </div>
           </div>
         </Link>
 
-        <nav style={{ display: "flex", gap: 24 }}>
-          <Link href="/metodo">Método</Link>
-          <Link href="/simulador">Simulador</Link>
-          <Link href="/academy">Academy</Link>
-          <Link href="/comunidad">Comunidad</Link>
-          <Link href="/respaldo">Respaldo</Link>
-          <Link href="/aliados">Aliados</Link>
+
+        {/* NAV */}
+        <nav
+          style={{
+            display: "flex",
+            gap: 22,
+            fontSize: 14,
+          }}
+        >
+          {nav.map(item => (
+            <Link
+              key={item.name}
+              href={item.href}
+              style={{
+                textDecoration: "none",
+                color: "#1A1A1A",
+                fontWeight: 500,
+              }}
+            >
+              {item.name}
+            </Link>
+          ))}
         </nav>
 
+
+        {/* CTA */}
         <a
           href="#diagnostico"
           style={{
             background: "#5B4FFF",
-            padding: "10px 16px",
+            color: "white",
+            padding: "10px 18px",
             borderRadius: 10,
             fontWeight: 700,
-            color: "white",
             textDecoration: "none",
           }}
         >
           Inicia tu Ruta Soberana
         </a>
+
       </div>
     </header>
   );
