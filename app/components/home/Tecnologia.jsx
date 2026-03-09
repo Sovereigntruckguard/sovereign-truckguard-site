@@ -1,0 +1,17 @@
+"use client";
+
+export default function Tecnologia() {
+  return (
+    <section style={{ padding: "100px 0", background: "#050505" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 22px" }}>
+        <h2 style={{ fontSize: 36 }}>Powered by Solyon Technologies</h2>
+
+        <p style={{ marginTop: 16, opacity: 0.7 }}>
+          Sovereign TruckGuard opera como brazo operativo del ecosistema
+          Solyon integrando tecnología, inteligencia artificial y sistemas
+          de control empresarial.
+        </p>
+      </div>
+    </section>
+  );
+}
