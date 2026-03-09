@@ -47,11 +47,12 @@ export default function Guardian() {
     }
   ];
 
+
   return (
 
     <section
       style={{
-        background: "#0b1326",
+        background: "#1F4D3B",
         padding: "120px 0"
       }}
     >
@@ -60,94 +61,114 @@ export default function Guardian() {
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "0 22px",
-          textAlign: "center"
+          padding: "0 22px"
         }}
       >
 
-        {/* TITULO */}
-        <h2
-          style={{
-            fontSize: 42,
-            color: "white",
-            fontWeight: 900
-          }}
-        >
-          Arquitectura Guardian
-        </h2>
+        {/* HEADER SECCIÓN */}
 
-        <p
-          style={{
-            marginTop: 14,
-            color: "rgba(255,255,255,0.7)",
-            fontSize: 16,
-            maxWidth: 720,
-            marginInline: "auto"
-          }}
-        >
-          Siete fases diseñadas para reducir riesgo, ordenar decisiones
-          y construir empresas de trucking sólidas.
-        </p>
+        <div style={{ textAlign: "center" }}>
+
+          <h2
+            style={{
+              fontSize: 44,
+              fontWeight: 900,
+              color: "white"
+            }}
+          >
+            Arquitectura Guardian
+          </h2>
+
+          <p
+            style={{
+              marginTop: 14,
+              color: "rgba(255,255,255,0.75)",
+              fontSize: 17,
+              maxWidth: 760,
+              marginInline: "auto",
+              lineHeight: 1.6
+            }}
+          >
+            Siete fases diseñadas para reducir riesgo, ordenar decisiones
+            y construir empresas de trucking sólidas.
+          </p>
+
+        </div>
 
 
-        {/* GRID */}
+
+        {/* GRID DE FASES */}
+
         <div
           style={{
             marginTop: 60,
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))",
-            gap: 22
+            gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
+            gap: 24
           }}
         >
 
           {fases.map((item) => (
+
             <div
               key={item.fase}
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.12)",
                 borderRadius: 14,
-                padding: 24,
-                textAlign: "left"
+                padding: 28,
+                transition: "all .25s ease"
               }}
             >
 
-              {/* FASE */}
+
+              {/* BADGE FASE */}
+
               <div
                 style={{
                   fontSize: 12,
-                  fontWeight: 700,
+                  fontWeight: 800,
+                  letterSpacing: ".08em",
                   color: "#C9A227",
-                  marginBottom: 8
+                  marginBottom: 10,
+                  textTransform: "uppercase"
                 }}
               >
                 {item.fase}
               </div>
 
+
+
               {/* TITULO */}
+
               <div
                 style={{
-                  fontSize: 18,
+                  fontSize: 19,
                   fontWeight: 800,
-                  color: "white"
+                  color: "white",
+                  lineHeight: 1.3
                 }}
               >
                 {item.titulo}
               </div>
 
-              {/* DESCRIPCION */}
+
+
+              {/* DESCRIPCIÓN */}
+
               <p
                 style={{
-                  marginTop: 10,
+                  marginTop: 12,
                   fontSize: 14,
                   lineHeight: 1.6,
-                  color: "rgba(255,255,255,0.7)"
+                  color: "rgba(255,255,255,0.80)"
                 }}
               >
                 {item.descripcion}
               </p>
 
             </div>
+
           ))}
 
         </div>
@@ -157,4 +178,5 @@ export default function Guardian() {
     </section>
 
   );
+
 }
