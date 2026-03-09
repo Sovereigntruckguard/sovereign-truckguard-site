@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import ApplicationModal from "./ApplicationModal";
 
 export default function Header() {
 
@@ -12,9 +13,6 @@ export default function Header() {
     { name: "Respaldo", href: "#respaldo" },
     { name: "Aliados", href: "#aliados" },
   ];
-
-  const formLink =
-    "https://docs.google.com/forms/d/e/1FAIpQLSeOVegHUq_GpBrjg8BZVB0cbpgAU5OlDaovYpIPCPJMVrr-hw/viewform?usp=header";
 
   return (
     <header
@@ -103,22 +101,23 @@ export default function Header() {
         </nav>
 
 
-        {/* CTA PRINCIPAL */}
+        {/* CTA */}
 
-        <a
-          href={formLink}
-          target="_blank"
-          style={{
-            background: "#1F4D3B",
-            color: "white",
-            padding: "12px 20px",
-            borderRadius: 10,
-            fontWeight: 800,
-            textDecoration: "none",
-          }}
-        >
-          Inicia tu Ruta Soberana
-        </a>
+        <ApplicationModal>
+          <button
+            style={{
+              background: "#1F4D3B",
+              color: "white",
+              padding: "12px 20px",
+              borderRadius: 10,
+              fontWeight: 800,
+              border: "none",
+              cursor: "pointer"
+            }}
+          >
+            Inicia tu Ruta Soberana
+          </button>
+        </ApplicationModal>
 
       </div>
     </header>

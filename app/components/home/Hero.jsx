@@ -1,9 +1,8 @@
 "use client";
 
-export default function Hero() {
+import ApplicationModal from "../ApplicationModal";
 
-  const formLink =
-    "https://docs.google.com/forms/d/e/1FAIpQLSeOVegHUq_GpBrjg8BZVB0cbpgAU5OlDaovYpIPCPJMVrr-hw/viewform?usp=header";
+export default function Hero() {
 
   return (
 
@@ -96,27 +95,31 @@ export default function Hero() {
             y ejecución.
           </p>
 
-          <a
-            href={formLink}
-            target="_blank"
-            style={{
-              marginTop: 30,
-              display: "inline-block",
-              background: "#C9A227",
-              color: "#000",
-              padding: "14px 24px",
-              borderRadius: 999,
-              fontWeight: 900,
-              textDecoration: "none",
-            }}
-          >
-            Inicia tu Ruta Soberana
-          </a>
+
+          {/* CTA HERO */}
+
+          <ApplicationModal>
+            <button
+              style={{
+                marginTop: 30,
+                background: "#C9A227",
+                color: "#000",
+                padding: "14px 24px",
+                borderRadius: 999,
+                fontWeight: 900,
+                border: "none",
+                cursor: "pointer"
+              }}
+            >
+              Inicia tu Ruta Soberana
+            </button>
+          </ApplicationModal>
 
         </div>
 
 
-        {/* CARD CONVERSIÓN */}
+
+        {/* CARD */}
 
         <div
           style={{
@@ -154,26 +157,27 @@ export default function Hero() {
             Evalúa tu situación antes de comprometer tu capital.
           </p>
 
-          <a
-            href={formLink}
-            target="_blank"
-            style={{
-              marginTop: 24,
-              display: "block",
-              background: "#C9A227",
-              width: "100%",
-              padding: 14,
-              borderRadius: 10,
-              border: "none",
-              fontWeight: 800,
-              fontSize: 15,
-              textAlign: "center",
-              textDecoration: "none",
-              color: "#000"
-            }}
-          >
-            Evaluar mi Operación
-          </a>
+
+          {/* CTA CARD */}
+
+          <ApplicationModal>
+            <button
+              style={{
+                marginTop: 24,
+                background: "#C9A227",
+                width: "100%",
+                padding: 14,
+                borderRadius: 10,
+                border: "none",
+                fontWeight: 800,
+                fontSize: 15,
+                cursor: "pointer"
+              }}
+            >
+              Evaluar mi Operación
+            </button>
+          </ApplicationModal>
+
 
           <p
             style={{
