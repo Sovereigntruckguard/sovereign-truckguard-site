@@ -478,7 +478,7 @@ export default function Simulador() {
                   fontWeight: 700,
                   fontSize: 15,
                   transition: "all .2s ease",
-                  border: ativa ? "1px solid #C9A227" : "1px solid rgba(255,255,255,0.08)",
+                  border: activa ? "1px solid #C9A227" : "1px solid rgba(255,255,255,0.08)",
                 }}
               >
                 {opcion}
