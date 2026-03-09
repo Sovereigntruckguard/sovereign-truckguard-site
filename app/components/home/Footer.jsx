@@ -6,75 +6,51 @@ export default function Footer() {
 
     <footer
       style={{
-        background: "#0B0F14",
-        padding: "80px 0",
-        borderTop: "1px solid rgba(255,255,255,0.08)"
+        background: "#2F3437",
+        padding: "100px 0"
       }}
     >
 
       <div
         style={{
-          maxWidth: 1100,
+          maxWidth: 1200,
           margin: "0 auto",
           padding: "0 22px",
-          textAlign: "center"
+          display: "grid",
+          gridTemplateColumns: "1fr 1.4fr 1fr",
+          gap: 40,
+          alignItems: "center"
         }}
       >
 
-        {/* LOGO */}
-
-        <img
-          src="/logo-sovereign-mono.png"
-          alt="Sovereign TruckGuard"
-          style={{
-            width: 80,
-            marginBottom: 14
-          }}
-        />
-
-        {/* NOMBRE */}
+        {/* LOGO GRANDE */}
 
         <div
           style={{
-            fontWeight: 800,
-            fontSize: 18,
-            color: "white"
+            display: "flex",
+            justifyContent: "center"
           }}
         >
-          Sovereign TruckGuard LLC
+
+          <img
+            src="/logo-sovereign-mono.png"
+            alt="Sovereign TruckGuard"
+            style={{
+              width: 160
+            }}
+          />
+
         </div>
 
-        <div
-          style={{
-            color: "rgba(255,255,255,0.6)",
-            fontSize: 13,
-            marginTop: 4
-          }}
-        >
-          Powered by Solyon Technologies
-        </div>
-
-
-        {/* DIRECCIÓN */}
-
-        <div
-          style={{
-            marginTop: 26,
-            color: "rgba(255,255,255,0.8)",
-            fontSize: 15
-          }}
-        >
-          30 N Gould St Ste. N, Sheridan, WY 82801
-        </div>
 
 
         {/* MAPA */}
 
         <div
           style={{
-            marginTop: 24,
-            borderRadius: 10,
-            overflow: "hidden"
+            borderRadius: 12,
+            overflow: "hidden",
+            boxShadow: "0 20px 50px rgba(0,0,0,0.35)"
           }}
         >
 
@@ -89,49 +65,88 @@ export default function Footer() {
         </div>
 
 
-        {/* TELEFONO */}
+
+        {/* INFO */}
 
         <div
           style={{
-            marginTop: 24,
-            fontSize: 16,
-            color: "white",
-            fontWeight: 700
-          }}
-        >
-          +1 (608) 557-6282
-        </div>
-
-
-        {/* BANDERAS */}
-
-        <div
-          style={{
-            marginTop: 18,
-            display: "flex",
-            justifyContent: "center",
-            gap: 14
+            textAlign: "center",
+            color: "white"
           }}
         >
 
-          <img src="/flag-usa.png" style={{ width: 28 }} />
-          <img src="/flag-colombia.png" style={{ width: 28 }} />
+          <div
+            style={{
+              fontWeight: 800,
+              fontSize: 18
+            }}
+          >
+            Sovereign TruckGuard LLC
+          </div>
+
+          <div
+            style={{
+              marginTop: 8,
+              fontSize: 14,
+              opacity: 0.8
+            }}
+          >
+            30 N Gould St Ste. N<br/>
+            Sheridan, WY 82801
+          </div>
+
+
+          <div
+            style={{
+              marginTop: 18,
+              fontSize: 16,
+              fontWeight: 700
+            }}
+          >
+            +1 (608) 557-6282
+          </div>
+
+
+          {/* BANDERAS */}
+
+          <div
+            style={{
+              marginTop: 16,
+              display: "flex",
+              justifyContent: "center",
+              gap: 10
+            }}
+          >
+
+            <img
+              src="/flag-usa.png"
+              style={{ width: 28 }}
+            />
+
+            <img
+              src="/flag-colombia.png"
+              style={{ width: 28 }}
+            />
+
+          </div>
 
         </div>
 
+      </div>
 
-        {/* COPYRIGHT */}
 
-        <div
-          style={{
-            marginTop: 28,
-            fontSize: 12,
-            color: "rgba(255,255,255,0.45)"
-          }}
-        >
-          © {new Date().getFullYear()} Sovereign TruckGuard LLC
-        </div>
 
+      {/* COPYRIGHT */}
+
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: 40,
+          fontSize: 12,
+          color: "rgba(255,255,255,0.55)"
+        }}
+      >
+        © {new Date().getFullYear()} Sovereign TruckGuard LLC
       </div>
 
     </footer>
