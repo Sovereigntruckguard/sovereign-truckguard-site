@@ -9,7 +9,7 @@ export default function Header() {
     { name: "Método", href: "/metodo" },
     { name: "Simulador", href: "/simulador" },
     { name: "Academy", href: "/academy" },
-    { name: "Comunidad", href: "#comunidad" },
+    { name: "Comunidad", href: "/comunidad" },
     { name: "Respaldo", href: "#respaldo" },
     { name: "Aliados", href: "#aliados" },
   ];
