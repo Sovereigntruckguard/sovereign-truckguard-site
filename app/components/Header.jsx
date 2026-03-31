@@ -8,7 +8,7 @@ export default function Header() {
   const nav = [
     { name: "Método", href: "/metodo" },
     { name: "Simulador", href: "/simulador" },
-    { name: "Academy", href: "#academy" },
+    { name: "Academy", href: "/academy" },
     { name: "Comunidad", href: "#comunidad" },
     { name: "Respaldo", href: "#respaldo" },
     { name: "Aliados", href: "#aliados" },
