@@ -10,8 +10,8 @@ export default function Header() {
     { name: "Simulador", href: "/simulador" },
     { name: "Academy", href: "/academy" },
     { name: "Comunidad", href: "/comunidad" },
-    { name: "Respaldo", href: "#respaldo" },
-    { name: "Aliados", href: "#aliados" },
+    { name: "Respaldo", href: "/respaldo" },
+    { name: "Aliados", href: "/aliados" },
   ];
 
   return (
