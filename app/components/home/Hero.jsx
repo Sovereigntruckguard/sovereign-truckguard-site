@@ -3,9 +3,7 @@
 import ApplicationModal from "../ApplicationModal";
 
 export default function Hero() {
-
   return (
-
     <section
       style={{
         position: "relative",
@@ -15,7 +13,6 @@ export default function Hero() {
         background: "#F4F7F6",
       }}
     >
-
       {/* VIDEO */}
 
       <video
@@ -56,11 +53,9 @@ export default function Hero() {
           alignItems: "center",
         }}
       >
-
         {/* TEXTO HERO */}
 
         <div style={{ color: "white" }}>
-
           <p
             style={{
               letterSpacing: "0.25em",
@@ -72,29 +67,36 @@ export default function Hero() {
 
           <h1
             style={{
-              fontSize: 56,
+              fontSize: 54,
               marginTop: 14,
               lineHeight: 1.05,
             }}
           >
-            Infraestructura estratégica
-            para construir o rescatar tu
-            operación de trucking.
+            ¿Quieres comprar tu camión…
+            <br />
+            o evitar perder $20,000 en el intento?
           </h1>
 
           <p
             style={{
               marginTop: 22,
-              opacity: 0.85,
-              maxWidth: 600,
+              opacity: 0.9,
+              maxWidth: 620,
               fontSize: 16,
+              lineHeight: 1.7,
             }}
           >
-            Sovereign TruckGuard filtra, diagnostica y activa operadores
-            latinos bajo un modelo cerrado de control, estructura
-            y ejecución.
-          </p>
+            La mayoría de camioneros latinos entra al negocio sin entender
+            flujo de caja, costos reales ni riesgos.
 
+            <br /><br />
+
+            Por eso terminan trabajando… sin ganar.
+
+            <br /><br />
+
+            Nosotros analizamos tu caso antes de que inviertas un dólar.
+          </p>
 
           {/* CTA HERO */}
 
@@ -104,22 +106,20 @@ export default function Hero() {
                 marginTop: 30,
                 background: "#C9A227",
                 color: "#000",
-                padding: "14px 24px",
+                padding: "14px 26px",
                 borderRadius: 999,
                 fontWeight: 900,
                 border: "none",
-                cursor: "pointer"
+                cursor: "pointer",
+                fontSize: 16
               }}
             >
-              Inicia tu Ruta Soberana
+              Evaluar mi caso ($197)
             </button>
           </ApplicationModal>
-
         </div>
 
-
-
-        {/* CARD */}
+        {/* CARD CONVERSIÓN */}
 
         <div
           style={{
@@ -130,7 +130,6 @@ export default function Hero() {
             maxWidth: 420,
           }}
         >
-
           <h3
             style={{
               color: "#1F4D3B",
@@ -139,8 +138,7 @@ export default function Hero() {
               lineHeight: 1.3,
             }}
           >
-            ¿Estás listo para ser dueño de tu camión
-            sin quebrarte en el intento?
+            Revisión Estratégica de tu Operación
           </h3>
 
           <p
@@ -151,33 +149,54 @@ export default function Hero() {
               lineHeight: 1.6,
             }}
           >
-            La mayoría de camioneros latinos pierde dinero
-            por falta de estructura.
-
-            Evalúa tu situación antes de comprometer tu capital.
+            Antes de comprar camión o activar compañía,
+            analizamos si tu operación es viable.
           </p>
 
+          <div
+            style={{
+              marginTop: 14,
+              fontSize: 14,
+              color: "#1A1A1A",
+              lineHeight: 1.6,
+            }}
+          >
+            ✔ Flujo de caja real<br />
+            ✔ Costos por milla<br />
+            ✔ Riesgos operativos<br />
+            ✔ Punto de equilibrio
+          </div>
+
+          <div
+            style={{
+              marginTop: 16,
+              fontWeight: 900,
+              color: "#1F4D3B",
+              fontSize: 16
+            }}
+          >
+            Precio: $197 USD
+          </div>
 
           {/* CTA CARD */}
 
           <ApplicationModal>
             <button
               style={{
-                marginTop: 24,
+                marginTop: 20,
                 background: "#C9A227",
                 width: "100%",
                 padding: 14,
                 borderRadius: 10,
                 border: "none",
-                fontWeight: 800,
+                fontWeight: 900,
                 fontSize: 15,
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             >
-              Evaluar mi Operación
+              Solicitar mi revisión
             </button>
           </ApplicationModal>
-
 
           <p
             style={{
@@ -187,13 +206,10 @@ export default function Hero() {
               textAlign: "center",
             }}
           >
-            Aplicación gratuita · Resultado inmediato
+            15 min · Respuesta en 24h
           </p>
-
         </div>
-
       </div>
-
     </section>
   );
 }
