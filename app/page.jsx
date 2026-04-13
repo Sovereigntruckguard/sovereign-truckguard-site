@@ -10,6 +10,7 @@ import Simulador from "./components/home/Simulador";
 import Academy from "./components/home/Academy";
 import Comunidad from "./components/home/Comunidad";
 import Respaldo from "./components/home/Respaldo";
+import SMSLeadCapture from "./components/home/SMSLeadCapture";
 import CTA from "./components/home/CTA";
 import Footer from "./components/home/Footer";
 
@@ -37,6 +38,7 @@ export default function Page() {
       <Academy />
       <Comunidad />
       <Respaldo />
+      <SMSLeadCapture />
       <CTA />
 
       <Footer />
