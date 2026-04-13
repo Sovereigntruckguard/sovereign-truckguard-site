@@ -2,14 +2,12 @@
 
 export default function Footer() {
   return (
-
     <footer
       style={{
         background: "#2F3437",
         padding: "100px 0",
       }}
     >
-
       <div
         style={{
           maxWidth: 1200,
@@ -21,9 +19,7 @@ export default function Footer() {
           alignItems: "center",
         }}
       >
-
         {/* LOGO GRANDE */}
-
         <div
           style={{
             display: "flex",
@@ -42,10 +38,7 @@ export default function Footer() {
           />
         </div>
 
-
-
         {/* MAPA */}
-
         <div
           style={{
             borderRadius: 12,
@@ -62,17 +55,13 @@ export default function Footer() {
           />
         </div>
 
-
-
-        {/* INFO */}
-
+        {/* INFO + LINKS */}
         <div
           style={{
             textAlign: "center",
             color: "white",
           }}
         >
-
           <div
             style={{
               fontWeight: 800,
@@ -94,7 +83,6 @@ export default function Footer() {
             Sheridan, WY 82801
           </div>
 
-
           <div
             style={{
               marginTop: 18,
@@ -105,10 +93,7 @@ export default function Footer() {
             +1 (608) 557-6282
           </div>
 
-
-
           {/* BANDERAS */}
-
           <div
             style={{
               marginTop: 14,
@@ -117,29 +102,52 @@ export default function Footer() {
               gap: 10,
             }}
           >
-
             <img
               src="/flag-usa.png"
               alt="USA"
               style={{ width: 28 }}
             />
-
             <img
               src="/flag-colombia.png"
               alt="Colombia"
               style={{ width: 28 }}
             />
-
           </div>
 
+          {/* LINKS LEGALES */}
+          <div
+            style={{
+              marginTop: 24,
+              fontSize: 13,
+              opacity: 0.75,
+              display: "flex",
+              flexDirection: "column",
+              gap: 6,
+            }}
+          >
+            <a 
+              href="/privacy" 
+              target="_blank"
+              style={{ color: "white", textDecoration: "none" }}
+              onMouseOver={(e) => e.target.style.textDecoration = "underline"}
+              onMouseOut={(e) => e.target.style.textDecoration = "none"}
+            >
+              Privacy Policy &amp; SMS Terms
+            </a>
+            
+            <a 
+              href="https://www.sovereigntruckguard.com" 
+              style={{ color: "white", textDecoration: "none" }}
+              onMouseOver={(e) => e.target.style.textDecoration = "underline"}
+              onMouseOut={(e) => e.target.style.textDecoration = "none"}
+            >
+              sovereigntruckguard.com
+            </a>
+          </div>
         </div>
-
       </div>
 
-
-
       {/* COPYRIGHT */}
-
       <div
         style={{
           textAlign: "center",
@@ -148,10 +156,8 @@ export default function Footer() {
           color: "rgba(255,255,255,0.55)",
         }}
       >
-        © {new Date().getFullYear()} Sovereign TruckGuard LLC
+        © {new Date().getFullYear()} Sovereign TruckGuard LLC • All Rights Reserved
       </div>
-
     </footer>
-
   );
 }
