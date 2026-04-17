@@ -1,72 +1,89 @@
+"use client";
+
 import React from 'react';
 
 const Hero = () => {
   return (
-    <section className="relative h-[90vh] min-h-[600px] w-full overflow-hidden flex items-center bg-black">
-      {/* Etiqueta de video optimizada para Next.js */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute z-0 w-full h-full object-cover opacity-60"
-      >
-        <source src="/videos/hero-bg.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <section className="relative h-screen min-h-[700px] w-full overflow-hidden flex items-center bg-black">
+      {/* --- EL VIDEO (Ruta corregida: /videos/hero-bg.mp4) --- */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover opacity-60"
+        >
+          {/* Si lo guardaste en public/videos/hero-bg.mp4, esta es la ruta: */}
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+          Tu navegador no soporta video.
+        </video>
+        
+        {/* Capas de degradado para que el texto sea legible y se vea pro */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40 z-10" />
+      </div>
 
-      {/* Capas de diseño para el look "High-End" */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/30" />
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/20 to-transparent" />
-
+      {/* --- CONTENIDO --- */}
       <div className="container mx-auto px-6 relative z-20">
         <div className="max-w-4xl">
-          {/* Badge de Tecnología */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6 backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
+          
+          {/* Badge de Tecnología (Crucial para Google for Startups) */}
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8 backdrop-blur-md">
+            <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
             </span>
-            <span className="text-[10px] font-bold tracking-[0.2em] text-blue-400 uppercase">
-              Next-Gen Insurtech Infrastructure
+            <span className="text-[10px] font-bold tracking-[0.3em] text-blue-400 uppercase">
+              Insurtech Data Infrastructure
             </span>
           </div>
 
-          {/* Headline de Impacto */}
-          <h1 className="text-5xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-8">
+          {/* Headline Brutalista */}
+          <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.85] tracking-tighter mb-8">
             SOVEREIGN <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-200 to-white italic">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-100 to-white italic font-light">
               GUARDIAN
             </span>
           </h1>
 
-          {/* Subheadline: Aquí vendemos la orquestación */}
-          <p className="max-w-xl text-lg lg:text-xl text-gray-400 font-light leading-relaxed mb-10 border-l-2 border-blue-500 pl-6">
-            Orquestamos seguros inteligentes con los líderes en <span className="text-white font-medium italic">Factoring, Fuel Card y ELD</span>. Blindamos tu soberanía operativa con tecnología de grado Google Cloud.
+          {/* El gancho de Orquestación */}
+          <p className="max-w-xl text-lg md:text-2xl text-gray-300 font-light leading-relaxed mb-10 border-l-4 border-blue-600 pl-6">
+            La plataforma de <span className="text-white font-semibold italic text-blue-400">orquestación inteligente</span> que conecta seguros con los líderes en Factoring, Fuel Card y ELD.
           </p>
 
-          {/* Botones de Plataforma (No de agencia) */}
+          {/* Botones estilo Startup */}
           <div className="flex flex-wrap gap-5">
-            <button className="px-10 py-4 bg-white text-black font-bold uppercase text-xs tracking-widest hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-              Acceder al Dashboard
+            <button className="px-10 py-5 bg-blue-600 text-white font-bold uppercase text-[11px] tracking-[0.2em] hover:bg-blue-700 transition-all duration-300 shadow-[0_0_40px_rgba(37,99,235,0.4)]">
+              Launch Dashboard
             </button>
-            <button className="px-10 py-4 bg-transparent border border-white/20 text-white font-bold uppercase text-xs tracking-widest backdrop-blur-sm hover:border-white transition-all duration-300">
-              Ver Ecosistema API
+            
+            <button className="px-10 py-5 bg-white/5 border border-white/20 text-white font-bold uppercase text-[11px] tracking-[0.2em] backdrop-blur-md hover:bg-white hover:text-black transition-all duration-300">
+              API Documentation
             </button>
           </div>
         </div>
       </div>
 
-      {/* Footer del Hero: Demostración de autoridad técnica */}
-      <div className="absolute bottom-12 right-6 lg:right-12 z-20 flex flex-col items-end gap-2 text-[10px] font-mono text-gray-500 tracking-tighter uppercase">
-        <p className="flex items-center gap-2">
-          <span className="h-[1px] w-8 bg-gray-800"></span>
-          Data Orchestration v1.0
-        </p>
-        <p className="flex items-center gap-2">
-          <span className="h-[1px] w-8 bg-gray-800"></span>
-          Cloud Architecture: Google Cloud Platform
-        </p>
+      {/* --- TECH INFO (Google Cloud Approval) --- */}
+      <div className="absolute bottom-12 left-6 md:left-12 z-20 hidden lg:flex items-center gap-10">
+        <div className="flex flex-col">
+          <span className="text-[9px] text-blue-400 font-bold uppercase tracking-[0.2em] mb-1">Architecture</span>
+          <span className="text-[12px] text-white font-mono opacity-80 uppercase tracking-tight">Google Cloud Native</span>
+        </div>
+        <div className="h-10 w-[1px] bg-white/10" />
+        <div className="flex flex-col">
+          <span className="text-[9px] text-blue-400 font-bold uppercase tracking-[0.2em] mb-1">Orchestration</span>
+          <span className="text-[12px] text-white font-mono opacity-80 uppercase tracking-tight">Real-Time Risk Engine</span>
+        </div>
+        <div className="h-10 w-[1px] bg-white/10" />
+        <div className="flex flex-col">
+          <span className="text-[9px] text-blue-400 font-bold uppercase tracking-[0.2em] mb-1">Status</span>
+          <span className="text-[12px] text-green-400 font-mono flex items-center gap-2 tracking-tight">
+            <span className="h-1.5 w-1.5 bg-green-400 rounded-full animate-pulse" /> 
+            SYSTEMS OPERATIONAL
+          </span>
+        </div>
       </div>
     </section>
   );
