@@ -11,7 +11,7 @@ const Hero = () => {
         playsInline
         className="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover"
       >
-        <source src="/videos/hero-bg.mp4" type="video/mp4" />
+        <source src="/public/videos/hero-bg.mp4" type="video/mp4" />
         Tu navegador no soporta videos.
       </video>
 
