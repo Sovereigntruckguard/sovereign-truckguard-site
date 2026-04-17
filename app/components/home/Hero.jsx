@@ -3,25 +3,20 @@ import React from 'react';
 const Hero = () => {
   return (
     <div className="relative h-screen bg-black overflow-hidden">
-      {/* Background keyframe brutal */}
+      {/* Imagen de fondo - negro mate brutal */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
         style={{
-          backgroundImage: "url('/images/hero-black-truck.jpg')",  // <-- sube la imagen negra aquí
+          backgroundImage: "url('/images/hero-black-truck.jpg')",
           animation: "heroPan 30s infinite linear"
         }}
       ></div>
       
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-transparent"></div>
+      {/* Overlay oscuro fuerte para que el texto se lea perfecto */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/40"></div>
       
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center relative z-10">
         <div className="max-w-xl space-y-6">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-3xl text-sm font-semibold border border-white/30">
-            <span className="text-emerald-400">●</span>
-            DRLP AUTORIZADO - TEXAS
-          </div>
-          
           <h1 className="text-6xl lg:text-7xl font-black leading-none tracking-[-3px] text-white">
             SEGURO P&amp;C<br />
             <span className="text-amber-400">PRIMERO.</span><br />
