@@ -4,71 +4,73 @@ import React from 'react';
 
 const Hero = () => {
   return (
-    <section className="relative h-[90vh] w-full bg-black overflow-hidden flex items-center">
+    // Quitamos h-screen y usamos un valor fijo o dinámico que ignore el header
+    <section className="relative w-full h-[100vh] min-h-[600px] bg-black overflow-hidden flex items-center">
       
-      {/* --- EL VIDEO: AHORA SÍ COMO FONDO REAL --- */}
-      <div className="absolute inset-0 z-0 w-full h-full">
+      {/* --- EL VIDEO (FORZADO A OCUPAR TODO EL FONDO) --- */}
+      <div className="absolute top-0 left-0 w-full h-full z-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover"
+          style={{ filter: 'brightness(0.5)' }} // Esto oscurece el video sin capas extra si prefieres
         >
           <source src="/videos/hero-bg.mp4" type="video/mp4" />
         </video>
         
-        {/* Overlays: Uno oscuro a la izquierda para que el texto resalte y uno abajo */}
+        {/* Capa de negro sólido a la izquierda para que el texto sea legible */}
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
       </div>
 
-      {/* --- CONTENIDO: POSICIONADO ENCIMA DEL VIDEO --- */}
-      <div className="container mx-auto px-6 md:px-12 relative z-20">
-        <div className="max-w-4xl text-left">
+      {/* --- CONTENIDO --- */}
+      <div className="relative z-20 w-full max-w-[1440px] mx-auto px-6 md:px-12">
+        <div className="flex flex-col items-start text-left">
           
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6 backdrop-blur-md">
-            <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-[10px] font-bold tracking-[0.2em] text-blue-400 uppercase">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 mb-6 backdrop-blur-md">
+            <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+            <span className="text-[10px] font-bold tracking-[0.2em] text-blue-100 uppercase">
               Insurtech Data Infrastructure
             </span>
           </div>
 
-          {/* Headline Masivo */}
-          <h1 className="text-5xl md:text-8xl font-black text-white leading-tight tracking-tighter mb-6">
+          {/* Headline Masivo con ajuste de tamaño para que no se rompa */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none tracking-tighter mb-6">
             SOVEREIGN <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white italic font-medium">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-200 to-white italic">
               GUARDIAN
             </span>
           </h1>
 
-          {/* Subheadline con Orquestación */}
+          {/* Subheadline Orquestador */}
           <p className="max-w-xl text-lg md:text-xl text-gray-300 font-light leading-relaxed mb-10 border-l-4 border-blue-600 pl-6">
-            La plataforma de <span className="text-white font-semibold">orquestación inteligente</span> que conecta seguros con los líderes en <span className="italic text-blue-400">Factoring, Fuel Card y ELD.</span>
+            Orquestación inteligente conectando seguros con líderes en <br className="hidden md:block" />
+            <span className="text-white font-medium italic">Factoring, Fuel Card y ELD.</span>
           </p>
 
-          {/* Botones Pro */}
+          {/* Botones con estilo SaaS */}
           <div className="flex flex-wrap gap-4">
-            <button className="px-8 py-4 bg-blue-600 text-white font-bold uppercase text-[11px] tracking-widest hover:bg-blue-700 transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+            <button className="px-10 py-4 bg-blue-600 text-white font-bold uppercase text-[11px] tracking-widest hover:bg-blue-700 transition-all shadow-[0_0_25px_rgba(37,99,235,0.4)]">
               Launch Dashboard
             </button>
-            <button className="px-8 py-4 bg-white/5 border border-white/20 text-white font-bold uppercase text-[11px] tracking-widest backdrop-blur-md hover:bg-white hover:text-black transition-all">
+            <button className="px-10 py-4 bg-white/10 border border-white/20 text-white font-bold uppercase text-[11px] tracking-widest backdrop-blur-md hover:bg-white hover:text-black transition-all">
               API Documentation
             </button>
           </div>
         </div>
       </div>
 
-      {/* --- TECH SPECS FOOTER (Google Startup bait) --- */}
-      <div className="absolute bottom-8 left-6 md:left-12 z-20 hidden lg:flex items-center gap-8">
+      {/* --- TECH SPECS (Esquina inferior) --- */}
+      <div className="absolute bottom-10 left-6 md:left-12 z-30 hidden lg:flex items-center gap-8">
         <div className="flex flex-col">
-          <span className="text-[8px] text-blue-400 font-bold uppercase tracking-widest mb-1">Infrastructure</span>
-          <span className="text-[11px] text-white font-mono opacity-70">GOOGLE CLOUD NATIVE</span>
+          <span className="text-[8px] text-blue-400 font-bold tracking-widest mb-1 uppercase text-left">Infrastructure</span>
+          <span className="text-[11px] text-white font-mono opacity-80 uppercase tracking-tighter">Google Cloud Native</span>
         </div>
-        <div className="h-8 w-px bg-white/10" />
+        <div className="h-8 w-[1px] bg-white/20" />
         <div className="flex flex-col">
-          <span className="text-[8px] text-blue-400 font-bold uppercase tracking-widest mb-1">Status</span>
+          <span className="text-[8px] text-blue-400 font-bold tracking-widest mb-1 uppercase text-left">Status</span>
           <span className="text-[11px] text-green-400 font-mono flex items-center gap-2">
             <span className="h-1.5 w-1.5 bg-green-400 rounded-full animate-pulse" /> SYSTEMS ACTIVE
           </span>
