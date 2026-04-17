@@ -1,215 +1,70 @@
-"use client";
+import React from 'react';
 
-import ApplicationModal from "../ApplicationModal";
-
-export default function Hero() {
+const Hero = () => {
   return (
-    <section
-      style={{
-        position: "relative",
-        minHeight: "92vh",
-        display: "flex",
-        alignItems: "center",
-        background: "#F4F7F6",
-      }}
-    >
-      {/* VIDEO */}
-
-      <video
-        src="/hero-truck.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
+    <div className="relative h-screen bg-black overflow-hidden">
+      {/* Background video feel with keyframe + animation */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
+          backgroundImage: "url('/images/hero-video-keyframe.jpg')",
+          animation: "heroPan 25s infinite linear"
         }}
-      />
-
-      {/* OVERLAY */}
-
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(to bottom, rgba(18,58,45,0.55), rgba(18,58,45,0.92))",
-        }}
-      />
-
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 22px",
-          position: "relative",
-          display: "grid",
-          gridTemplateColumns: "1fr 420px",
-          gap: 60,
-          alignItems: "center",
-        }}
-      >
-        {/* TEXTO HERO */}
-
-        <div style={{ color: "white" }}>
-          <p
-            style={{
-              letterSpacing: "0.25em",
-              fontSize: 12,
-            }}
-          >
-            ENTRADA AL ECOSISTEMA
-          </p>
-
-          <h1
-            style={{
-              fontSize: 54,
-              marginTop: 14,
-              lineHeight: 1.05,
-            }}
-          >
-            ¿Quieres comprar tu camión…
-            <br />
-            o evitar perder $20,000 en el intento?
+      ></div>
+      
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-transparent"></div>
+      
+      <div className="max-w-7xl mx-auto px-6 h-full flex items-center relative z-10">
+        <div className="max-w-2xl space-y-8">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-3xl text-sm font-semibold border border-white/30">
+            <span className="text-emerald-400">● LIVE</span>
+            DRLP AUTORIZADO TEXAS
+          </div>
+          
+          <h1 className="text-6xl lg:text-7xl font-black leading-none tracking-[-2px] text-white">
+            SEGURO P&amp;C<br />
+            <span className="text-amber-400">PRIMERO.</span><br />
+            ESCUDO SOBERANO<br />
+            <span className="text-white">SIEMPRE.</span>
           </h1>
-
-          <p
-            style={{
-              marginTop: 22,
-              opacity: 0.9,
-              maxWidth: 620,
-              fontSize: 16,
-              lineHeight: 1.7,
-            }}
-          >
-            La mayoría de camioneros latinos entra al negocio sin entender
-            flujo de caja, costos reales ni riesgos.
-
-            <br /><br />
-
-            Por eso terminan trabajando… sin ganar.
-
-            <br /><br />
-
-            Nosotros analizamos tu caso antes de que inviertas un dólar.
+          
+          <p className="text-2xl text-white/90">
+            Agencia Insurtech que protege al camionero latino.<br />
+            Cotizamos tu seguro comercial hoy.<br />
+            Arcanum + Nexus cuidan tu caja 24/7.
           </p>
-
-          {/* CTA HERO */}
-
-          <ApplicationModal>
-            <button
-              style={{
-                marginTop: 30,
-                background: "#C9A227",
-                color: "#000",
-                padding: "14px 26px",
-                borderRadius: 999,
-                fontWeight: 900,
-                border: "none",
-                cursor: "pointer",
-                fontSize: 16
-              }}
-            >
-              Evaluar mi caso ($197)
-            </button>
-          </ApplicationModal>
-        </div>
-
-        {/* CARD CONVERSIÓN */}
-
-        <div
-          style={{
-            background: "white",
-            padding: 34,
-            borderRadius: 16,
-            boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
-            maxWidth: 420,
-          }}
-        >
-          <h3
-            style={{
-              color: "#1F4D3B",
-              fontSize: 20,
-              fontWeight: 800,
-              lineHeight: 1.3,
-            }}
-          >
-            Revisión Estratégica de tu Operación
-          </h3>
-
-          <p
-            style={{
-              marginTop: 14,
-              color: "#5A6B63",
-              fontSize: 14,
-              lineHeight: 1.6,
-            }}
-          >
-            Antes de comprar camión o activar compañía,
-            analizamos si tu operación es viable.
-          </p>
-
-          <div
-            style={{
-              marginTop: 14,
-              fontSize: 14,
-              color: "#1A1A1A",
-              lineHeight: 1.6,
-            }}
-          >
-            ✔ Flujo de caja real<br />
-            ✔ Costos por milla<br />
-            ✔ Riesgos operativos<br />
-            ✔ Punto de equilibrio
+          
+          <div className="flex gap-4">
+            <a href="#cotizar" className="bg-amber-400 hover:bg-amber-300 text-black font-bold px-12 py-6 rounded-3xl text-xl flex items-center gap-4 transition">
+              COTIZAR SEGURO AHORA
+              <span className="text-3xl">→</span>
+            </a>
           </div>
-
-          <div
-            style={{
-              marginTop: 16,
-              fontWeight: 900,
-              color: "#1F4D3B",
-              fontSize: 16
-            }}
-          >
-            Precio: $197 USD
+          
+          <div className="text-sm text-white/70 flex gap-8">
+            <div>50/50 con partner Texas</div>
+            <div>Operadores serios solo</div>
+            <div>Límite 25 por unidad</div>
           </div>
-
-          {/* CTA CARD */}
-
-          <ApplicationModal>
-            <button
-              style={{
-                marginTop: 20,
-                background: "#C9A227",
-                width: "100%",
-                padding: 14,
-                borderRadius: 10,
-                border: "none",
-                fontWeight: 900,
-                fontSize: 15,
-                cursor: "pointer",
-              }}
-            >
-              Solicitar mi revisión
-            </button>
-          </ApplicationModal>
-
-          <p
-            style={{
-              marginTop: 10,
-              fontSize: 12,
-              color: "#5A6B63",
-              textAlign: "center",
-            }}
-          >
-            15 min · Respuesta en 24h
-          </p>
         </div>
       </div>
-    </section>
+
+      {/* Brutal floating shield animation */}
+      <div className="absolute bottom-12 right-12 w-80 h-80 border-8 border-amber-400/30 rounded-full animate-[spin_30s_linear_infinite] flex items-center justify-center">
+        <div className="w-64 h-64 bg-gradient-to-br from-amber-400 to-blue-500 rounded-full flex items-center justify-center text-white font-black text-5xl shadow-2xl animate-pulse">
+          SHIELD
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes heroPan {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
+        }
+      `}</style>
+    </div>
   );
-}
+};
+
+export default Hero;
