@@ -3,7 +3,6 @@ import React from 'react';
 const Hero = () => {
   return (
     <div className="relative h-screen bg-black overflow-hidden">
-      {/* Imagen de fondo - negro mate brutal */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
         style={{
@@ -12,7 +11,6 @@ const Hero = () => {
         }}
       ></div>
       
-      {/* Overlay oscuro fuerte para que el texto se lea perfecto */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/40"></div>
       
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center relative z-10">
