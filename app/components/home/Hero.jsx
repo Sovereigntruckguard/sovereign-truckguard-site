@@ -2,49 +2,63 @@ import React from 'react';
 
 const Hero = () => {
   return (
-    <div className="relative h-screen bg-black overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
-        style={{
-          backgroundImage: "url('/images/hero-black-truck.jpg')",
-          animation: "heroPan 30s infinite linear"
-        }}
-      ></div>
-      
-      <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/40"></div>
-      
-      <div className="max-w-7xl mx-auto px-6 h-full flex items-center relative z-10">
-        <div className="max-w-xl space-y-6">
-          <h1 className="text-6xl lg:text-7xl font-black leading-none tracking-[-3px] text-white">
-            SEGURO P&amp;C<br />
-            <span className="text-amber-400">PRIMERO.</span><br />
-            ESCUDO SOBERANO<br />
-            <span className="text-white">SIEMPRE.</span>
+    <section className="relative h-screen w-full overflow-hidden flex items-center">
+      {/* 1. Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover"
+      >
+        <source src="/videos/hero-bg.mp4" type="video/mp4" />
+        Tu navegador no soporta videos.
+      </video>
+
+      {/* 2. Dark Overlay (Capa para que el texto resalte y se vea Pro) */}
+      <div className="absolute z-10 w-full h-full bg-black/60 bg-gradient-to-r from-black via-black/40 to-transparent"></div>
+
+      {/* 3. Content */}
+      <div className="container mx-auto px-6 z-20 relative text-white">
+        <div className="max-w-3xl">
+          <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-widest text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
+            Next-Gen Insurtech Platform
+          </span>
+          
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+            The Sovereign <br /> 
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-gold-500">
+              Trucking OS
+            </span>
           </h1>
           
-          <p className="text-2xl text-white/90 max-w-md">
-            Agencia Insurtech que protege al camionero latino.<br />
-            Cotizamos tu seguro comercial hoy.<br />
-            Arcanum + Nexus cuidan tu caja 24/7.
+          <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
+            No somos solo seguros. Somos la infraestructura digital que orquesta 
+            tus finanzas, cumplimiento y riesgos en una sola plataforma inteligente.
           </p>
-          
-          <a 
-            href="#cotizar" 
-            className="inline-flex bg-amber-400 hover:bg-amber-300 text-black font-bold text-xl px-14 py-6 rounded-3xl items-center gap-4 transition-all"
-          >
-            COTIZAR SEGURO AHORA
-            <span className="text-3xl">→</span>
-          </a>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-blue-500/20">
+              Launch Platform
+            </button>
+            <button className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-semibold rounded-lg border border-white/30 transition-all">
+              View Integrations
+            </button>
+          </div>
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes heroPan {
-          0% { background-position: 0% 50%; }
-          100% { background-position: 100% 50%; }
-        }
-      `}</style>
-    </div>
+      {/* 4. Tech Indicators (Opcional: Da el look de Startup de Google) */}
+      <div className="absolute bottom-10 left-0 w-full z-20 px-6 hidden md:block">
+        <div className="container mx-auto flex items-center gap-8 text-white/40 text-xs tracking-widest uppercase font-medium">
+          <span>Connected to ELDs</span>
+          <span className="h-px w-12 bg-white/20"></span>
+          <span>Real-time Risk Engine</span>
+          <span className="h-px w-12 bg-white/20"></span>
+          <span>Sovereign Cloud Infrastructure</span>
+        </div>
+      </div>
+    </section>
   );
 };
 
